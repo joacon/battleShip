@@ -1,4 +1,4 @@
-name := """bat"""
+name := """battleship"""
 
 version := "1.0-SNAPSHOT"
 
@@ -11,3 +11,10 @@ libraryDependencies ++= Seq(
   cache,
   javaWs
 )
+
+libraryDependencies += "org.json" % "json" % "20160212"
+
+
+
+
+

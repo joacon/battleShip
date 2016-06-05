@@ -1,20 +1,15 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/home.css")">
+</head>
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
-
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Java")
-
-}
+<body>
+  <div class="container">
+    <h1 class="title">Battleship</h1>
+    <button class="startButton" onclick="window.location='/game'">START</button>
+  </div>
+</body>
+</html>
