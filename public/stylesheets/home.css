@@ -1,0 +1,21 @@
+body{
+    text-align: center;
+}
+.container{
+    margin-top: 300px;
+}
+.title{
+    font-size: 100px;
+    color: #df3b4b;
+    margin-bottom: 70px;
+}
+.startButton{
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    font-size: 38px;
+    background-color: #df3b4b;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+}

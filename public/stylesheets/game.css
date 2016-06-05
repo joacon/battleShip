@@ -1,3 +1,7 @@
+canvas{
+    background-image: url("../images/board.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
 #main-grid {
     border: 1px solid #000000;
     margin: 2.5%;

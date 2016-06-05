@@ -13,4 +13,17 @@
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.2.1.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("bootstrap/js/bootstrap.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/board.js")"></script>
+<head>
+  <meta charset="UTF-8">
+  <title>Game</title>
+  <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/style.css")">
+</head>
+<body>
+  <div>
+      <input type="text" id="message"/>
+      <button type="button" onclick="post()">Submit</button>
+    </div>
+</body>
+  <script src="@routes.Assets.versioned("javascripts/jquery-2.2.4.min.js")"></script>
+  <script src="@routes.Assets.versioned("javascripts/websocket.js")"></script>
 </html>
