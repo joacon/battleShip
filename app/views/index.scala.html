@@ -1,20 +1,33 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
-
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
-
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Java")
-
-}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Battle Boats</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="@routes.Assets.versioned("bootstrap/css/bootstrap-space.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/index.css")">
+    </head>
+    <body>
+        <div class="container text-center main-login jumbotron">
+            <div>
+                <h1>
+                    Welcome to Battle Boats
+                </h1>
+            </div>
+            <div id="loading">
+                <img id="loading-img" src="@routes.Assets.versioned("img/loading-wheel.gif")"/>
+            </div>
+            <div>
+                <img id="profile-picture" src=""/>
+            </div>
+            <div>
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true"
+                onclick="checkLoginState()" id="fb-login-btn">
+                </fb:login-button>
+            </div>
+            <div id="status"></div>
+        </div>
+    </body>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/facebook.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.2.1.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("bootstrap/js/bootstrap.js")"></script>
+</html>

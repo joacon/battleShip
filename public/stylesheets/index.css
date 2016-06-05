@@ -1,0 +1,18 @@
+.main-login {
+}
+
+div {
+    margin: 1%;
+}
+
+.progress-bar {
+    margin: 0;
+}
+
+.profile-pic-dib {
+    visibility: hidden;
+}
+
+#profile-picture {
+    border: solid 1px black;
+}
