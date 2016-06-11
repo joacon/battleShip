@@ -1,6 +1,7 @@
 package controllers;
 
 import actor.GameRoom;
+import actor.GameRoomManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import play.mvc.*;
 import akka.actor.*;
@@ -15,13 +16,15 @@ public class SocketCtrl extends Controller {
         return  new LegacyWebSocket<String>() {
             @Override public void onReady(WebSocket.In in, WebSocket.Out out) {
                 try {
-                    GameRoom.join(Math.random()+"", in, out);
+                    GameRoomManager.join(Math.random()+"", in, out);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
     }
+
+
 // private final ActorSystem actorSystem;
 //    private final Materializer materializer;
 //    private final OverflowStrategy overflowStrategy;

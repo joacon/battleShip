@@ -10,7 +10,8 @@ function post() {
 function onMessage(event) {
     console.log(event);
     $('body').append("<p>"+event.data+"</p>");
-
 }
 
 
+function init() {
+}

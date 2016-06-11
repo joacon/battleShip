@@ -4,10 +4,10 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.japi.Creator;
 import akka.japi.pf.ReceiveBuilder;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
-import play.libs.F;
 import play.mvc.WebSocket;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
@@ -18,52 +18,37 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-/**
- * Created by joaquin on 01/06/16.
- */
-public class GameRoom extends AbstractActor {
-    private Map<String, WebSocket.Out> players = new HashMap<>();
 
-    public GameRoom() {
+public class GameRoom extends AbstractActor {
+    private static ActorRef player1;
+    private static ActorRef player2;
+
+
+    public GameRoom(ActorRef player1, ActorRef player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        tellPlayers(new Messages.Join());
+
         receive(
-                ReceiveBuilder.match(Messages.Connection.class, this::connection)
-                .build()
+                ReceiveBuilder.match(Messages.Join.class, this::join)
+                        .build()
         );
     }
 
-    private void connection(Messages.Connection connect) {
-        players.put(connect.user, connect.out);
+    private void join(Messages.Join p) {
 
-        connect.in.onMessage(new Consumer() {
-            @Override
-            public void accept(Object o) {
-                for (WebSocket.Out out : players.values()) {
-                    out.write(o);
-                }
-            }
-        });
-        connect.in.onClose(new Runnable() {
-            @Override
-            public void run() {
-                players.remove(connect.user);
-            }
-        });
-
-        sender().tell("connection-ok", self());
     }
 
-    public static Props props() {
-        return Props.create(GameRoom.class);
+    private void tellPlayers(Object msg) {
+        player1.tell(msg, self());
+        player2.tell(msg, self());
+    }
+
+    public static Props props(ActorRef player1, ActorRef player2) {
+        return Props.create(GameRoom.class, () -> new GameRoom(player1, player2));
     }
 
 
-    private static final ActorRef MAIN_GAME = ActorSystem.create().actorOf(GameRoom.props());
 
-    public static void join(String user, WebSocket.In in, WebSocket.Out out) throws Exception {
-        Timeout timeout = new Timeout(10, TimeUnit.SECONDS);
 
-        Future<Object> ask = Patterns.ask(MAIN_GAME, new Messages.Connection(user, in, out), timeout);
-        String result = (String) Await.result(ask, Duration.create(10, TimeUnit.SECONDS));
-
-    }
 }
