@@ -1,8 +1,12 @@
 $(function () {
     Facebook.load(function () {
-            document.getElementById("user-welcome").innerHTML = "Hello, " + Facebook.firstName + "!";
-            Facebook.setProfilePic("square")
+            var userWelcome = document.getElementById("user-welcome");
+            if (userWelcome) {
+                userWelcome.innerHTML = "Hello, " + Facebook.firstName + "!";
+            }
+            Facebook.setProfilePic("square");
             Load.stop();
         }
     );
-});
+})
+;

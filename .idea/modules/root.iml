@@ -206,5 +206,6 @@
     <orderEntry type="library" name="SBT: org.codehaus.plexus:plexus-utils:1.5.1:jar" level="project" />
     <orderEntry type="library" name="SBT: plexus:plexus-utils:1.0.2:jar" level="project" />
     <orderEntry type="library" name="SBT: slide:slide-webdavlib:2.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.json:json:20160212:jar" level="project" />
   </component>
 </module>

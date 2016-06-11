@@ -28,6 +28,7 @@ var Facebook = {
     },
     setInfo: function (callback) {
         console.log(this.id);
+        console.log("Callback: " + callback);
         if (this.id) {
             FB.api(
                 "/" + this.id, {fields: "first_name,last_name"},
@@ -43,16 +44,13 @@ var Facebook = {
         }
     },
     setProfilePic: function (size) {
-        console.log("Entered setProfilePic");
         if (size != "small" && size != "normal" && size != "album" && size != "large" && size != "square") return;
-        console.log("Did not return");
         if (this.id) {
             var elem = document.getElementById("profile-picture");
             FB.api("/" + this.id + "/picture", {type: size}, function (response) {
                 console.log(response);
                 if (response && !response.error) {
-
-
+                    elem.src = response.data.url;
                     //elem.src = url;
                 }
             });
