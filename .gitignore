@@ -13,3 +13,14 @@ server.pid
 *.eml
 /dist/
 .cache
+*.iml
+.idea/workspace.xml
+.idea
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
