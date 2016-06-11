@@ -1,11 +1,11 @@
 package actor;
 
+import akka.actor.ActorRef;
 import play.mvc.WebSocket;
 
-/**
- * Created by joaquin on 01/06/16.
- */
 public class Messages {
+    public static class Join {
+    }
     public static class Connection {
         public final String user;
         public final WebSocket.In in;
