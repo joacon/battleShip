@@ -3,25 +3,36 @@
  */
 ($(function () {
     var board = $("#main-grid");
-    var rows = [];
     for (var i = 0; i < 10; i++) {
-        //for (var j = 0; j < 10; j++) {
-        rows.push(i);
-        //}
+        var row = board.append("<tr></tr>").children()[i];
+        for (var j = 0; j < 10; j++) {
+            var cell = row.insertCell(-1);
+            cell.className += "tile";
+            cell.id = "cell" + Board.getLetterForNumber(i) + '' + j;
+            cell.addEventListener('mouseover', function () {
+                this.style.backgroundColor = 'black';
+            });
+            cell.addEventListener('mouseout', function () {
+                this.style.backgroundColor = 'white';
+            });
+        }
     }
-
-    var tileRows = d3.select("#main-grid").selectAll("tr")
-        .data(rows).enter();
-
-    tileRows.append("tr")
-        /*.style("margin-top", function (d) {
-         return d[0] * 50 + "px";
-         })
-         .style("margin-left", function (d) {
-         return d[1] * 50 + "px";
-         })*/;
-
-    var tileCols = d3.select("#main-grid").selectAll("tr").data(rows);
-
-    tileCols.append("td").classed("tile", true);
+    Board.generateTiles();
 }));
+
+var Board = {
+    letters: "ABCDEFGHIJ",
+    tiles: [],
+    getLetterForNumber: function (i) {
+        return this.letters[i];
+    },
+    generateTiles: function () {
+        for (var i = 0; i < 10; i++) {
+            var row = [];
+            for (var j = 0; j < 10; j++) {
+                row.push(new Tile(i, j));
+            }
+            this.tiles.push(row);
+        }
+    }
+};
