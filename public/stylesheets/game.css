@@ -30,3 +30,11 @@
     float: left;
     background: #FFFFFF;
 }
+
+#grid-container {
+    float: left;
+}
+
+#buttons {
+    float: right;
+}
