@@ -5,15 +5,15 @@
     width: 500px;
 }
 
-.game{
+.game {
+    /*display: none;*/
+}
+
+.opponent-left {
     display: none;
 }
 
-.opponent-left{
-    display: none;
-}
-
-.waiting{
+.waiting {
     margin: 0 auto;
     text-align: center;
     margin-top: 250px;
@@ -51,4 +51,15 @@
 
 #buttons {
     float: right;
+    width: 50%;
+}
+
+button {
+    /*display: block;*/
+    width: 100px;
+}
+
+.boat-btn {
+    height: 100px;
+    width: 100px;
 }

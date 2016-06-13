@@ -7,30 +7,34 @@
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/game.css")">
     </head>
     <body>
-        <div class="waiting">
-            <img src="@routes.Assets.versioned("img/sailboat.gif")"/>
-            <p class="waiting-text">Waiting for oponent</p>
-        </div>
-        <div class="opponent-left">
-            <p class="">Your opponent left the match</p>
-            <button onclick="#">Go to home</button>
-        </div>
-        <div class="game">
-            <div id="grid-container">
-                <div id="main-grid">
+        @*<div class="waiting">
+        <img src="@routes.Assets.versioned("img/sailboat.gif")"/>
+        <p class="waiting-text">Waiting for oponent</p>
+        </div>*@
+    <div class="opponent-left">
+        <p class="">Your opponent left the match</p>
+        <button onclick="#">Go to home</button>
+    </div>
+    <div class="game">
+        <div id="grid-container">
+            <div id="main-grid">
 
                 </div>
+        </div>
+
+        <div id="buttons" class="text-center">
+            <div id="boats">
+                <div><button class='btn-default boat-btn' id='boat-selector-1'></button>x4</div>
+                <div><button class='btn-default boat-btn' id='boat-selector-2'></button>x4</div>
+                <div><button class='btn-default boat-btn' id='boat-selector-3'></button>x4</div>
+                <div><button class='btn-default boat-btn' id='boat-selector-4'></button>x4</div>
             </div>
-
-            <div id="buttons">
-                <div id="boats">
-
-                </div>
-                <div id="button-panel">
-
-                </div>
+            <div id="button-panel">
+                <div><button class='btn-success' id='ready-btn'>Ready</button></div>
+                @*<div><button class='btn-danger' id='unready-btn'>Unready</button></div>*@
             </div>
         </div>
+    </div>
     </body>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.2.1.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("bootstrap/js/bootstrap.js")"></script>
@@ -38,5 +42,5 @@
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/tile.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/game-buttons.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/board.js")"></script>
-    <script src="@routes.Assets.versioned("javascripts/websocket.js")"></script>
+    @*<script src="@routes.Assets.versioned("javascripts/websocket.js")"></script>*@
 </html>
