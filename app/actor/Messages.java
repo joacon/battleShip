@@ -24,6 +24,33 @@ public class Messages {
             this.out = out;
         }
     }
-    public static class BothReady{
+    public static class Play{
+    }
+    public static class Wait{
+    }
+    public static class Ready{
+        public final ActorRef player;
+
+        public Ready(ActorRef player) {
+            this.player = player;
+        }
+    }
+    public static class Fire{
+        public final int x;
+        public final int y;
+        public final ActorRef player;
+
+        public Fire(int x, int y, ActorRef player){
+            this.x = x;
+            this.y = y;
+            this.player = player;
+        }
+    }
+    public static class Feedback{
+        public final boolean hit;
+
+        public Feedback(boolean hit) {
+            this.hit = hit;
+        }
     }
 }
