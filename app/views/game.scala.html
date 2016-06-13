@@ -7,18 +7,28 @@
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/game.css")">
     </head>
     <body>
-        <div id="grid-container">
-            <div id="main-grid">
-
-            </div>
+        <div class="waiting">
+            <img src="@routes.Assets.versioned("img/sailboat.gif")"/>
+            <p class="waiting-text">Waiting for oponent</p>
         </div>
+        <div class="opponent-left">
+            <p class="">Your opponent left the match</p>
+            <button onclick="#">Go to home</button>
+        </div>
+        <div class="game">
+            <div id="grid-container">
+                <div id="main-grid">
 
-        <div id="buttons">
-            <div id="boats">
-
+                </div>
             </div>
-            <div id="button-panel">
 
+            <div id="buttons">
+                <div id="boats">
+
+                </div>
+                <div id="button-panel">
+
+                </div>
             </div>
         </div>
     </body>

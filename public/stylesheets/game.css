@@ -5,6 +5,20 @@
     width: 500px;
 }
 
+.game{
+    display: none;
+}
+
+.opponent-left{
+    display: none;
+}
+
+.waiting{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 250px;
+}
+
 .tile {
     border: 1px solid black;
     width: 50px;

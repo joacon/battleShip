@@ -36,7 +36,7 @@ public class GameRoomManager extends AbstractActor {
     private void connection(Messages.Connection connect) throws Exception{
         waiting.add(context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-"+connect.user));
         if (waiting.size() > 1) {
-            ActorRef actorRef = context().system().actorOf(GameRoom.props(waiting.remove(0), waiting.remove(0)), "room-");
+            ActorRef actorRef = context().system().actorOf(GameRoom.props(waiting.remove(0), waiting.remove(0)), "room-"+rooms.size());
             rooms.add(actorRef);
         }
     }

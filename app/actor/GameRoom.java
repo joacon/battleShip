@@ -31,9 +31,13 @@ public class GameRoom extends AbstractActor {
 
         receive(
                 ReceiveBuilder.match(Messages.Join.class, this::join)
+                              .match(Messages.Leave.class, this::tellPlayers)
+                              .match(Messages.BothReady.class, this::tellPlayers)
                         .build()
         );
     }
+
+
 
     private void join(Messages.Join p) {
 

@@ -22,23 +22,36 @@ public class Player extends AbstractActor{
 
         receive(
                 ReceiveBuilder.match(Join.class, this::join)
+                              .match(Messages.Leave.class, this::left)
+                              .match(Messages.BothReady.class, this::play)
                         .build()
         );
 
 
         in.onMessage(this::in);
-        /*in.onClose(new Runnable() {
+
+        in.onClose(new Runnable() {
             @Override
             public void run() {
-                players.remove(connect.user);
+                System.out.println(room);
+                room.tell(new Messages.Leave(user), self());
+                out("Oponent left");
             }
-        });*/
+        });
+    }
+
+    private void play(Messages.BothReady ready) {
+        out("Play");
     }
 
     private void join(Join join) {
         this.room = sender();
         System.out.printf("Player %s joined %s\n", self().path(), room.path());
-        out("Layout " + self().path());
+        out("Layout");
+    }
+
+    private void left(Messages.Leave leave){
+        out("Opponent left");
     }
 
     private void in(Object message) {
