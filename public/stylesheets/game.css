@@ -25,6 +25,7 @@
     height: 50px;
     margin: 0;
     padding: 0;
+    background-color: #5d71ff;
 }
 
 .row {
@@ -60,6 +61,18 @@ button {
 }
 
 .boat-btn {
+    height: 30px;
+    width: 30px;
+}
+
+.boat-img {
     height: 100px;
     width: 100px;
+    background-color: yellow;
+}
+
+.boat-img-grid {
+    height: inherit;
+    width: inherit;
+    background-color: yellow;
 }
