@@ -73,16 +73,16 @@ var fillTiles = function (h, ev, n) {
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
             Board.changeTile(originTileX, originTileY + j, 'boat');
-            boatCoordinates.push([originTileY + j, originTileX]);
+            boatCoordinates.push([originTileY + j, Board.getLetterForNumber(originTileX)]);
         } else {
             tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY + "-img";
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
             Board.changeTile(originTileX + j, originTileY, 'boat');
-            boatCoordinates.push([originTileY, originTileX + j]);
+            boatCoordinates.push([originTileY, Board.getLetterForNumber(originTileX) + j]);
         }
     }
-    Board.boatCoordinates.push(coordinates);
+    Board.boatCoordinates.push(boatCoordinates);
     /*var node = $(originTileId + "-img");
      node.removeClass("boat-img");
      node.addClass("boat-img-grid");

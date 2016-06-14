@@ -14,6 +14,7 @@ var fire = function (x, y) {
     if (state == 'unknown') {
         WebSocket.fire(x, y);
         turn = false;
+        $("#turn").text("Opponent's turn");
         return true;
     } else {
         return false;
