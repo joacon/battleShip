@@ -13,6 +13,7 @@ var fire = function (x, y) {
     var state = Board.tiles[x][y].enemy;
     if (state == 'unknown') {
         WebSocket.fire(x, y);
+        turn = false;
         return true;
     } else {
         return false;
@@ -29,5 +30,7 @@ var sendFeedback = function (x, y) {
 };
 
 var rotate = function (i) {
+
     horizontal[i - 1] = !horizontal[i - 1];
+    $("#boat-selector-" + i).text(horizontal[i - 1] ? "H" : "V");
 };

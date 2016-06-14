@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04bf883e-7703-485b-831a-0ce348716bd3" name="Default" comment="fixed problem when setting boats. dumb error code. now all boats can be dragged and dropped without problem (except vertically)">
+    <list default="true" id="04bf883e-7703-485b-831a-0ce348716bd3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/game.scala.html" afterPath="$PROJECT_DIR$/app/views/game.scala.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/board.js" afterPath="$PROJECT_DIR$/public/javascripts/board.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/boat.js" afterPath="$PROJECT_DIR$/public/javascripts/boat.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/game.js" afterPath="$PROJECT_DIR$/public/javascripts/game.js" />
     </list>
     <ignored path="bat.iws" />
@@ -59,8 +57,8 @@
       <file leaf-file-name="game.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/game.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.851852">
-              <caret line="45" column="95" selection-start-line="45" selection-start-column="95" selection-end-line="45" selection-end-column="95" />
+            <state vertical-scroll-proportion="-7.185185">
+              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -98,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.8541329">
+              <caret line="34" column="65" selection-start-line="34" selection-start-column="65" selection-end-line="34" selection-end-column="65" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -120,10 +118,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game-buttons.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game-buttons.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/game-buttons.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32090762">
+            <state vertical-scroll-proportion="0.0">
               <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
@@ -190,11 +188,11 @@
         <option value="$PROJECT_DIR$/public/javascripts/websocket.js" />
         <option value="$PROJECT_DIR$/public/javascripts/tile.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/game.css" />
-        <option value="$PROJECT_DIR$/public/javascripts/game.js" />
-        <option value="$PROJECT_DIR$/app/views/game.scala.html" />
         <option value="$PROJECT_DIR$/public/javascripts/board.js" />
         <option value="$PROJECT_DIR$/public/javascripts/boat.js" />
         <option value="$PROJECT_DIR$/public/javascripts/game-buttons.js" />
+        <option value="$PROJECT_DIR$/app/views/game.scala.html" />
+        <option value="$PROJECT_DIR$/public/javascripts/game.js" />
       </list>
     </option>
   </component>
@@ -992,7 +990,7 @@
       <workItem from="1465415355615" duration="3089000" />
       <workItem from="1465479042985" duration="655000" />
       <workItem from="1465680746477" duration="9910000" />
-      <workItem from="1465838672255" duration="16400000" />
+      <workItem from="1465838672255" duration="16642000" />
     </task>
     <task id="LOCAL-00001" summary="facebook login, login page, home page">
       <created>1465157771320</created>
@@ -1036,11 +1034,17 @@
       <option name="project" value="LOCAL" />
       <updated>1465864810521</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="finished up the rotation and placing boats. also record the coordinates of the boats when they are placed">
+      <created>1465865600109</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1465865600109</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65496000" />
+    <option name="totallyTimeSpent" value="65738000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -1099,7 +1103,8 @@
     <MESSAGE value="changed from generating html in javascript to just having the buttons in the html. tried to make it prettier too. Ready and Unready button alternate in play" />
     <MESSAGE value="drag and drop. cant drop boat where it's already full. just need to fill other tiles with cloneNodes and then create the list of positions of boats" />
     <MESSAGE value="fixed problem when setting boats. dumb error code. now all boats can be dragged and dropped without problem (except vertically)" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed problem when setting boats. dumb error code. now all boats can be dragged and dropped without problem (except vertically)" />
+    <MESSAGE value="finished up the rotation and placing boats. also record the coordinates of the boats when they are placed" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished up the rotation and placing boats. also record the coordinates of the boats when they are placed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1437,14 +1442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/game.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.851852">
-          <caret line="45" column="95" selection-start-line="45" selection-start-column="95" selection-end-line="45" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/boat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1471,16 +1468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/websocket.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1491,8 +1478,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/game-buttons.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32090762">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/game.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.185185">
+          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8541329">
+          <caret line="34" column="65" selection-start-line="34" selection-start-column="65" selection-end-line="34" selection-end-column="65" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
