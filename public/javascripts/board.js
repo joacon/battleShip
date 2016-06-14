@@ -84,6 +84,6 @@ var Board = {
         if (x < 0 || y < 0 || x > 9 || y > 9) return true;
         var tile = this.tiles[x][y];
         return tile.own == 'boat';
-    }
-
+    },
+    boatCoordinates: []
 };

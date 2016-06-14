@@ -29,5 +29,5 @@ var sendFeedback = function (x, y) {
 };
 
 var rotate = function (i) {
-    horizontal[i] = !horizontal[i];
+    horizontal[i - 1] = !horizontal[i - 1];
 };

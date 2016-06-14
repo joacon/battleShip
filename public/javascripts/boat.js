@@ -6,6 +6,7 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
+    console.log(event.target);
     ev.dataTransfer.setData("img", ev.target.id);
     var id = ev.target.getAttribute("id"); // Boat id (boat-img-1, boat-img-2, ..)
     var num = id.charAt(id.length - 1); // Boat number (1, 2, 3, ..)
@@ -59,6 +60,7 @@ var fillTiles = function (h, ev, n) {
 
 
     var tileId = originTileId;
+    var coordinates = [];
     for (var j = 0; j < n; j++) {
         nodeCopy = document.getElementById(data).cloneNode(true);
         nodeCopy.style.width = "50px;";
@@ -71,15 +73,16 @@ var fillTiles = function (h, ev, n) {
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
             Board.changeTile(originTileX, originTileY + j, 'boat');
+            coordinates.push([originTileX, originTileY + j]);
         } else {
             tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY + "-img";
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
             Board.changeTile(originTileX + j, originTileY, 'boat');
+            coordinates.push([originTileX + j, originTileY  ]);
         }
-
     }
-
+    Board.boatCoordinates.push(coordinates);
     /*var node = $(originTileId + "-img");
      node.removeClass("boat-img");
      node.addClass("boat-img-grid");
