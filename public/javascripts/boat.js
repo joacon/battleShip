@@ -34,60 +34,57 @@ function drop(ev) {
 // (horizontal == false)
 // Parameters are horizontal, the drop event
 var fillTiles = function (h, ev, n) {
-    var originTile = ev.target;
-    var originTileId = originTile.getAttribute("id");
-
-    var data = ev.dataTransfer.getData("img");
+    var originTile = ev.target; // Tile dragged on to
+    var originTileId = originTile.getAttribute("id"); // Id of the tile dragged on to
+    var data = ev.dataTransfer.getData("img"); // The data bound to the event AKA the image id
     var nodeCopy;
 
-    var originTileXLetter = originTileId.charAt(4);
-    var originTileYLetter = originTileId.charAt(5);
-    var originTileX = Board.getNumberForLetter(originTileXLetter);
-    var originTileY = parseInt(originTileYLetter);
+    var originTileXLetter = originTileId.charAt(4); // Letter coordinate
+    var originTileYLetter = originTileId.charAt(5); // Number coordinate
+    var originTileX = Board.getNumberForLetter(originTileXLetter); // Letter coordinate turned into a number
+    var originTileY = parseInt(originTileYLetter); // Number coordinate parsed
     // Check if all tiles are available
     var coordinates;
-    console.log("n: " + n);
     for (var i = 0; i < n; i++) {
-        console.log("Entered for.");
         if (horizontal[n - 1]) {
             coordinates = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i);
-            console.log("Horizontal: " + horizontal[n - 1]);
-            console.log(coordinates);
             if (Board.tileOccupied(coordinates))
                 return false;
         } else {
             coordinates = "cell" + Board.getLetterForNumber(originTileX + i) + "" + originTileY;
-            console.log("Horizontal: " + horizontal[n - 1]);
-            console.log(coordinates);
-            console.log(Board.getLetterForNumber(originTileX));
             if (Board.tileOccupied(coordinates))
                 return false;
         }
     }
 
-    for (var j = 0; j < n; j++) {
-        /*nodeCopy = document.getElementById(data).cloneNode(true);
-         nodeCopy.id = "cell-" + originTileId + "-img";
-         /!* We cannot use the same ID *!/
-         ev.target.appendChild(nodeCopy);
-         Board.changeTile(originTileX, originTileY, 'boat');*/
-    }
-    nodeCopy = document.getElementById(data).cloneNode(true);
-    nodeCopy.id = originTileId + "-img";
 
-    nodeCopy.style.width = "50px;";
-    nodeCopy.style.height = "50px;";
-    /* We cannot use the same ID */
-    console.log(nodeCopy.classList);
-    nodeCopy.classList.remove("boat-img");
-    nodeCopy.classList.add("boat-img-grid");
-    console.log(nodeCopy);
-    ev.target.appendChild(nodeCopy);
+    var tileId = originTileId;
+    for (var j = 0; j < n; j++) {
+        nodeCopy = document.getElementById(data).cloneNode(true);
+        nodeCopy.style.width = "50px;";
+        nodeCopy.style.height = "50px;";
+        /* We cannot use the same ID */
+        nodeCopy.classList.remove("boat-img");
+        nodeCopy.classList.add("boat-img-grid");
+        if (horizontal[n - 1]) {
+            tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j) + "-img";
+            nodeCopy.id = tileId;
+            $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
+            Board.changeTile(originTileX, originTileY + j, 'boat');
+        } else {
+            tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY + "-img";
+            nodeCopy.id = tileId;
+            $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
+            Board.changeTile(originTileX + j, originTileY, 'boat');
+        }
+
+    }
+
     /*var node = $(originTileId + "-img");
      node.removeClass("boat-img");
      node.addClass("boat-img-grid");
      console.log(node);*/
 
-    Board.changeTile(originTileX, originTileY, 'boat');
+
     return true;
 };
