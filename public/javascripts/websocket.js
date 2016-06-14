@@ -9,35 +9,60 @@ function post(message) {
 
 function onMessage(event) {
     console.log(event);
-    // var json = JSON.parse(event.data);
-    if (event.data === "Layout") {
+    var json = JSON.parse(event.data);
+    var action = json.action;
+    if(action === "Layout"){
         setTimeout(function () {
             $('.game').css("display", "block");
             $('.waiting').css("display", "none");
         }, 1500);
         $('.waiting-text').text("Matching with oponent");
-    } else if (event.data === "Opponent left") {
+    }else if(action === "Opponent left"){
         $('.game').css("display", "none");
         $('.opponent-left').css("display", "block");
-    } else if (event.data === "Play") { //este jugador puede jugar
+    }else if(action === "Play"){ //este jugador puede jugar
         alert("This player can fire");
-    } else if (json.action === "Fire") {//cuando te llega esto tenes que ver si te pego a algun barco
+    }else if(action === "Fire"){//cuando te llega esto tenes que ver si te pego a algun barco
         alert("fire");
-    } else if (event.data === "Hit") { //Su ultimo tiro pego en el barco del otro
-        alert("Hit");
-    } else if (event.data === "Miss") {// Su ultimo tiro pifio el barco del otro
-        alert("Miss");
-    } else if (event.data === "Wait") {//este jugador esta esperando a que el otro juegue
+    }else if(action === "You hit"){ //Su ultimo tiro pego en el barco del otro
+        alert("you hit");
+    }else if(action === "You were hitted"){ //Su ultimo tiro pego en el barco del otro
+        alert("you are hit");
+    }else if(action === "You missed"){// Su ultimo tiro pifio
+        alert("you missed");
+    }else if(action === "You are safe"){// Su enemigo pifio
+        alert("you are safe");
+    }else if(action === "Wait"){//este jugador esta esperando a que el otro juegue
         alert("Waiting -> the other player is firing");
+    }else if(action === "You sinked your enemy"){//este jugador hundio un barco de su enemigo
+        alert("Sinked boat");
+    }else if(action === "You are sinked"){//a este jugador le hundieron un bote
+        alert("boat down");
+    }else if(action === "You win"){//este jugador gano
+        alert("you win");
+    }else if(action === "You lose"){//este jugador perdio
+        alert("you lose");
     }
 }
 
 var Websocket = {
     fire: function (x, y) {
-        post("fire" + "-" + x + "-" + y);
+        post(JSON.stringify({
+            "action" : "fire",
+            "coordinate" : [x, y]
+        }));
     },
     sendFeedback: function (hit) {
-        post("feedback-" + hit);
+        post(JSON.stringify({
+            "action" : "feedback",
+            "hit" : hit
+        }));
+    },
+    ready: function () {
+        post(JSON.stringify({
+            "action" : "ready",
+            "boats" : Board.boatCoordinates
+        }))
     }
 };
 
