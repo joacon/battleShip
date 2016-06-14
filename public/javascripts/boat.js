@@ -73,13 +73,13 @@ var fillTiles = function (h, ev, n) {
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
             Board.changeTile(originTileX, originTileY + j, 'boat');
-            boatCoordinates.push([originTileY + j, Board.getLetterForNumber(originTileX)]);
+            boatCoordinates.push([originTileY + j, originTileX]);
         } else {
             tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY + "-img";
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
             Board.changeTile(originTileX + j, originTileY, 'boat');
-            boatCoordinates.push([originTileY, Board.getLetterForNumber(originTileX) + j]);
+            boatCoordinates.push([originTileY, originTileX + j]);
         }
     }
     Board.boatCoordinates.push(boatCoordinates);

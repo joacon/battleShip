@@ -16,12 +16,24 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
+
     public Result main() {
-        return ok(main.render());
+        String id = flash("id");
+        String id2= session("id");
+        Http.Flash flash = flash();
+        if (id != null || id2 != null) {
+            return ok(main.render());
+        }
+        return ok(index.render());
     }
 
     public Result game() {
-        return (ok(game.render()));
+        String id = flash("id");
+        String id2= session("id");
+        if (id != null || id2 != null) {
+            return ok(game.render());
+        }
+        return ok(index.render());
     }
 
 }

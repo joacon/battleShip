@@ -13,6 +13,8 @@ GET         /message             controllers.AsyncController.message
 GET         /main                controllers.HomeController.main()
 GET         /game                controllers.HomeController.game()
 
+POST        /login              controllers.LoginController.saveUser(id: String, firstname: String, lastname: String)
+
 GET         /socket              controllers.SocketCtrl.socket
 
 # Map static resources from the /public folder to the /assets URL path

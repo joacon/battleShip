@@ -22,6 +22,7 @@ var Facebook = {
                     console.log(response);
                     Facebook.id = response.authResponse.userID;
                     Facebook.setInfo(callback);
+
                 });
             };
         }(document, 'script', 'facebook-jssdk'));
@@ -37,6 +38,14 @@ var Facebook = {
                         console.log(response);
                         Facebook.firstName = response.first_name;
                         Facebook.lastName = response.last_name;
+                        var data = {
+                            id : Facebook.id,
+                            firstname : Facebook.firstName,
+                            lastname : Facebook.lastName
+                        };
+                        $.post( "/login?id=" +data.id + "&firstname=" + data.firstname + "&lastname=" + data.lastname, function() {
+                            
+                        });
                     }
                     callback();
                 }
