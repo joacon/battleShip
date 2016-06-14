@@ -60,7 +60,7 @@ var fillTiles = function (h, ev, n) {
 
 
     var tileId = originTileId;
-    var coordinates = [];
+    var boatCoordinates = [];
     for (var j = 0; j < n; j++) {
         nodeCopy = document.getElementById(data).cloneNode(true);
         nodeCopy.style.width = "50px;";
@@ -73,13 +73,13 @@ var fillTiles = function (h, ev, n) {
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
             Board.changeTile(originTileX, originTileY + j, 'boat');
-            coordinates.push([originTileX, originTileY + j]);
+            boatCoordinates.push([originTileY + j, originTileX]);
         } else {
             tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY + "-img";
             nodeCopy.id = tileId;
             $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
             Board.changeTile(originTileX + j, originTileY, 'boat');
-            coordinates.push([originTileX + j, originTileY  ]);
+            boatCoordinates.push([originTileY, originTileX + j]);
         }
     }
     Board.boatCoordinates.push(coordinates);
