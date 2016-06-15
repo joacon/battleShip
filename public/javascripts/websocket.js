@@ -21,6 +21,8 @@ function onMessage(event) {
         $('.game').css("display", "none");
         $('.opponent-left').css("display", "block");
     } else if (action === "Play") { //este jugador puede jugar
+        gameStarted = true;
+        if (!turn) Board.displayEnemyBoard();
         startTurn();
         alert("This player can fire");
     } else if (action === "Fire") {//cuando te llega esto tenes que ver si te pego a algun barco
@@ -34,6 +36,8 @@ function onMessage(event) {
     } else if (action === "You are safe") {// Su enemigo pifio
         alert("you are safe");
     } else if (action === "Wait") {//este jugador esta esperando a que el otro juegue
+        gameStarted = true;
+        if (!turn) Board.displayEnemyBoard();
         alert("Waiting -> the other player is firing");
     } else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
         alert("Sinked boat");

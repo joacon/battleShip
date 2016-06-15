@@ -68,15 +68,18 @@ var fillTiles = function (h, ev, n) {
         nodeCopy.classList.remove("boat-img");
         nodeCopy.classList.add("boat-img-grid");
         if (horizontal[n - 1]) {
-            tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j) + "-img";
-            nodeCopy.id = tileId;
-            $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
+            tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)/* + "-img"*/;
+            //nodeCopy.id = tileId;
+            //$("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
+            $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j))
+                .css('background-color', 'yellow');
             Board.changeTile(originTileX, originTileY + j, 'boat');
             boatCoordinates.push([originTileY + j, originTileX]);
         } else {
-            tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY + "-img";
-            nodeCopy.id = tileId;
-            $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
+            tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY/* + "-img"*/;
+            //nodeCopy.id = tileId;
+            //$("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
+            $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).css("background-color", "yellow");
             Board.changeTile(originTileX + j, originTileY, 'boat');
             boatCoordinates.push([originTileY, originTileX + j]);
         }

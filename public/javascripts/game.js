@@ -12,7 +12,7 @@ var horizontal = [true, true, true, true];
 
 var fire = function (x, y) {
     if (!gameStarted) {
-        displayError("Game hasn't started yet!");
+        //displayError("Game hasn't started yet!");
         return false;
     }
     if (!turn) {
