@@ -109,6 +109,10 @@ var Board = {
                 cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
                     " #5d71ff 10px, red 5px, #ccc 12px)");
                 break;
+            case 'sunk':
+                cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
+                    " #5d71ff 10px, darkred 5px, #ccc 12px)");
+                break;
         }
 
     },
@@ -126,6 +130,22 @@ var Board = {
             case 'hit':
                 cell.css("background-color", "red");
                 break;
+            case 'sunk':
+                cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
+                    " #5d71ff 10px, darkred 5px, #ccc 12px)");
+                break;
+        }
+    },
+    sinkOwnShip: function (ship) {
+        for (var i = 0; i < ship.length; i++) {
+            var coords = ship[i];
+            Board.tiles[coords[0]][coords[1]].ownHit = 'sunk';
+        }
+    },
+    sinkEnemyShip: function (ship) {
+        for (var i = 0; i < ship.length; i++) {
+            var coords = ship[i];
+            Board.tiles[coords[0]][coords[1]].enemy = 'sunk';
         }
     }
 };
