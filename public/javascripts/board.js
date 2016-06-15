@@ -126,6 +126,5 @@ var Board = {
             case 'hit':
                 cell.css("background-color", "red");
         }
-
     }
 };

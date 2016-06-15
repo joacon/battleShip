@@ -27,17 +27,17 @@ function drop(ev) {
      copy but to alter and move elements. By appending a ".cloneNode(true)",
      you will not move the original element, but create a copy. */
     // If all tiles were correctly filled, lessen number of boats available by 1
-    if (fillTiles(horizontal, ev, num)) counter.text("x" + (counterNum - 1));
+    if (fillTiles(horizontal, ev.target, num)) counter.text("x" + (counterNum - 1));
 
 }
 // Function that will fill the dropped onto tile and all remaining tiles right (horizontal == true) or down
 // (horizontal == false)
-// Parameters are horizontal, the drop event
-var fillTiles = function (h, ev, n) {
-    var originTile = ev.target; // Tile dragged on to
+// Parameters are horizontal, the event tile and the size of the boat
+var fillTiles = function (h, originTile, n) {
+    //var originTile = ev.target; // Tile dragged on to
     var originTileId = originTile.getAttribute("id"); // Id of the tile dragged on to
-    var data = ev.dataTransfer.getData("img"); // The data bound to the event AKA the image id
-    var nodeCopy;
+    /*    var data = ev.dataTransfer.getData("img"); // The data bound to the event AKA the image id
+     var nodeCopy;*/
 
     var originTileXLetter = originTileId.charAt(4); // Letter coordinate
     var originTileYLetter = originTileId.charAt(5); // Number coordinate
@@ -61,11 +61,11 @@ var fillTiles = function (h, ev, n) {
     var tileId = originTileId;
     var boatCoordinates = [];
     for (var j = 0; j < n; j++) {
-        nodeCopy = document.getElementById(data).cloneNode(true);
-        nodeCopy.style.width = "50px;";
-        nodeCopy.style.height = "50px;";
-        nodeCopy.classList.remove("boat-img");
-        nodeCopy.classList.add("boat-img-grid");
+        /*        nodeCopy = document.getElementById(data).cloneNode(true);
+         nodeCopy.style.width = "50px;";
+         nodeCopy.style.height = "50px;";
+         nodeCopy.classList.remove("boat-img");
+         nodeCopy.classList.add("boat-img-grid");*/
         if (horizontal[n - 1]) {
             tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)/* + "-img"*/;
             //nodeCopy.id = tileId;
@@ -84,7 +84,20 @@ var fillTiles = function (h, ev, n) {
         }
     }
     Board.boatCoordinates.push(boatCoordinates);
-
-
     return true;
+};
+
+var autoPlaceBoats = function () {
+    var boats = [2, 2, 2, 2];
+    for (var i = 1; i < 5; i++) {
+        while (boats[i - 1] > 0) {
+            var x = parseInt(Math.random() * 10);
+            var y = parseInt(Math.random() * 10);
+            var cellID = "cell" + Board.getLetterForNumber(x) + "" + y;
+            if (fillTiles(horizontal, document.getElementById(cellID), i)) {
+                boats[i - 1]--;
+                $("#boat-num-" + i).text("x0");
+            }
+        }
+    }
 };

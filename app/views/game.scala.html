@@ -57,7 +57,13 @@
                 </div>
             </div>
             <div id="button-panel" class="text-center">
-                <button class='btn-success' id='ready-btn' onclick="Websocket.ready()">Ready</button>
+                <div>
+                    <button class="btn-default" id="auto-place-btn" onclick="autoPlaceBoats()">Auto place</button>
+                </div>
+                <div>
+                    <button class='btn-success' id='ready-btn' onclick="Websocket.ready()">Ready</button>
+                </div>
+
                 <div>
                     <label id="turn">Your turn</label>
                 </div>

@@ -9,6 +9,7 @@ var lastShot = [];
 ($(function () {
     Board.startBoard();
     document.getElementsByTagName("html")[0].addEventListener('click', clearError, true);
+    $("#turn").text("");
 }));
 
 var fire = function (x, y) {
@@ -33,6 +34,7 @@ var fire = function (x, y) {
 };
 
 var startTurn = function () {
+    console.log("Starting turn!");
     turn = true;
     $("#turn").text("Your turn!");
 };
@@ -53,4 +55,12 @@ var displayError = function (message) {
 
 var clearError = function () {
     $("#error-message").text("");
+};
+
+var gameOver = function (won) {
+    if (won) {
+        // TODO if player has won
+    } else {
+        // TODO if player has lost
+    }
 };

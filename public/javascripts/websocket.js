@@ -52,8 +52,10 @@ function onMessage(event) {
     } else if (action === "You are sinked") {//a este jugador le hundieron un bote
         alert("boat down");
     } else if (action === "You win") {//este jugador gano
+        gameOver(true);
         alert("you win");
     } else if (action === "You lose") {//este jugador perdio
+        gameOver(false)
         alert("you lose");
     }
 }
