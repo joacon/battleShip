@@ -73,14 +73,14 @@ var fillTiles = function (h, originTile, n) {
             $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j))
                 .css('background-color', 'yellow');
             Board.changeTile(originTileX, originTileY + j, 'boat');
-            boatCoordinates.push([originTileY + j, originTileX]);
+            boatCoordinates.push([originTileX, originTileY + j]);
         } else {
             tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY/* + "-img"*/;
             //nodeCopy.id = tileId;
             //$("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
             $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).css("background-color", "yellow");
             Board.changeTile(originTileX + j, originTileY, 'boat');
-            boatCoordinates.push([originTileY, originTileX + j]);
+            boatCoordinates.push([originTileX + j, originTileY]);
         }
     }
     Board.boatCoordinates.push(boatCoordinates);

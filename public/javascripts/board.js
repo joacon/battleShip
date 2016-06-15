@@ -30,12 +30,7 @@ var Board = {
                 cell.setAttribute("ondragover", "allowDrop(event)");
                 cell.style.backgroundColor = "#5d71ff";
                 cell.id = "cell" + Board.getLetterForNumber(i) + '' + j;
-                /*cell.addEventListener('mouseover', function () {
-                 this.style.backgroundColor = 'black';
-                 });
-                 cell.addEventListener('mouseout', function () {
-                 this.style.backgroundColor = '#5d71ff';
-                 });*/
+                cell.innerText = Board.getLetterForNumber(i) + "" + j;
                 cell.addEventListener('click', function (e) {
                     var id = e.target.id;
                     var x = Board.getNumberForLetter(id.charAt(id.length - 2));
@@ -70,7 +65,6 @@ var Board = {
     boatCoordinates: [],
     displayOwnBoard: function () {
         if (!gameStarted) return false;
-        var board = $("#main-grid");
         for (var i = 0; i < 10; i++) {
             var x = Board.getLetterForNumber(i);
             for (var j = 0; j < 10; j++) {
@@ -82,7 +76,6 @@ var Board = {
     },
     displayEnemyBoard: function () {
         if (!gameStarted) return false;
-        var board = $("#main-grid");
         for (var i = 0; i < 10; i++) {
             var x = Board.getLetterForNumber(i);
             for (var j = 0; j < 10; j++) {
@@ -95,6 +88,7 @@ var Board = {
     setOwnTileImage: function (cell, tile) {
         var backgroundColor;
         cell.css("background", "");
+        cell.css("background-color", "");
         switch (tile.own) {
             case 'water':
                 backgroundColor = '#5d71ff';
@@ -110,11 +104,17 @@ var Board = {
                 break;
             case 'none':
                 cell.css("background-color", backgroundColor);
+                break;
+            case 'miss':
+                cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
+                    " #5d71ff 10px, red 5px, #ccc 12px)");
+                break;
         }
 
     },
     setEnemyTileImage: function (cell, tile) {
         cell.css("background", "");
+        cell.css("background-color", "");
         switch (tile.enemy) {
             case 'unknown':
                 cell.css("background-color", '#5d71ff');
@@ -125,6 +125,7 @@ var Board = {
                 break;
             case 'hit':
                 cell.css("background-color", "red");
+                break;
         }
     }
 };
