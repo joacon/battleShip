@@ -88,7 +88,11 @@ var fillTiles = function (h, originTile, n) {
 };
 
 var autoPlaceBoats = function () {
-    var boats = [2, 2, 2, 2];
+    var boats = [parseInt($("#boat-num-1").text().substring(1)),
+        parseInt($("#boat-num-2").text().substring(1)),
+        parseInt($("#boat-num-3").text().substring(1)),
+        parseInt($("#boat-num-4").text().substring(1))];
+    console.log(boats);
     for (var i = 1; i < 5; i++) {
         while (boats[i - 1] > 0) {
             var x = parseInt(Math.random() * 10);
