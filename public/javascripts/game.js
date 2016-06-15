@@ -4,6 +4,7 @@
 var gameStarted = false;
 var turn = false;
 var horizontal = [true, true, true, true];
+var lastShot = [];
 
 ($(function () {
     Board.startBoard();
@@ -22,6 +23,7 @@ var fire = function (x, y) {
     var state = Board.tiles[x][y].enemy;
     if (state == 'unknown') {
         WebSocket.fire(x, y);
+        lastShot = [x, y];
         endTurn();
         return true;
     } else {

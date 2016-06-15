@@ -21,23 +21,31 @@ function onMessage(event) {
         $('.game').css("display", "none");
         $('.opponent-left').css("display", "block");
     } else if (action === "Play") { //este jugador puede jugar
-        gameStarted = true;
-        if (!turn) Board.displayEnemyBoard();
+        if (!gameStarted) {
+            gameStarted = true;
+            Board.displayEnemyBoard();
+        }
         startTurn();
         alert("This player can fire");
     } else if (action === "Fire") {//cuando te llega esto tenes que ver si te pego a algun barco
         alert("fire");
     } else if (action === "You hit") { //Su ultimo tiro pego en el barco del otro
         alert("you hit");
+        Board.tiles[lastShot[0]][lastShot[1]].enemy = 'hit';
     } else if (action === "You were hitted") { //Su ultimo tiro pego en el barco del otro
+        Board.tiles[lastShot[0]][lastShot[1]].ownHit = 'hit';
         alert("you are hit");
     } else if (action === "You missed") {// Su ultimo tiro pifio
+        Board.tiles[lastShot[0]][lastShot[1]].enemy = 'miss';
         alert("you missed");
     } else if (action === "You are safe") {// Su enemigo pifio
+        Board.tiles[lastShot[0]][lastShot[1]].ownHit = 'miss';
         alert("you are safe");
     } else if (action === "Wait") {//este jugador esta esperando a que el otro juegue
-        gameStarted = true;
-        if (!turn) Board.displayEnemyBoard();
+        if (!gameStarted) {
+            gameStarted = true;
+            Board.displayEnemyBoard();
+        }
         alert("Waiting -> the other player is firing");
     } else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
         alert("Sinked boat");

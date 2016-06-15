@@ -76,7 +76,7 @@ var Board = {
             for (var j = 0; j < 10; j++) {
                 var y = j;
                 var cell = $("#cell" + x + "" + y);
-                this.setTileImage(cell, Board.tiles[i][j].own)
+                this.setOwnTileImage(cell, Board.tiles[i][j])
             }
         }
     },
@@ -88,24 +88,44 @@ var Board = {
             for (var j = 0; j < 10; j++) {
                 var y = j;
                 var cell = $("#cell" + x + "" + y);
-                this.setTileImage(cell, Board.tiles[i][j].enemy)
+                this.setEnemyTileImage(cell, Board.tiles[i][j])
             }
         }
     },
-    setTileImage: function (cell, tileState) {
-        switch (tileState) {
-            case 'unknown':
+    setOwnTileImage: function (cell, tile) {
+        var backgroundColor;
+        cell.css("background", "");
+        switch (tile.own) {
             case 'water':
-                cell.css('background-color', '#5d71ff');
+                backgroundColor = '#5d71ff';
                 break;
             case 'boat':
-                cell.css('background-color', 'yellow');
+                backgroundColor = 'yellow';
                 break;
+        }
+        switch (tile.ownHit) {
             case 'hit':
-                cell.css('background-color', 'green');
+                cell.css("background", "repeating-linear-gradient(45deg," + backgroundColor + "," + backgroundColor +
+                    " 10px,red 5px,#ccc 12px)");
+                break;
+            case 'none':
+                cell.css("background-color", backgroundColor);
+        }
+
+    },
+    setEnemyTileImage: function (cell, tile) {
+        cell.css("background", "");
+        switch (tile.enemy) {
+            case 'unknown':
+                cell.css("background-color", '#5d71ff');
                 break;
             case 'miss':
-                cell.css('background-color', 'red');
+                cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
+                    " #5d71ff 10px, red 5px, #ccc 12px)");
+                break;
+            case 'hit':
+                cell.css("background-color", "red");
         }
+
     }
 };

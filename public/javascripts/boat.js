@@ -64,7 +64,6 @@ var fillTiles = function (h, ev, n) {
         nodeCopy = document.getElementById(data).cloneNode(true);
         nodeCopy.style.width = "50px;";
         nodeCopy.style.height = "50px;";
-        /* We cannot use the same ID */
         nodeCopy.classList.remove("boat-img");
         nodeCopy.classList.add("boat-img-grid");
         if (horizontal[n - 1]) {
