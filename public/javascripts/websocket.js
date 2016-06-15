@@ -39,7 +39,7 @@ function onMessage(event) {
     } else if (action === "You hit") { //Su ultimo tiro pego en el barco del otro
         var x = json.x;
         var y = json.y;
-        $("body").append("<div class='message-div'><p class='fire-message hit'>Hit</p></div>");
+        $("body").append("<div class='message-div'><p class='fire-message hit'>Hit!</p></div>");
         $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".hit").remove();
@@ -50,7 +50,7 @@ function onMessage(event) {
         Board.tiles[json.x][json.y].ownHit = 'hit';
         var x = json.x;
         var y = json.y;
-        $("body").append("<div class='message-div'><p class='fire-message hit'>You were hitted</p></div>");
+        $("body").append("<div class='message-div'><p class='fire-message hit'>You were hit!</p></div>");
         $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".hit").remove();
@@ -59,7 +59,7 @@ function onMessage(event) {
     } else if (action === "You missed") {// Su ultimo tiro pifio
         var x = json.x;
         var y = json.y;
-        $("body").append("<div class='message-div'><p class='fire-message miss'>You missed</p></div>");
+        $("body").append("<div class='message-div'><p class='fire-message miss'>You missed!</p></div>");
         $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".miss").remove();
@@ -70,7 +70,7 @@ function onMessage(event) {
         Board.tiles[json.x][json.y].ownHit = 'miss';
         var x = json.x;
         var y = json.y;
-        $("body").append("<div class='message-div'><p class='fire-message miss'>You are safe</p></div>");
+        $("body").append("<div class='message-div'><p class='fire-message miss'>Opponent missed!</p></div>");
         $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".miss").remove();
@@ -85,7 +85,7 @@ function onMessage(event) {
         endTurn();
         Board.displayEnemyBoard();
         setTimeout(function () {
-            $("body").append("<div class='message-div'><p class='fire-message turn'>Your enemy's turn</p></div>");
+            $("body").append("<div class='message-div'><p class='fire-message turn'>Your opponent's turn</p></div>");
             $("body").css("opacity", 0.5);
             setTimeout(function () {
                 $(".turn").remove();
@@ -94,7 +94,7 @@ function onMessage(event) {
         }, 1000);
     } else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
         var ship = JSON.parse(json.ship);
-        $("body").append("<div class='message-div'><p class='fire-message sink'>You sinked your enemy</p></div>");
+        $("body").append("<div class='message-div'><p class='fire-message sink'>You sunk your opponent's battleship!</p></div>");
         $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".sink").remove();
@@ -103,7 +103,7 @@ function onMessage(event) {
         Board.sinkEnemyShip(ship);
     } else if (action === "You are sinked") {//a este jugador le hundieron un bote
         var ship = JSON.parse(json.ship);
-        $("body").append("<div class='message-div'><p class='fire-message sink'>Your enemy sinked your boat</p></div>");
+        $("body").append("<div class='message-div'><p class='fire-message sink'>The enemy sunk your battleship!</p></div>");
         $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".sink").remove();
@@ -113,7 +113,7 @@ function onMessage(event) {
     } else if (action === "You win") {//este jugador gano
         gameOver(true);
         setTimeout(function () {
-            $( "body" ).append( "<div class='message-div'><p class='fire-message win'>You won</p></div>" );
+            $( "body" ).append( "<div class='message-div'><p class='fire-message win'>You won!</p></div>" );
             $( "body" ).css("opacity", 0.5);
             setTimeout(function () {
                 $( ".win" ).remove();
@@ -121,14 +121,14 @@ function onMessage(event) {
                 setTimeout(function () {
                     $( ".game" ).css("display", "none");
                     $( ".end-view" ).css("display", "block");
-                    $( ".end-title" ).html("You won");
+                    $( ".end-title" ).html("You won!");
                 },1000);
             },1000);
         }, 1000);
     } else if (action === "You lose") {//este jugador perdio
         gameOver(false);
         setTimeout(function () {
-            $( "body" ).append( "<div class='message-div'><p class='fire-message lose'>You lost</p></div>" );
+            $( "body" ).append( "<div class='message-div'><p class='fire-message lose'>You lost! :(</p></div>" );
             $( "body" ).css("opacity", 0.5);
             setTimeout(function () {
                 $( ".lose" ).remove();
@@ -136,7 +136,7 @@ function onMessage(event) {
                 setTimeout(function () {
                     $( ".game" ).css("display", "none");
                     $( ".end-view" ).css("display", "block");
-                    $( ".end-title" ).html("You lost");
+                    $( ".end-title" ).html("You lost! :(");
                 },1000);
             },1000);
         }, 1000);

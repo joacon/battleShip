@@ -4,7 +4,7 @@ $(function () {
             if (userWelcome) {
                 userWelcome.innerHTML = "Hello, " + Facebook.firstName + "!";
             }
-            Facebook.setProfilePic("square");
+            Facebook.setProfilePic("large");
             Load.stop();
         }
     );
