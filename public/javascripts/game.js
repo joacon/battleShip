@@ -12,7 +12,7 @@ var lastShot = [];
     $("#turn").text("");
 }));
 
-var fire = function (x, y) {
+var fire = function (x, y, random) {
     if (!gameStarted) {
         //displayError("Game hasn't started yet!");
         return false;
@@ -29,9 +29,15 @@ var fire = function (x, y) {
         endTurn();
         return true;
     } else {
-        displayError("You already fired there!");
+        if (!random) displayError("You already fired there!");
         return false;
     }
+};
+
+var randomFire = function () {
+    var couldFire = false;
+    if (!turn) return;
+    fire(parseInt(Math.random() * 10), parseInt(Math.random() * 10), true);
 };
 
 var startTurn = function () {
