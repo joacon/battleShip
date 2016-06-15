@@ -26,31 +26,85 @@ function onMessage(event) {
             Board.displayEnemyBoard();
         }
         startTurn();
-        alert("This player can fire");
-    } else if (action === "Fire") {//cuando te llega esto tenes que ver si te pego a algun barco
-        alert("fire");
+        setTimeout(function () {
+            $( "body" ).append( "<div class='message-div'><p class='fire-message turn'>Your turn</p></div>" );
+            $( "body" ).css("opacity", 0.5);
+            setTimeout(function () {
+                $( ".turn" ).remove();
+                $( "body" ).css("opacity", 1);
+            },1000);
+        },1000);
     } else if (action === "You hit") { //Su ultimo tiro pego en el barco del otro
-        alert("you hit");
+        var x = json.x;
+        var y = json.y;
+        $( "body" ).append( "<div class='message-div'><p class='fire-message hit'>Hit</p></div>" );
+        $( "body" ).css("opacity", 0.5);
+        setTimeout(function () {
+            $( ".hit" ).remove();
+            $( "body" ).css("opacity", 1);
+        },1000);
         Board.tiles[lastShot[0]][lastShot[1]].enemy = 'hit';
     } else if (action === "You were hitted") { //Su ultimo tiro pego en el barco del otro
+        var x = json.x;
+        var y = json.y;
+        $( "body" ).append( "<div class='message-div'><p class='fire-message hit'>You were hitted</p></div>" );
+        $( "body" ).css("opacity", 0.5);
+        setTimeout(function () {
+            $( ".hit" ).remove();
+            $( "body" ).css("opacity", 1);
+        },1000);
         Board.tiles[lastShot[0]][lastShot[1]].ownHit = 'hit';
-        alert("you are hit");
     } else if (action === "You missed") {// Su ultimo tiro pifio
+        var x = json.x;
+        var y = json.y;
+        $( "body" ).append( "<div class='message-div'><p class='fire-message miss'>You missed</p></div>" );
+        $( "body" ).css("opacity", 0.5);
+        setTimeout(function () {
+            $( ".miss" ).remove();
+            $( "body" ).css("opacity", 1);
+        },1000);
         Board.tiles[lastShot[0]][lastShot[1]].enemy = 'miss';
-        alert("you missed");
     } else if (action === "You are safe") {// Su enemigo pifio
+        var x = json.x;
+        var y = json.y;
+        $( "body" ).append( "<div class='message-div'><p class='fire-message miss'>You are safe</p></div>" );
+        $( "body" ).css("opacity", 0.5);
+        setTimeout(function () {
+            $( ".miss" ).remove();
+            $( "body" ).css("opacity", 1);
+        },1000);
         Board.tiles[lastShot[0]][lastShot[1]].ownHit = 'miss';
-        alert("you are safe");
     } else if (action === "Wait") {//este jugador esta esperando a que el otro juegue
+        gameStarted = true;
+        if (!turn) Board.displayEnemyBoard();
+        setTimeout(function () {
+            $( "body" ).append( "<div class='message-div'><p class='fire-message turn'>Your enemy's turn</p></div>" );
+            $( "body" ).css("opacity", 0.5);
+            setTimeout(function () {
+                $( ".turn" ).remove();
+                $( "body" ).css("opacity", 1);
+            },1000);
+        },1000);
         if (!gameStarted) {
             gameStarted = true;
             Board.displayEnemyBoard();
         }
-        alert("Waiting -> the other player is firing");
     } else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
-        alert("Sinked boat");
+        var ship = JSON.parse(json.ship);
+        $( "body" ).append( "<div class='message-div'><p class='fire-message sink'>You sinked your enemy</p></div>" );
+        $( "body" ).css("opacity", 0.5);
+        setTimeout(function () {
+            $( ".sink" ).remove();
+            $( "body" ).css("opacity", 1);
+        },1000);
     } else if (action === "You are sinked") {//a este jugador le hundieron un bote
-        alert("boat down");
+        var ship = JSON.parse(json.ship);
+        $( "body" ).append( "<div class='message-div'><p class='fire-message sink'>Your enemy sinked your boat</p></div>" );
+        $( "body" ).css("opacity", 0.5);
+        setTimeout(function () {
+            $( ".sink" ).remove();
+            $( "body" ).css("opacity", 1);
+        },1000);
     } else if (action === "You win") {//este jugador gano
         gameOver(true);
         alert("you win");

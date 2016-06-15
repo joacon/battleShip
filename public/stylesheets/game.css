@@ -80,3 +80,46 @@ button {
 img {
     z-index: -1;
 }
+
+.fire-message{
+    text-align: center;
+    font-size: 70px;
+}
+
+.message-div{
+    text-align: center;
+    background-color: #e0e0e0;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    position: fixed;
+    top: 350px;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+.hit{
+    color: red;
+}
+
+.miss{
+    color: #0f90d1;
+}
+
+.sink{
+    color: #1b6d85;
+}
+
+.win{
+    color: #3cb521;
+}
+
+.lose{
+    color: #9a0200;
+}
+.turn{
+    color: black;
+}

@@ -23,7 +23,7 @@ var fire = function (x, y) {
     }
     var state = Board.tiles[x][y].enemy;
     if (state == 'unknown') {
-        WebSocket.fire(x, y);
+        Websocket.fire(x, y);
         lastShot = [x, y];
         endTurn();
         return true;
