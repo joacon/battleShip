@@ -64,6 +64,7 @@ var Board = {
     },
     boatCoordinates: [],
     displayOwnBoard: function () {
+        $(".title").html("Your board");
         if (!gameStarted) return false;
         for (var i = 0; i < 10; i++) {
             var x = Board.getLetterForNumber(i);
@@ -76,6 +77,7 @@ var Board = {
     },
     displayEnemyBoard: function () {
         if (!gameStarted) return false;
+        $(".title").html("Your enemy's board");
         for (var i = 0; i < 10; i++) {
             var x = Board.getLetterForNumber(i);
             for (var j = 0; j < 10; j++) {

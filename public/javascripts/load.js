@@ -13,5 +13,6 @@ var Load = {
     stop: function () {
         console.log("Stopped loading.");
         $('#loading-img').remove();
+        $('.info-stuff').css("display", "block");
     }
 };

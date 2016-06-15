@@ -24,6 +24,8 @@ function onMessage(event) {
         if (!gameStarted) {
             gameStarted = true;
         }
+        $(".panel-bottom").css("display", "block");
+        $("#fire-btn").css("display", "block");
         Board.displayEnemyBoard();
         startTurn();
         setTimeout(function () {
@@ -78,6 +80,9 @@ function onMessage(event) {
         if (!gameStarted) {
             gameStarted = true;
         }
+        $(".panel-bottom").css("display", "block");
+        $("#fire-btn").css("display", "block");
+        endTurn();
         Board.displayEnemyBoard();
         setTimeout(function () {
             $( "body" ).append( "<div class='message-div'><p class='fire-message turn'>Your enemy's turn</p></div>" );
@@ -105,10 +110,34 @@ function onMessage(event) {
         },1000);
     } else if (action === "You win") {//este jugador gano
         gameOver(true);
-        alert("you win");
+        setTimeout(function () {
+            $( "body" ).append( "<div class='message-div'><p class='fire-message win'>You won</p></div>" );
+            $( "body" ).css("opacity", 0.5);
+            setTimeout(function () {
+                $( ".win" ).remove();
+                $( "body" ).css("opacity", 1);
+                setTimeout(function () {
+                    $( ".game" ).css("display", "none");
+                    $( ".end-view" ).css("display", "block");
+                    $( ".end-title" ).html("You won");
+                },1000);
+            },1000);
+        }, 1000);
     } else if (action === "You lose") {//este jugador perdio
         gameOver(false);
-        alert("you lose");
+        setTimeout(function () {
+            $( "body" ).append( "<div class='message-div'><p class='fire-message lose'>You lost</p></div>" );
+            $( "body" ).css("opacity", 0.5);
+            setTimeout(function () {
+                $( ".lose" ).remove();
+                $( "body" ).css("opacity", 1);
+                setTimeout(function () {
+                    $( ".game" ).css("display", "none");
+                    $( ".end-view" ).css("display", "block");
+                    $( ".end-title" ).html("You lost");
+                },1000);
+            },1000);
+        }, 1000);
     }
 }
 
@@ -131,6 +160,10 @@ var Websocket = {
             "boats": Board.boatCoordinates
         }));
         $("#ready-btn").prop("disabled", true);
+        $("#buttons").css("display", "none");
+        $("#auto-place-btn").css("display", "none");
+        $("#ready-btn").css("display", "none");
+        $(".title").html("Waiting for your enemy");
     }
 };
 
