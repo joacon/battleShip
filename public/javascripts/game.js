@@ -21,6 +21,7 @@ var fire = function (x, y) {
         displayError("It's not your turn!");
         return false;
     }
+    $("#error-message").css("display", "none");
     var state = Board.tiles[x][y].enemy;
     if (state == 'unknown') {
         Websocket.fire(x, y);
@@ -51,6 +52,7 @@ var rotate = function (i) {
 
 var displayError = function (message) {
     $("#error-message").text(message);
+    $("#error-message").css("display", "block");
 };
 
 var clearError = function () {

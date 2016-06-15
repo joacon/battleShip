@@ -12,70 +12,84 @@
             <p class="waiting-text">Waiting for oponent</p>
         </div>
         <div class="opponent-left">
-            <p class="">Your opponent left the match</p>
-            <button onclick="#">Go to home</button>
+            <h1 class="end-title">Your opponent left the match</h1>
+            <div class="options-div">
+                <a class="btn-lg choices" href="/game">Play again</a>
+                <a class="btn-lg choices" href="/main">Back to main menu</a>
+            </div>
+        </div>
+        <div class="end-view container">
+            <h1 class="end-title">You won</h1>
+            <div class="options-div">
+                <a class="btn-lg choices" href="/game">Play again</a>
+                <a class="btn-lg choices" href="/main">Back to main menu</a>
+            </div>
         </div>
         <div class="game">
-            <div id="grid-container">
+            <div id="grid-container" class="col-md-8 col-sm-8">
+                <div class="title-div">
+                    <h3 class="title">
+                        Place your ships
+                    </h3>
+                </div>
                 <div id="main-grid">
 
+                </div>
             </div>
-                <div id="enemy-grid">
-
-            </div>
-            </div>
-            <div id="buttons" class="text-center">
-                <div id="boats">
+            <div class="col-md-4 col-sm-4 right-side">
+                <div id="buttons" class="text-center">
+                    <div id="boats">
+                        <div class="boat-div">
+                            <span>(1)</span>
+                            <button class='btn-default boat-btn' id='boat-selector-1' onclick="rotate(1)">H</button>
+                            <img class="boat-img" id="boat-img-1" src="" draggable="true"
+                            ondragstart="drag(event)">
+                            <span class="boat-counter" id="boat-num-1">x2</span>
+                        </div>
+                        <div class="boat-div">
+                            <span>(2)</span>
+                            <button class='btn-default boat-btn' id='boat-selector-2' onclick="rotate(2)">H</button>
+                            <img class="boat-img" id="boat-img-2" src="" draggable="true"
+                            ondragstart="drag(event)">
+                            <span class="boat-counter" id="boat-num-2">x2</span>
+                        </div>
+                        <div class="boat-div">
+                            <span>(3)</span>
+                            <button class='btn-default boat-btn' id='boat-selector-3' onclick="rotate(3)">H</button>
+                            <img class="boat-img" id="boat-img-3" src="" draggable="true"
+                            ondragstart="drag(event)">
+                            <span class="boat-counter" id="boat-num-3">x2</span>
+                        </div>
+                        <div class="boat-div">
+                            <span>(4)</span>
+                            <button class='btn-default boat-btn' id='boat-selector-4' onclick="rotate(4)">H</button>
+                            <img class="boat-img" id="boat-img-4" src="" draggable="true"
+                            ondragstart="drag(event)">
+                            <span class="boat-counter" id="boat-num-4">x2</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="button-panel" class="text-center">
                     <div>
-                        <span>(1)</span>
-                        <button class='btn-default boat-btn' id='boat-selector-1' onclick="rotate(1)">H</button>
-                        <img class="boat-img" id="boat-img-1" src="" draggable="true"
-                        ondragstart="drag(event)">
-                        <span class="boat-counter" id="boat-num-1">x2</span>
+                        <button class="btn-default" id="auto-place-btn" onclick="autoPlaceBoats()">Auto place</button>
                     </div>
                     <div>
-                        <span>(2)</span>
-                        <button class='btn-default boat-btn' id='boat-selector-2' onclick="rotate(2)">H</button>
-                        <img class="boat-img" id="boat-img-2" src="" draggable="true"
-                        ondragstart="drag(event)">
-                        <span class="boat-counter" id="boat-num-2">x2</span>
+                        <button class='btn-success' id='ready-btn' onclick="Websocket.ready()">Ready</button>
                     </div>
                     <div>
-                        <span>(3)</span>
-                        <button class='btn-default boat-btn' id='boat-selector-3' onclick="rotate(3)">H</button>
-                        <img class="boat-img" id="boat-img-3" src="" draggable="true"
-                        ondragstart="drag(event)">
-                        <span class="boat-counter" id="boat-num-3">x2</span>
+                        <label class="turn-label" id="turn">Your turn</label>
                     </div>
                     <div>
-                        <span>(4)</span>
-                        <button class='btn-default boat-btn' id='boat-selector-4' onclick="rotate(4)">H</button>
-                        <img class="boat-img" id="boat-img-4" src="" draggable="true"
-                        ondragstart="drag(event)">
-                        <span class="boat-counter" id="boat-num-4">x2</span>
+                        <span class="error-message" id="error-message"></span>
+                    </div>
+                    <div>
+                        <button class='btn-danger' id='fire-btn' onclick="$( '#cell'+parseInt(Math.random()*10)+''+parseInt(Math.random()*10) ).trigger( 'click' )">Random fire</button>
                     </div>
                 </div>
-            </div>
-            <div id="button-panel" class="text-center">
-                <div>
-                    <button class="btn-default" id="auto-place-btn" onclick="autoPlaceBoats()">Auto place</button>
-                </div>
-                <div>
-                    <button class='btn-success' id='ready-btn' onclick="Websocket.ready()">Ready</button>
-                </div>
-
-                <div>
-                    <label id="turn">Your turn</label>
-                </div>
-                <div>
-                    <span id="error-message"></span>
+                <div class="panel-bottom">
+                    <span class="your-board" onmouseover="Board.displayOwnBoard()" onmouseout="Board.displayEnemyBoard()">Your board</span>
                 </div>
             </div>
-
-        </div>
-        <div class="panel-footer">
-            <img src="" class="pull-right" alt="BoardChange"
-            onmouseover="Board.displayOwnBoard()" onmouseout="Board.displayEnemyBoard()"/>
         </div>
     </body>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.2.1.min.js")"></script>
