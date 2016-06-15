@@ -130,7 +130,8 @@ var Board = {
                     " #5d71ff 10px, red 5px, #ccc 12px)");
                 break;
             case 'hit':
-                cell.css("background-color", "red");
+                cell.css("background", "repeating-linear-gradient(45deg, yellow," +
+                    " yellow 10px, red 5px, #ccc 12px)");
                 break;
             case 'sunk':
                 cell.css("background", "repeating-linear-gradient(45deg, yellow," +

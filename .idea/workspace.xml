@@ -81,8 +81,8 @@
       <file leaf-file-name="board.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5332253">
-              <caret line="115" column="28" selection-start-line="115" selection-start-column="28" selection-end-line="115" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.24149108">
+              <caret line="133" column="28" selection-start-line="133" selection-start-column="28" selection-end-line="133" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -102,12 +102,9 @@
         <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+              <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
-                <marker date="1466025308923" expanded="true" signature="337:537" placeholder="{...}" />
-                <marker date="1466025308923" expanded="true" signature="361:442" placeholder="{...}" />
-                <marker date="1466025308923" expanded="true" signature="458:532" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -970,7 +967,7 @@
       <workItem from="1465680746477" duration="9910000" />
       <workItem from="1465838672255" duration="19111000" />
       <workItem from="1465931636416" duration="1386000" />
-      <workItem from="1465945015841" duration="17032000" />
+      <workItem from="1465945015841" duration="17284000" />
     </task>
     <task id="LOCAL-00001" summary="facebook login, login page, home page">
       <created>1465157771320</created>
@@ -1086,11 +1083,17 @@
       <option name="project" value="LOCAL" />
       <updated>1466025289987</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fixed bug that sunken ship was shown with blue background">
+      <created>1466025535925</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1466025535925</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86625000" />
+    <option name="totallyTimeSpent" value="86877000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -1161,7 +1164,8 @@
     <MESSAGE value="fixed bug that when boat was sunk, hit wasn't registered. also fixed bug that coordinates were inverted BECAUSE OF JOACO." />
     <MESSAGE value="added a ;" />
     <MESSAGE value="added view for sunken boats" />
-    <option name="LAST_COMMIT_MESSAGE" value="added view for sunken boats" />
+    <MESSAGE value="fixed bug that sunken ship was shown with blue background" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug that sunken ship was shown with blue background" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1508,19 +1512,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-            <marker date="1466025308923" expanded="true" signature="337:537" placeholder="{...}" />
-            <marker date="1466025308923" expanded="true" signature="361:442" placeholder="{...}" />
-            <marker date="1466025308923" expanded="true" signature="458:532" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/boat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1569,10 +1560,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5332253">
-          <caret line="115" column="28" selection-start-line="115" selection-start-column="28" selection-end-line="115" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.24149108">
+          <caret line="133" column="28" selection-start-line="133" selection-start-column="28" selection-end-line="133" selection-end-column="28" />
           <folding />
         </state>
       </provider>
