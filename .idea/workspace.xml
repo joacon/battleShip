@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04bf883e-7703-485b-831a-0ce348716bd3" name="Default" comment="now auto complete will put remaining boats instead of all of them">
+    <list default="true" id="04bf883e-7703-485b-831a-0ce348716bd3" name="Default" comment="fixed bug that when boat was sunk, hit wasn't registered. also fixed bug that coordinates were inverted BECAUSE OF JOACO.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/board.js" afterPath="$PROJECT_DIR$/public/javascripts/board.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/boat.js" afterPath="$PROJECT_DIR$/public/javascripts/boat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/game.js" afterPath="$PROJECT_DIR$/public/javascripts/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/tile.js" afterPath="$PROJECT_DIR$/public/javascripts/tile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/websocket.js" afterPath="$PROJECT_DIR$/public/javascripts/websocket.js" />
     </list>
     <ignored path="bat.iws" />
@@ -63,7 +59,7 @@
             <state vertical-scroll-proportion="-5.851852">
               <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
               <folding>
-                <marker date="1465957464903" expanded="true" signature="819:836" placeholder="..." />
+                <marker date="1465961795423" expanded="true" signature="819:836" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -116,8 +112,8 @@
       <file leaf-file-name="websocket.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/websocket.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62074554">
-              <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+            <state vertical-scroll-proportion="-0.84602916">
+              <caret line="70" column="49" selection-start-line="70" selection-start-column="49" selection-end-line="70" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -127,7 +123,7 @@
         <entry file="file://$PROJECT_DIR$/public/stylesheets/game.css">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-13.185185">
-              <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+              <caret line="72" column="1" selection-start-line="72" selection-start-column="1" selection-end-line="72" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -184,9 +180,9 @@
         <option value="$PROJECT_DIR$/app/views/game.scala.html" />
         <option value="$PROJECT_DIR$/public/javascripts/game.js" />
         <option value="$PROJECT_DIR$/public/javascripts/tile.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/websocket.js" />
         <option value="$PROJECT_DIR$/public/javascripts/board.js" />
         <option value="$PROJECT_DIR$/public/javascripts/boat.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/websocket.js" />
       </list>
     </option>
   </component>
@@ -359,6 +355,118 @@
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/public/assets" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/app/views/game.scala.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/javascripts/websocket.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/public/stylesheets/game.css</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -844,7 +952,7 @@
       <workItem from="1465680746477" duration="9910000" />
       <workItem from="1465838672255" duration="19111000" />
       <workItem from="1465931636416" duration="1386000" />
-      <workItem from="1465945015841" duration="13834000" />
+      <workItem from="1465945015841" duration="15490000" />
     </task>
     <task id="LOCAL-00001" summary="facebook login, login page, home page">
       <created>1465157771320</created>
@@ -942,11 +1050,17 @@
       <option name="project" value="LOCAL" />
       <updated>1465958412887</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fixed bug that when boat was sunk, hit wasn't registered. also fixed bug that coordinates were inverted BECAUSE OF JOACO.">
+      <created>1465960665997</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1465960665997</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83427000" />
+    <option name="totallyTimeSpent" value="85083000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -1014,7 +1128,8 @@
     <MESSAGE value="many updates, including some for seeing tiles that have been hit as well as receiving messages for hits and misses" />
     <MESSAGE value="added auto place! yay!" />
     <MESSAGE value="now auto complete will put remaining boats instead of all of them" />
-    <option name="LAST_COMMIT_MESSAGE" value="now auto complete will put remaining boats instead of all of them" />
+    <MESSAGE value="fixed bug that when boat was sunk, hit wasn't registered. also fixed bug that coordinates were inverted BECAUSE OF JOACO." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug that when boat was sunk, hit wasn't registered. also fixed bug that coordinates were inverted BECAUSE OF JOACO." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1032,7 +1147,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
-            <marker date="1465957464903" expanded="true" signature="819:836" placeholder="..." />
+            <marker date="1465961795423" expanded="true" signature="819:836" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1349,7 +1464,7 @@
     <entry file="file://$PROJECT_DIR$/public/stylesheets/game.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.185185">
-          <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <caret line="72" column="1" selection-start-line="72" selection-start-column="1" selection-end-line="72" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1359,7 +1474,7 @@
         <state vertical-scroll-proportion="-5.851852">
           <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
           <folding>
-            <marker date="1465957464903" expanded="true" signature="819:836" placeholder="..." />
+            <marker date="1465961795423" expanded="true" signature="819:836" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1382,14 +1497,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/boat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1400,10 +1507,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/websocket.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62074554">
-          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+        <state vertical-scroll-proportion="-0.84602916">
+          <caret line="70" column="49" selection-start-line="70" selection-start-column="49" selection-end-line="70" selection-end-column="49" />
           <folding />
         </state>
       </provider>

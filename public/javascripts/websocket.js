@@ -107,7 +107,7 @@ function onMessage(event) {
         gameOver(true);
         alert("you win");
     } else if (action === "You lose") {//este jugador perdio
-        gameOver(false)
+        gameOver(false);
         alert("you lose");
     }
 }
