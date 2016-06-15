@@ -112,8 +112,8 @@ var Board = {
                     " #5d71ff 10px, red 5px, #ccc 12px)");
                 break;
             case 'sunk':
-                cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
-                    " #5d71ff 10px, darkred 5px, #ccc 12px)");
+                cell.css("background", "repeating-linear-gradient(45deg, yellow," +
+                    " yellow 10px, darkred 5px, #ccc 12px)");
                 break;
         }
 
@@ -133,8 +133,8 @@ var Board = {
                 cell.css("background-color", "red");
                 break;
             case 'sunk':
-                cell.css("background", "repeating-linear-gradient(45deg, #5d71ff," +
-                    " #5d71ff 10px, darkred 5px, #ccc 12px)");
+                cell.css("background", "repeating-linear-gradient(45deg, yellow," +
+                    " yellow 10px, darkred 5px, #ccc 12px)");
                 break;
         }
     },
