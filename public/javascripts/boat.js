@@ -6,7 +6,6 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    console.log(event.target);
     ev.dataTransfer.setData("img", ev.target.id);
     var id = ev.target.getAttribute("id"); // Boat id (boat-img-1, boat-img-2, ..)
     var num = id.charAt(id.length - 1); // Boat number (1, 2, 3, ..)
@@ -83,10 +82,6 @@ var fillTiles = function (h, ev, n) {
         }
     }
     Board.boatCoordinates.push(boatCoordinates);
-    /*var node = $(originTileId + "-img");
-     node.removeClass("boat-img");
-     node.addClass("boat-img-grid");
-     console.log(node);*/
 
 
     return true;

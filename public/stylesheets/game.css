@@ -20,7 +20,7 @@
 }
 
 .tile {
-    border: 1px solid black;
+    outline: 1px solid black;
     width: 50px;
     height: 50px;
     margin: 0;
@@ -34,25 +34,22 @@
     background: #313131;
 }
 
-.square {
-    width: 50px;
-    height: 50px;
-
-    margin: 0;
-
-    outline: 1px solid;
-    display: inline-block;
-    float: left;
-    background: #FFFFFF;
-}
-
 #grid-container {
     float: left;
 }
 
+#buttons, #button-panel {
+    display: inline-block;
+    width: 25%;
+}
+
 #buttons {
-    float: right;
-    width: 50%;
+    /*float: right;*/
+    width: 25%;
+}
+
+#button-panel {
+    /*float: right;*/
 }
 
 button {
@@ -75,4 +72,7 @@ button {
     height: inherit;
     width: inherit;
     background-color: yellow;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }

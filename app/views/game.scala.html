@@ -11,65 +11,67 @@
             <img src="@routes.Assets.versioned("img/sailboat.gif")"/>
             <p class="waiting-text">Waiting for oponent</p>
         </div>
-    <div class="opponent-left">
-        <p class="">Your opponent left the match</p>
-        <button onclick="#">Go to home</button>
-    </div>
-    <div class="game">
-        <div id="grid-container">
-            <div id="main-grid">
-
-            </div>
-            <div id="enemy-grid">
-
-            </div>
+        <div class="opponent-left">
+            <p class="">Your opponent left the match</p>
+            <button onclick="#">Go to home</button>
         </div>
+        <div class="game">
+            <div id="grid-container">
+                <div id="main-grid">
 
-        <div id="buttons" class="text-center">
-            <div id="boats">
-                <div>
-                    <span>(1)</span>
-                    <button class='btn-default boat-btn' id='boat-selector-1' onclick="rotate(1)">H</button>
-                    <img class="boat-img" id="boat-img-1" src="" draggable="true"
-                    ondragstart="drag(event)">
-                    <span class="boat-counter" id="boat-num-1">x2</span>
-                </div>
-                <div>
-                    <span>(2)</span>
-                    <button class='btn-default boat-btn' id='boat-selector-2' onclick="rotate(2)">H</button>
-                    <img class="boat-img" id="boat-img-2" src="" draggable="true"
-                    ondragstart="drag(event)">
-                    <span class="boat-counter" id="boat-num-2">x2</span>
-                </div>
-                <div>
-                    <span>(3)</span>
-                    <button class='btn-default boat-btn' id='boat-selector-3' onclick="rotate(3)">H</button>
-                    <img class="boat-img" id="boat-img-3" src="" draggable="true"
-                    ondragstart="drag(event)">
-                    <span class="boat-counter" id="boat-num-3">x2</span>
-                </div>
-                <div>
-                    <span>(4)</span>
-                    <button class='btn-default boat-btn' id='boat-selector-4' onclick="rotate(4)">H</button>
-                    <img class="boat-img" id="boat-img-4" src="" draggable="true"
-                    ondragstart="drag(event)">
-                    <span class="boat-counter" id="boat-num-4">x2</span>
+            </div>
+                <div id="enemy-grid">
+
+            </div>
+            </div>
+            <div id="buttons" class="text-center">
+                <div id="boats">
+                    <div>
+                        <span>(1)</span>
+                        <button class='btn-default boat-btn' id='boat-selector-1' onclick="rotate(1)">H</button>
+                        <img class="boat-img" id="boat-img-1" src="" draggable="true"
+                        ondragstart="drag(event)">
+                        <span class="boat-counter" id="boat-num-1">x2</span>
+                    </div>
+                    <div>
+                        <span>(2)</span>
+                        <button class='btn-default boat-btn' id='boat-selector-2' onclick="rotate(2)">H</button>
+                        <img class="boat-img" id="boat-img-2" src="" draggable="true"
+                        ondragstart="drag(event)">
+                        <span class="boat-counter" id="boat-num-2">x2</span>
+                    </div>
+                    <div>
+                        <span>(3)</span>
+                        <button class='btn-default boat-btn' id='boat-selector-3' onclick="rotate(3)">H</button>
+                        <img class="boat-img" id="boat-img-3" src="" draggable="true"
+                        ondragstart="drag(event)">
+                        <span class="boat-counter" id="boat-num-3">x2</span>
+                    </div>
+                    <div>
+                        <span>(4)</span>
+                        <button class='btn-default boat-btn' id='boat-selector-4' onclick="rotate(4)">H</button>
+                        <img class="boat-img" id="boat-img-4" src="" draggable="true"
+                        ondragstart="drag(event)">
+                        <span class="boat-counter" id="boat-num-4">x2</span>
+                    </div>
                 </div>
             </div>
-            <div id="button-panel">
+            <div id="button-panel" class="text-center">
                 <button class='btn-success' id='ready-btn' onclick="Websocket.ready()">Ready</button>
                 <div>
                     <label id="turn">Your turn</label>
                 </div>
+                <div>
+                    <span id="error-message"></span>
+                </div>
             </div>
+
         </div>
-    </div>
     </body>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.2.1.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("bootstrap/js/bootstrap.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/d3.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/tile.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/game-buttons.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/board.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/game.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/boat.js")"></script>
