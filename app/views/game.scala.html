@@ -3,15 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <title>Battle Boats</title>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="@routes.Assets.versioned("bootstrap/css/bootstrap-space.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/game.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/flipclock.css")">
     </head>
     <body>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="/main" class="logo">Battle Boats</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                    <ul class="nav navbar-nav navbar-right">
+                        <img id="profile-picture" src=""/>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="waiting">
             <img src="@routes.Assets.versioned("img/sailboat.gif")"/>
             <p class="waiting-text">Waiting for oponent</p>
         </div>
-        <div class="opponent-left">
+        <div class="opponent-left container">
             <h1 class="end-title">Your opponent left the match</h1>
             <div class="options-div">
                 <a class="btn-lg choices" href="/game">Play again</a>
@@ -37,6 +51,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 right-side">
+                @*<div class="your-clock"></div>*@
                 <div id="buttons" class="text-center">
                     <div id="boats">
                         <div class="boat-div">
@@ -71,10 +86,12 @@
                 </div>
                 <div id="button-panel" class="text-center">
                     <div>
-                        <button class="btn-default" id="auto-place-btn" onclick="autoPlaceBoats()">Auto place</button>
+                        <button class="btn btn-auto" id="auto-place-btn" onclick="autoPlaceBoats()">
+                            <span class="glyphicon glyphicon-map-marker"></span>Auto place</button>
                     </div>
                     <div>
-                        <button class='btn-success' id='ready-btn' onclick="Websocket.ready()">Ready</button>
+                        <button class='btn btn-ready' id='ready-btn' onclick="Websocket.ready()">
+                            <span class="glyphicon glyphicon-ok"></span>Ready</button>
                     </div>
                     <div>
                         <label class="turn-label" id="turn">Your turn</label>
@@ -83,7 +100,8 @@
                         <span class="error-message" id="error-message"></span>
                     </div>
                     <div>
-                        <button class='btn-danger' id='fire-btn' onclick="randomFire()">Random fire</button>
+                        <button class='btn btn-fire' id='fire-btn' onclick="randomFire()">
+                            <span class="glyphicon glyphicon-screenshot"></span>Random fire</button>
                     </div>
                 </div>
                 <div class="panel-bottom">
@@ -95,6 +113,8 @@
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.2.1.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("bootstrap/js/bootstrap.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/d3.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/facebook.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/flipclock.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/tile.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/board.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/websocket.js")"></script>

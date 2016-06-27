@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="container text-center main-login jumbotron">
-            <div>
+            <div class="title">
                 <h1>
                     Welcome to Battle Boats
                 </h1>
@@ -16,12 +16,13 @@
             <div id="loading">
                 <img id="loading-img" src="@routes.Assets.versioned("img/loading-wheel.gif")"/>
             </div>
-            <div>
+            <div class="profile-pic-div">
                 <img id="profile-picture" src=""/>
             </div>
-            <div>
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true"
+            <div class="login">
+                <fb:login-button size="xlarge" scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true"
                 onclick="checkLoginState()" id="fb-login-btn">
+                    Log In with Facebook
                 </fb:login-button>
             </div>
             <div id="status"></div>

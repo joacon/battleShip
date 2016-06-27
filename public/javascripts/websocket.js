@@ -7,6 +7,25 @@ function post(message) {
     socket.send(message);
 }
 
+// var clock = $('.your-clock').FlipClock(60, {
+//     clockFace: 'MinuteCounter',
+//     countdown: true,
+//     autoStart: true,
+//     callbacks: {
+//         start: function() {
+//            
+//         },
+//         stop: function () {
+//             randomFire();
+//         },
+//         reset: function () {
+//             destroy();
+//         },destroy: function () {
+//
+//         }
+//     }
+// });
+// clock.start();
 function onMessage(event) {
     console.log(event);
     var json = JSON.parse(event.data);
@@ -30,7 +49,7 @@ function onMessage(event) {
         startTurn();
         setTimeout(function () {
             $("body").append("<div class='message-div'><p class='fire-message turn'>Your turn</p></div>");
-            $("body").css("opacity", 0.5);
+            // $("body").css("opacity", 0.5);
             setTimeout(function () {
                 $(".turn").remove();
                 $("body").css("opacity", 1);
@@ -40,7 +59,7 @@ function onMessage(event) {
         var x = json.x;
         var y = json.y;
         $("body").append("<div class='message-div'><p class='fire-message hit'>Hit!</p></div>");
-        $("body").css("opacity", 0.5);
+        // $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".hit").remove();
             $("body").css("opacity", 1);
@@ -51,7 +70,7 @@ function onMessage(event) {
         var x = json.x;
         var y = json.y;
         $("body").append("<div class='message-div'><p class='fire-message hit'>You were hit!</p></div>");
-        $("body").css("opacity", 0.5);
+        // $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".hit").remove();
             $("body").css("opacity", 1);
@@ -60,7 +79,7 @@ function onMessage(event) {
         var x = json.x;
         var y = json.y;
         $("body").append("<div class='message-div'><p class='fire-message miss'>You missed!</p></div>");
-        $("body").css("opacity", 0.5);
+        // $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".miss").remove();
             $("body").css("opacity", 1);
@@ -71,7 +90,7 @@ function onMessage(event) {
         var x = json.x;
         var y = json.y;
         $("body").append("<div class='message-div'><p class='fire-message miss'>Opponent missed!</p></div>");
-        $("body").css("opacity", 0.5);
+        // $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".miss").remove();
             $("body").css("opacity", 1);
@@ -86,7 +105,7 @@ function onMessage(event) {
         Board.displayEnemyBoard();
         setTimeout(function () {
             $("body").append("<div class='message-div'><p class='fire-message turn'>Your opponent's turn</p></div>");
-            $("body").css("opacity", 0.5);
+            // $("body").css("opacity", 0.5);
             setTimeout(function () {
                 $(".turn").remove();
                 $("body").css("opacity", 1);
@@ -95,7 +114,7 @@ function onMessage(event) {
     } else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
         var ship = JSON.parse(json.ship);
         $("body").append("<div class='message-div'><p class='fire-message sink'>You sunk your opponent's battleship!</p></div>");
-        $("body").css("opacity", 0.5);
+        // $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".sink").remove();
             $("body").css("opacity", 1);
@@ -104,7 +123,7 @@ function onMessage(event) {
     } else if (action === "You are sinked") {//a este jugador le hundieron un bote
         var ship = JSON.parse(json.ship);
         $("body").append("<div class='message-div'><p class='fire-message sink'>The enemy sunk your battleship!</p></div>");
-        $("body").css("opacity", 0.5);
+        // $("body").css("opacity", 0.5);
         setTimeout(function () {
             $(".sink").remove();
             $("body").css("opacity", 1);
@@ -176,7 +195,6 @@ var Websocket = {
  function sendFeedback(hit) {//hit es true si pego y false si no pego
 
  }*/
-
 
 function init() {
 }

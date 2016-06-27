@@ -1,6 +1,24 @@
-.main-login {
+body{
+    background-color: #eaeaea;
 }
-
+.main-login {
+    border: 3px solid black;
+    background-color: #ffffff;
+    border-radius: 20px;
+    margin-top: 100px;
+    padding: 20px;
+    height: 500px;
+    box-shadow: 20px 20px #dfdfdf;
+}
+.title{
+    margin-bottom: 50px;
+}
+.title h2{
+    text-shadow: 5px 8px #eaeaea;
+}
+#loading{
+    margin-bottom: 90px;
+}
 div {
     margin: 1%;
 }

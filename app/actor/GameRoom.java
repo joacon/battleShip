@@ -80,17 +80,23 @@ public class GameRoom extends AbstractActor {
                 }else{
                     player1.tell(new Messages.Sink(ship, true), self());
                     player2.tell(new Messages.Sink(ship, false), self());
+                    player1.tell(new Messages.Wait(), self());
+                    player2.tell(new Messages.Play(), self());
+                    turn = false;
                 }
             }else if (ship != null){
                 player1.tell(new Messages.Hit(msg.x, msg.y, true),self());
                 player2.tell(new Messages.Hit(msg.x, msg.y, false),self());
+                player1.tell(new Messages.Wait(), self());
+                player2.tell(new Messages.Play(), self());
+                turn = false;
             }else {
                 player1.tell(new Messages.Miss(msg.x, msg.y, true),self());
                 player2.tell(new Messages.Miss(msg.x, msg.y, false), self());
+                player1.tell(new Messages.Wait(), self());
+                player2.tell(new Messages.Play(), self());
+                turn = false;
             }
-            player1.tell(new Messages.Wait(), self());
-            player2.tell(new Messages.Play(), self());
-            turn = false;
         }else{
             Ship ship = p1Fleet.hit(new Coordinate(msg.x, msg.y));
             if (ship != null && ship.isSinked()){
@@ -101,17 +107,24 @@ public class GameRoom extends AbstractActor {
                 }else{
                     player2.tell(new Messages.Sink(ship, true), self());
                     player1.tell(new Messages.Sink(ship, false), self());
+                    player2.tell(new Messages.Wait(), self());
+                    player1.tell(new Messages.Play(), self());
+                    turn = true;
                 }
             }else if (ship != null){
                 player2.tell(new Messages.Hit(msg.x, msg.y, true),self());
                 player1.tell(new Messages.Hit(msg.x, msg.y, false),self());
+                player2.tell(new Messages.Wait(), self());
+                player1.tell(new Messages.Play(), self());
+                turn = true;
             }else {
                 player2.tell(new Messages.Miss(msg.x, msg.y, true),self());
                 player1.tell(new Messages.Miss(msg.x, msg.y, false), self());
+                player2.tell(new Messages.Wait(), self());
+                player1.tell(new Messages.Play(), self());
+                turn = true;
             }
-            player2.tell(new Messages.Wait(), self());
-            player1.tell(new Messages.Play(), self());
-            turn = true;
+
         }
     }
 

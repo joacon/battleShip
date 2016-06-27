@@ -4,29 +4,23 @@
     <head>
         <title>Battle Boats</title>
         <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="@routes.Assets.versioned("bootstrap/css/bootstrap-space.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
     </head>
     <body>
-        @*<nav class="navbar navbar-inverse">*@
-            @*<div class="container-fluid">*@
-                @*<div class="navbar-header">*@
-                    @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">*@
-                        @*<span class="sr-only">Toggle navigation</span>*@
-                        @*<span class="icon-bar"></span>*@
-                        @*<span class="icon-bar"></span>*@
-                        @*<span class="icon-bar"></span>*@
-                    @*</button>*@
-                    @*<img id="profile-picture" src=""/>*@
-                    @*<span class="navbar-brand" id="user-welcome"></span>*@
-                @*</div>*@
-                @*<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">*@
-                    @*<ul class="nav navbar-nav navbar-right">*@
-                        @*<li><a class="btn-info navbar-btn btn-lg" href="/game">Play!</a></li>*@
-                    @*</ul>*@
-                @*</div>*@
-            @*</div>*@
-        @*</nav>*@
+        <nav class="navbar">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a href="/main" class="logo">Battle Boats</a>
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                  <ul class="nav navbar-nav navbar-right">
+                      <img id="profile-picture" src=""/>
+                  </ul>
+              </div>
+          </div>
+        </nav>
         <div class="container text-center">
             <div>
                 <h1 class="title">
@@ -36,13 +30,13 @@
             <div id="loading">
                 <img id="loading-img" src="@routes.Assets.versioned("img/loading-wheel.gif")"/>
             </div>
-            <div class="col-md-6 col-sm-6 info-stuff">
-                <img id="profile-picture" src=""/>
-                <span id="user-welcome"></span>
-                <h2>Stats</h2>
-            </div>
-            <div class="col-md-6 col-sm-6 info-stuff">
-                <button class="btn-info navbar-btn btn-lg play-btn" onclick="window.location.href='/game'">Play!</button>
+            @*<div class="col-md-6 col-sm-6 info-stuff">*@
+                @*<img id="profile-picture" src=""/>*@
+                @*<span id="user-welcome"></span>*@
+                @*<h2>Stats</h2>*@
+            @*</div>*@
+            <div class="info-stuff">
+                <button class="play-btn" onclick="window.location.href='/game'">Play!</button>
             </div>
         </div>
     </body>
