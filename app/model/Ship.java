@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Ship {
     private List<Coordinate> ship;
+    private boolean sunk = false;
 
     public Ship(List<Coordinate> ship) {
         this.ship = ship;
@@ -31,20 +32,24 @@ public class Ship {
         for (int i = 0; i< ship.size(); i++){
             if (ship.get(i).getX() == coordinate.getX() && ship.get(i).getY() == coordinate.getY()){
                 ship.get(i).setHit(true);
+                setSinked();
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isSinked(){
-        boolean sinked = true;
+    private void setSinked(){
+        sunk = true;
         for (int i = 0; i< ship.size(); i++){
             if (!ship.get(i).isHit()){
-                sinked = false;
+                sunk = false;
                 break;
             }
         }
-        return sinked;
+    }
+
+    public boolean isSinked(){
+        return sunk;
     }
 }

@@ -21,10 +21,6 @@ public class Fleet {
         ships.add(ship);
     }
 
-    public void sinkShip(Ship ship){
-        ships.remove(ship);
-    }
-
     public Ship hit(Coordinate coordinate){
         for(int i=0; i< ships.size(); i++){
             if(ships.get(i).hitCoordinate(coordinate)){

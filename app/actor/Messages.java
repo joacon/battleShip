@@ -98,4 +98,13 @@ public class Messages {
             this.fromYou = fromYou;
         }
     }
+    public static class Reconnect{
+        public final WebSocket.In in;
+        public final WebSocket.Out out;
+
+        public Reconnect(WebSocket.In in, WebSocket.Out out) {
+            this.in = in;
+            this.out = out;
+        }
+    }
 }

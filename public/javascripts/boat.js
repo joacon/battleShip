@@ -97,6 +97,7 @@ var autoPlaceBoats = function () {
         while (boats[i - 1] > 0) {
             var x = parseInt(Math.random() * 10);
             var y = parseInt(Math.random() * 10);
+            horizontal = [parseInt(Math.random() * 2), parseInt(Math.random() * 2), parseInt(Math.random() * 2), parseInt(Math.random() * 2)];
             var cellID = "cell" + Board.getLetterForNumber(x) + "" + y;
             if (fillTiles(horizontal, document.getElementById(cellID), i)) {
                 boats[i - 1]--;

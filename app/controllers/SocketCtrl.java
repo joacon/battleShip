@@ -13,10 +13,11 @@ public class SocketCtrl extends Controller {
 
 
     public LegacyWebSocket<String> socket() {
+        String id2 = session("id");
         return  new LegacyWebSocket<String>() {
             @Override public void onReady(WebSocket.In in, WebSocket.Out out) {
                 try {
-                    GameRoomManager.join(Math.random()+"", in, out);
+                    GameRoomManager.join(id2 + "$" + Math.random(), in, out);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

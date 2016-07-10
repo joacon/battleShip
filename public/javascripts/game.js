@@ -12,9 +12,9 @@ var lastShot = [];
     $("#turn").text("");
 }));
 
-var fire = function (x, y, random) {
+var fire = function (x, y, random, cell) {
     if (!gameStarted) {
-        //displayError("Game hasn't started yet!");
+        displayError("Game hasn't started yet!");
         return false;
     }
     if (!turn) {
@@ -27,9 +27,11 @@ var fire = function (x, y, random) {
         Websocket.fire(x, y);
         lastShot = [x, y];
         endTurn();
+        $("#"+cell + " .glyphicon").css("color","red");
         return true;
     } else {
         if (!random) displayError("You already fired there!");
+        if (random) randomFire();
         return false;
     }
 };
@@ -37,11 +39,12 @@ var fire = function (x, y, random) {
 var randomFire = function () {
     var couldFire = false;
     if (!turn) return;
-    fire(parseInt(Math.random() * 10), parseInt(Math.random() * 10), true);
+    var x =parseInt(Math.random() * 10); 
+    var y =parseInt(Math.random() * 10); 
+    fire(x, y, true, "cell"+String.fromCharCode(x+65)+""+y);
 };
 
 var startTurn = function () {
-    console.log("Starting turn!");
     turn = true;
     $("#turn").text("Your turn!");
 };

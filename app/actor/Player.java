@@ -17,8 +17,8 @@ import java.util.function.Consumer;
 
 public class Player extends AbstractActor{
     public final String user;
-    public final WebSocket.In in;
-    public final WebSocket.Out out;
+    public WebSocket.In in;
+    public WebSocket.Out out;
     private ActorRef room = null;
 
     public Player(String user, WebSocket.In in, WebSocket.Out out){
@@ -37,6 +37,7 @@ public class Player extends AbstractActor{
                               .match(Messages.Miss.class, this::miss)
                               .match(Messages.Sink.class, this::sink)
                               .match(Messages.Win.class, this::win)
+                              .match(Messages.Reconnect.class, this::reconect)
                         .build()
         );
 
@@ -51,6 +52,11 @@ public class Player extends AbstractActor{
                 out("{\"action\":\"Opponent left\"}");
             }
         });
+    }
+
+    private void reconect(Messages.Reconnect msg) {
+        this.in = msg.in;
+        this.out = msg.out;
     }
 
     private void win(Messages.Win msg) {

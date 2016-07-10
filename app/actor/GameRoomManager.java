@@ -1,9 +1,6 @@
 package actor;
 
-import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
+import akka.actor.*;
 import akka.japi.pf.ReceiveBuilder;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
@@ -13,6 +10,7 @@ import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -34,11 +32,34 @@ public class GameRoomManager extends AbstractActor {
     }
 
     private void connection(Messages.Connection connect) throws Exception{
-        waiting.add(context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-"+connect.user));
-        if (waiting.size() > 1) {
-            ActorRef actorRef = context().system().actorOf(GameRoom.props(waiting.remove(0), waiting.remove(0)), "room-"+rooms.size());
-            rooms.add(actorRef);
+        ActorRef existing = checkConnected(connect);
+        if (existing == null) {
+            waiting.add(context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-" + connect.user));
+            if (waiting.size() > 1) {
+                ActorRef actorRef = context().system().actorOf(GameRoom.props(waiting.remove(0), waiting.remove(0)), "room-" + rooms.size());
+                rooms.add(actorRef);
+            }
+        }else{
+            existing.tell(new Messages.Reconnect(connect.in, connect.out), self());
         }
+    }
+
+    private ActorRef checkConnected(Messages.Connection connect) {
+        Iterator<ActorRef> roomIterator = rooms.iterator();
+        while (roomIterator.hasNext()){
+            ActorRef player = roomIterator.next();
+            if (player.path().name().split("$")[0].equals("player-"+connect.user)){
+                return player;
+            }
+        }
+        Iterator<ActorRef> waitingIterator = waiting.iterator();
+        while (waitingIterator.hasNext()){
+            ActorRef player = waitingIterator.next();
+            if (player.path().name().split("$")[0].equals("player-"+connect.user)){
+                return player;
+            }
+        }
+        return null;
     }
 
     public static Props props() {

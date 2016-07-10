@@ -3,7 +3,6 @@ var socket = new WebSocket("ws://localhost:9000/socket");
 socket.onmessage = onMessage;
 
 function post(message) {
-    //console.log(message);
     socket.send(message);
 }
 
@@ -27,7 +26,6 @@ function post(message) {
 // });
 // clock.start();
 function onMessage(event) {
-    console.log(event);
     var json = JSON.parse(event.data);
     var action = json.action;
     if (action === "Layout") {

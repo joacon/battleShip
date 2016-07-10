@@ -31,14 +31,21 @@ var Board = {
                 cell.style.backgroundColor = "#5d71ff";
                 cell.id = "cell" + Board.getLetterForNumber(i) + '' + j;
                 cell.innerText = Board.getLetterForNumber(i) + "" + j;
+                $("#"+cell.id).append('<span class="glyphicon glyphicon-screenshot"></span>');
                 cell.addEventListener('click', function (e) {
-                    var id = e.target.id;
+                    var id;
+                    if ($(e.target).parent()[0].id != ""){
+                        id = $(e.target).parent()[0].id;
+                    }else{
+                        id = e.target.id;
+                    }
                     var x = Board.getNumberForLetter(id.charAt(id.length - 2));
                     var y = id.charAt(id.length - 1);
                     console.log(x);
                     console.log(y);
-                    fire(x, y);
-                })
+                    $("#"+id).off();
+                    fire(x, y, false, id);
+                });
             }
         }
         Board.generateTiles();
