@@ -64,11 +64,12 @@ var fillTiles = function (h, originTile, n) {
 
     var tileId = originTileId;
     var boatCoordinates = [];
+    var tile;
     for (var j = 0; j < n; j++) {
 
         if (horizontal[n - 1]) {
             tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j);
-            var tile = $("#" + tileId);
+            tile = $("#" + tileId);
             if (j == 0) {
                 tile.data("start", true)
             }
@@ -77,7 +78,7 @@ var fillTiles = function (h, originTile, n) {
             boatCoordinates.push([originTileX, originTileY + j]);
         } else {
             tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY;
-            var tile = $("#" + tileId);
+            tile = $("#" + tileId);
             if (j == 0) {
                 tile.data("start", true)
             }
@@ -86,6 +87,7 @@ var fillTiles = function (h, originTile, n) {
             boatCoordinates.push([originTileX + j, originTileY]);
         }
     }
+    tile.data("coordinates", boatCoordinates);
     Board.boatCoordinates.push(boatCoordinates);
     return true;
 };
