@@ -157,5 +157,20 @@ var Board = {
             var coords = ship[i];
             Board.tiles[coords[0]][coords[1]].enemy = 'sunk';
         }
+    },
+    removeCoordinates: function(coords) {
+        for (var i = 0; i < Board.boatCoordinates.length; i++) {
+            var boatCoords = Board.boatCoordinates[i];
+            if (coords.length == boatCoords.length) {
+                for (var j = 0; j < coords.length; j++) {
+                    if (coords[j] != boatCoords[j]) break; // *waves hand* These are not the coordinates you're looking for
+                    if (j + 1 == coords.length) {
+                        // We can remove boatCoords from boatCoordinates
+                        Board.boatCoordinates.splice(i, 1);
+                        return true;
+                    }
+                }
+            }
+        }
     }
 };
