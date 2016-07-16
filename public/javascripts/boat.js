@@ -12,6 +12,10 @@ function drag(ev) {
     ev.dataTransfer.setData("text", num);
 }
 
+function reDrag(ev) {
+
+}
+
 function drop(ev) {
     ev.preventDefault();
     var num = ev.dataTransfer.getData("text"); // Boat number (1, 2, 3, ..)
@@ -61,24 +65,23 @@ var fillTiles = function (h, originTile, n) {
     var tileId = originTileId;
     var boatCoordinates = [];
     for (var j = 0; j < n; j++) {
-        /*        nodeCopy = document.getElementById(data).cloneNode(true);
-         nodeCopy.style.width = "50px;";
-         nodeCopy.style.height = "50px;";
-         nodeCopy.classList.remove("boat-img");
-         nodeCopy.classList.add("boat-img-grid");*/
+
         if (horizontal[n - 1]) {
-            tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)/* + "-img"*/;
-            //nodeCopy.id = tileId;
-            //$("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j)).append(nodeCopy);
-            $("#cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j))
-                .css('background-color', 'yellow');
+            tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j);
+            var tile = $("#" + tileId);
+            if (j == 0) {
+                tile.data("start", true)
+            }
+            tile.css('background-color', 'yellow');
             Board.changeTile(originTileX, originTileY + j, 'boat');
             boatCoordinates.push([originTileX, originTileY + j]);
         } else {
-            tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY/* + "-img"*/;
-            //nodeCopy.id = tileId;
-            //$("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).append(nodeCopy);
-            $("#cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY).css("background-color", "yellow");
+            tileId = "cell" + Board.getLetterForNumber(originTileX + j) + "" + originTileY;
+            var tile = $("#" + tileId);
+            if (j == 0) {
+                tile.data("start", true)
+            }
+            tile.css("background-color", "yellow");
             Board.changeTile(originTileX + j, originTileY, 'boat');
             boatCoordinates.push([originTileX + j, originTileY]);
         }
