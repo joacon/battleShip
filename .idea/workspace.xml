@@ -73,20 +73,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="boat.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="boat.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/boat.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32901135">
-              <caret line="139" column="56" selection-start-line="139" selection-start-column="56" selection-end-line="139" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="141" column="13" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="board.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="board.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.33225283">
               <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
               <folding />
             </state>
@@ -175,8 +175,8 @@
         <option value="$PROJECT_DIR$/app/model/Ship.java" />
         <option value="$PROJECT_DIR$/app/actor/GameRoom.java" />
         <option value="$PROJECT_DIR$/app/model/Fleet.java" />
-        <option value="$PROJECT_DIR$/public/javascripts/board.js" />
         <option value="$PROJECT_DIR$/public/javascripts/boat.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/board.js" />
       </list>
     </option>
   </component>
@@ -952,7 +952,7 @@
       <workItem from="1467229414166" duration="1277000" />
       <workItem from="1467312497401" duration="807000" />
       <workItem from="1468158565463" duration="9072000" />
-      <workItem from="1468698535845" duration="6068000" />
+      <workItem from="1468698535845" duration="7861000" />
     </task>
     <task id="LOCAL-00001" summary="start message, waiting for another play, player left match">
       <created>1465778757600</created>
@@ -1008,11 +1008,17 @@
       <option name="project" value="LOCAL" />
       <updated>1468701065800</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="boats are redraggable now">
+      <created>1468704683950</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1468704683950</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134008000" />
+    <option name="totallyTimeSpent" value="135801000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -1107,7 +1113,8 @@
     <MESSAGE value="&quot;UX&quot;" />
     <MESSAGE value="the first cell of each boat placed now has a data key called &quot;start&quot; with the value &quot;true&quot;, so as to be able to re drag the boat" />
     <MESSAGE value="the first cell of each boat also as a value called &quot;coordinates&quot; with the array of coordinates for the boat, in order to use to remove the coordinates from Boat.boatCoordinates easily" />
-    <option name="LAST_COMMIT_MESSAGE" value="the first cell of each boat also as a value called &quot;coordinates&quot; with the array of coordinates for the boat, in order to use to remove the coordinates from Boat.boatCoordinates easily" />
+    <MESSAGE value="boats are redraggable now" />
+    <option name="LAST_COMMIT_MESSAGE" value="boats are redraggable now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1423,18 +1430,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/boat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
+          <caret line="141" column="13" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/boat.js">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/board.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32901135">
-          <caret line="139" column="56" selection-start-line="139" selection-start-column="56" selection-end-line="139" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.33225283">
+          <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
           <folding />
         </state>
       </provider>

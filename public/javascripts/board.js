@@ -31,19 +31,19 @@ var Board = {
                 cell.style.backgroundColor = "#5d71ff";
                 cell.id = "cell" + Board.getLetterForNumber(i) + '' + j;
                 cell.innerText = Board.getLetterForNumber(i) + "" + j;
-                $("#"+cell.id).append('<span class="glyphicon glyphicon-screenshot"></span>');
+                $("#" + cell.id).append('<span class="glyphicon glyphicon-screenshot"></span>');
                 cell.addEventListener('click', function (e) {
                     var id;
-                    if ($(e.target).parent()[0].id != ""){
+                    if ($(e.target).parent()[0].id != "") {
                         id = $(e.target).parent()[0].id;
-                    }else{
+                    } else {
                         id = e.target.id;
                     }
                     var x = Board.getNumberForLetter(id.charAt(id.length - 2));
                     var y = id.charAt(id.length - 1);
                     console.log(x);
                     console.log(y);
-                    $("#"+id).off();
+                    $("#" + id).off();
                     fire(x, y, false, id);
                 });
             }
@@ -158,7 +158,7 @@ var Board = {
             Board.tiles[coords[0]][coords[1]].enemy = 'sunk';
         }
     },
-    removeCoordinates: function(coords) {
+    removeCoordinates: function (coords) {
         for (var i = 0; i < Board.boatCoordinates.length; i++) {
             var boatCoords = Board.boatCoordinates[i];
             if (coords.length == boatCoords.length) {

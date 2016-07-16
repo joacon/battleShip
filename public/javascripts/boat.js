@@ -30,9 +30,9 @@ function drop(ev) {
             return; // Tile already has an image in its place
         }
 
-        if (fillTiles(horizontal, ev.target, num)) {
+        if (fillTiles(startTile.data("horizontal"), ev.target, num)) {
             // Reset the original tiles to water
-            tilesToWater(startTile, num);
+            tilesToWater(startTile, num, startTile.data("horizontal")[0]);
         }
     } else {
         num = ev.dataTransfer.getData("text"); // Boat number (1, 2, 3, ..)
@@ -65,7 +65,7 @@ var fillTiles = function (h, originTile, n) {
     // Check if all tiles are available
     var coordinates;
     for (var i = 0; i < n; i++) {
-        if (horizontal[n - 1]) {
+        if (h[n - 1]) {
             coordinates = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i);
             if (Board.tileOccupied(coordinates))
                 return false;
@@ -83,7 +83,7 @@ var fillTiles = function (h, originTile, n) {
     var startTile;
     for (var j = 0; j < n; j++) {
 
-        if (horizontal[n - 1]) {
+        if (h[n - 1]) {
             tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j);
             tile = $("#" + tileId);
             if (j == 0) {
@@ -105,6 +105,7 @@ var fillTiles = function (h, originTile, n) {
     }
     startTile.data("start", true);
     startTile.data("coordinates", boatCoordinates);
+    startTile.data("horizontal", [h[n - 1], h[n - 1], h[n - 1], h[n - 1]]);
     startTile.attr("draggable", "true");
     startTile.attr("ondragstart", "redrag(event)");
     Board.boatCoordinates.push(boatCoordinates);
@@ -131,17 +132,16 @@ var autoPlaceBoats = function () {
     }
 };
 
-var tilesToWater = function (startTile, n) {
+var tilesToWater = function (startTile, n, h) {
     // Remove the coordinates from the board
     Board.removeCoordinates(startTile.data("coordinates"));
     // Set the tiles to blue and water
     var tileId = startTile.attr("id");
     var originTileX = startTile.data("coordinates")[0][0];
     var originTileY = startTile.data("coordinates")[0][1];
-    console.log(startTile.data("coordinates"));
     var tile;
     for (var j = 0; j < n; j++) {
-        if (horizontal[n - 1]) {
+        if (h) {
             tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j);
             tile = $("#" + tileId);
             tile.css('background-color', '#5D71FF');
