@@ -22,11 +22,20 @@ public class Fleet {
     }
 
     public Ship hit(Coordinate coordinate){
-        for(int i=0; i< ships.size(); i++){
-            if(ships.get(i).hitCoordinate(coordinate)){
-                return ships.get(i);
+        for (Ship ship : ships) {
+            if (ship.hitCoordinate(coordinate)) {
+                return ship;
             }
         }
         return null;
+    }
+
+    public boolean allSunk(){
+        for (Ship ship : ships) {
+            if (!ship.isSunk()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

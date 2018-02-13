@@ -17,39 +17,28 @@ public class Ship {
         return ship;
     }
 
-    public boolean checkCoordinate(Coordinate coordinate){
-        boolean hit = false;
-        for (int i = 0; i< ship.size(); i++){
-            if (ship.get(i).getX() == coordinate.getX() && ship.get(i).getY() == coordinate.getY()){
-                hit = ship.get(i).isHit();
-                break;
-            }
-        }
-        return hit;
-    }
-
-    public boolean hitCoordinate(Coordinate coordinate){
-        for (int i = 0; i< ship.size(); i++){
-            if (ship.get(i).getX() == coordinate.getX() && ship.get(i).getY() == coordinate.getY()){
-                ship.get(i).setHit(true);
-                setSinked();
+    boolean hitCoordinate(Coordinate coordinate){
+        for (Coordinate aShip : ship) {
+            if (aShip.getX() == coordinate.getX() && aShip.getY() == coordinate.getY()) {
+                aShip.setHit(true);
+                setSunk();
                 return true;
             }
         }
         return false;
     }
 
-    private void setSinked(){
+    private void setSunk(){
         sunk = true;
-        for (int i = 0; i< ship.size(); i++){
-            if (!ship.get(i).isHit()){
+        for (Coordinate aShip : ship) {
+            if (!aShip.isHit()) {
                 sunk = false;
                 break;
             }
         }
     }
 
-    public boolean isSinked(){
+    public boolean isSunk(){
         return sunk;
     }
 }
