@@ -1,12 +1,12 @@
 package model.dbModels;
 
 import com.avaje.ebean.Model;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import static javax.persistence.CascadeType.ALL;
 
 @Entity
 public class GameMatch extends Model{
@@ -40,6 +40,14 @@ public class GameMatch extends Model{
 
     private String player2Hits;
 
+    private String player1Water;
+
+    private String player2Water;
+
+    private String player1Sinks;
+
+    private String player2Sinks;
+
 
     public GameMatch(User player1, User player2) {
         this.player1 = player1;
@@ -48,6 +56,10 @@ public class GameMatch extends Model{
         this.player2Ships = new ArrayList<>();
         this.player1Hits = "";
         this.player2Hits = "";
+        this.player1Water = "";
+        this.player2Water = "";
+        this.player1Sinks = "";
+        this.player2Sinks = "";
     }
 
     public long getId() {
@@ -146,14 +158,6 @@ public class GameMatch extends Model{
         this.player2Hits = hits.substring(0, hits.length() - 1);
     }
 
-    public Ship getShipInPosition(boolean player, int x, int y){
-        if (!player){
-            return getShipInPosition(player1Ships, x, y);
-        }else {
-            return getShipInPosition(player2Ships, x, y);
-        }
-    }
-
     private Ship getShipInPosition(List<Ship> ships, int x, int y){
         for (Ship ship : ships) {
             if (ship.hasPosition(x, y)) return ship;
@@ -163,13 +167,13 @@ public class GameMatch extends Model{
 
     public void addHit(boolean player, int x, int y){
         if (player){
-            this.player1Hits = addHit(getPlayer1Hits(), x, y);
+            this.player1Hits = getCoordinateText(getPlayer1Hits(), x, y);
         }else{
-            this.player2Hits = addHit(getPlayer2Hits(), x, y);
+            this.player2Hits = getCoordinateText(getPlayer2Hits(), x, y);
         }
     }
 
-    private String addHit(String[] hits, int x, int y){
+    private String getCoordinateText(String[] hits, int x, int y){
         String h = String.join(",", hits);
         if (!h.equals("")){
             h += ",";
@@ -177,4 +181,69 @@ public class GameMatch extends Model{
         h += x + "" + y;
         return h;
     }
+
+    public String[] getPlayer1Water() {
+        return player1Water.split(",");
+    }
+
+    public String[] getPlayer2Water() {
+        return player2Water.split(",");
+    }
+
+    public String[] getPlayer1Sinks() {
+        return player1Sinks.split(",");
+    }
+
+    public String[] getPlayer2Sinks() {
+        return player2Sinks.split(",");
+    }
+
+    public void addWater(boolean player, int x, int y){
+        if (player){
+            this.player1Water = getCoordinateText(getPlayer1Water(), x, y);
+        }else{
+            this.player2Water = getCoordinateText(getPlayer2Water(), x, y);
+        }
+    }
+
+    public void addSinks(boolean player, int x, int y){
+        if (player){
+            Ship ship = getShipInPosition(getPlayer2Ships(), x, y);
+            if (ship != null) {
+                ship.setSunk(true);
+                this.player1Sinks = sinkShip(player1Sinks, ship);
+                this.player1Hits = removeSinks(getPlayer1Hits(), ship);
+            }
+        }else{
+            Ship ship = getShipInPosition(getPlayer1Ships(), x, y);
+            if (ship != null) {
+                ship.setSunk(true);
+                this.player2Sinks = sinkShip(player2Sinks, ship);
+                this.player2Hits = removeSinks(getPlayer2Hits(), ship);
+            }
+        }
+    }
+
+    private String sinkShip(String sinks, Ship ship){
+        String h = String.join(",", ship.getPosition());
+        if (sinks.equals("")){
+            sinks = h;
+        }else {
+            sinks = sinks.concat("," + h);
+        }
+        return sinks;
+    }
+
+    private String removeSinks(String[] hits, Ship ship){
+        for (String s : ship.getPosition()) {
+            for (String hit : hits) {
+                if (s.equals(hit)){
+                    hits = ArrayUtils.removeElement(hits, hit);
+                    break;
+                }
+            }
+        }
+        return String.join(",", hits);
+    }
+
 }

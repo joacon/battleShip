@@ -3,8 +3,12 @@ package controllers;
 import actor.GameRoom;
 import actor.GameRoomManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import model.dbModels.User;
 import play.mvc.*;
 import akka.actor.*;
+import services.UserService;
+
+import java.util.Optional;
 
 /**
  * Created by joaquin on 01/06/16.
@@ -14,10 +18,11 @@ public class SocketCtrl extends Controller {
 
     public LegacyWebSocket<String> socket() {
         String id2 = session("id");
+        Optional<User> userByFBId = UserService.getUserService().getUserByFBId(Long.parseLong(id2));
         return  new LegacyWebSocket<String>() {
             @Override public void onReady(WebSocket.In in, WebSocket.Out out) {
                 try {
-                    GameRoomManager.join(id2 + "$" + Math.random(), in, out);
+                    GameRoomManager.join(id2 + "$" + Math.random(), in, out, userByFBId.get());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

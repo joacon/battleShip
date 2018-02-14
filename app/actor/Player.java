@@ -37,7 +37,7 @@ public class Player extends AbstractActor{
                               .match(Messages.Miss.class, this::miss)
                               .match(Messages.Sink.class, this::sink)
                               .match(Messages.Win.class, this::win)
-                              .match(Messages.Reconnect.class, this::reconect)
+                              .match(Messages.Reconnect.class, this::reconnect)
                         .build()
         );
 
@@ -49,85 +49,132 @@ public class Player extends AbstractActor{
             public void run() {
                 System.out.println(room);
                 room.tell(new Messages.Leave(user), self());
-                out("{\"action\":\"Opponent left\"}");
+                JSONObject json = new JSONObject();
+                json.put("action", "Opponent left");
+                out(json.toString());
             }
         });
     }
 
-    private void reconect(Messages.Reconnect msg) {
+    private void reconnect(Messages.Reconnect msg) {
         this.in = msg.in;
         this.out = msg.out;
+        this.in.onMessage(this::in);
+        System.out.printf("Player %s reconnected in %s\n", self().path(), room.path());
+        JSONObject json = new JSONObject();
+        json.put("action", "ReconnectLayout");
+        out(json.toString());
+        room.tell(new Messages.ReconnectReady(self()), self());
     }
 
     private void win(Messages.Win msg) {
-        sink(msg.sink);
-        if (msg.you) {
-            out("{\"action\":\"You win\"}");
-        }else {
-            out("{\"action\":\"You lose\"}");
+        if (msg.sink != null) {
+            sink(msg.sink);
         }
+        JSONObject json = new JSONObject();
+        if (msg.you) {
+            json.put("action", "You win");
+        }else {
+            json.put("action", "You lose");
+        }
+        out(json.toString());
     }
 
     private void sink(Messages.Sink msg) {
         Ship ship = msg.ship;
         List<Coordinate> coordinates = ship.getShip();
         JSONArray shipCoor = new JSONArray();
-        for (int i = 0; i< coordinates.size(); i++){
-            Coordinate c = coordinates.get(i);
+        for (Coordinate c : coordinates) {
             shipCoor.put(c.getCoor());
         }
-        if (msg.fromYou) {
-            out("{\"action\":\"You sinked your enemy\", \"ship\" : \"" + shipCoor + "\"}");
+        JSONObject json = new JSONObject();
+        json.put("ship", shipCoor.toString());
+        if (msg.fromYou){
+            json.put("action", "You sinked your enemy");
         }else{
-            out("{\"action\":\"You are sinked\", \"ship\" : \"" + shipCoor + "\"}");
+            json.put("action", "You are sinked");
         }
+        out(json.toString());
     }
 
     private void miss(Messages.Miss msg) {
+        JSONObject json = new JSONObject();
+        json.put("x", msg.x);
+        json.put("y", msg.y);
         if (msg.fromYou){
-            out("{\"action\":\"You missed\", \"x\" : \""+msg.x+"\" , \"y\" : \""+msg.y+"\"}");
+            json.put("action", "You missed");
         }else{
-            out("{\"action\":\"You are safe\", \"x\" : \""+msg.x+"\" , \"y\" : \""+msg.y+"\"}");
+            json.put("action", "You are safe");
         }
+        out(json.toString());
     }
 
     private void hit(Messages.Hit msg) {
+        JSONObject json = new JSONObject();
+        json.put("x", msg.x);
+        json.put("y", msg.y);
         if (msg.fromYou){
-            out("{\"action\":\"You hit\", \"x\" : \""+msg.x+"\" , \"y\" : \""+msg.y+"\"}");
+            json.put("action", "You hit");
         }else{
-            out("{\"action\":\"You were hitted\", \"x\" : \""+msg.x+"\" , \"y\" : \""+msg.y+"\"}");
+            json.put("action", "You were hitted");
         }
-
+        out(json.toString());
     }
 
     private void wait(Messages.Wait msg) {
-        out("{\"action\":\"Wait\"}");
+        JSONObject json = new JSONObject();
+        json.put("action", "Wait");
+        if (msg.fires != null) {
+            json.put("hits", msg.fires.toString());
+        }else {
+            json.put("hits", msg.fires);
+
+        }
+        out(json.toString());
     }
 
     private void checkFeedback(Messages.Feedback msg) {
+        JSONObject json = new JSONObject();
         if (msg.hit){
-            out("{\"action\":\"Hit\"}");
+            json.put("action", "Hit");
         }else{
-            out("{\"action\":\"Miss\"}");
+            json.put("action", "Miss");
         }
+        out(json.toString());
     }
 
     private void checkFire(Messages.Fire fire) {
-        out("{\"action\": \"Fire\", \"x\":"+fire.x+", \"y\":" +fire.y+"}");
+        JSONObject json = new JSONObject();
+        json.put("action", "Fire");
+        json.put("x", fire.x);
+        json.put("y", fire.y);
+        out(json.toString());
     }
 
-    private void play(Messages.Play ready) {
-        out("{\"action\":\"Play\"}");
+    private void play(Messages.Play play) {
+        JSONObject json = new JSONObject();
+        json.put("action", "Play");
+        if (play.fires != null) {
+            json.put("hits", play.fires.toString());
+        }else {
+            json.put("hits", play.fires);
+
+        }
+        out(json.toString());
     }
 
     private void join(Join join) {
         this.room = sender();
         System.out.printf("Player %s joined %s\n", self().path(), room.path());
-        out("{\"action\":\"Layout\"}");
+        JSONObject json = new JSONObject();
+        json.put("action", "Layout");
+        out(json.toString());
     }
 
     private void left(Messages.Leave leave){
-        out("{\"action\":\"Opponent left\"}");
+        JSONObject json = new JSONObject();
+        json.put("action", "Opponent left");
+        out(json.toString());
     }
 
     private void in(Object message) {
@@ -142,11 +189,7 @@ public class Player extends AbstractActor{
 
     private void feedback(String[] arr) {
         boolean hit;
-        if("true".equals(arr[1])){
-            hit = true;
-        }else {
-            hit = false;
-        }
+        hit = "true".equals(arr[1]);
         room.tell(new Messages.Feedback(hit),self());
     }
 
@@ -164,7 +207,7 @@ public class Player extends AbstractActor{
         out.write(message);
     }
 
-    public static Props props(String user, WebSocket.In in, WebSocket.Out out) {
+    static Props props(String user, WebSocket.In in, WebSocket.Out out) {
         return Props.create(Player.class, () -> new Player(user, in, out));
     }
 }

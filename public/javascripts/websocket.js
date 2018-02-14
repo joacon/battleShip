@@ -28,19 +28,27 @@ function post(message) {
 function onMessage(event) {
     var json = JSON.parse(event.data);
     var action = json.action;
+
     if (action === "Layout") {
         setTimeout(function () {
             $('.game').css("display", "block");
             $('.waiting').css("display", "none");
         }, 1500);
-        $('.waiting-text').text("Matching with oponent");
-    } else if (action === "Opponent left") {
-        $('.game').css("display", "none");
-        $('.opponent-left').css("display", "block");
-    } else if (action === "Play") { //este jugador puede jugar
+        $('.waiting-text').text("Matching with opponent");
+    }
+
+    else if (action === "Opponent left") {
+        // $('.game').css("display", "none");
+        // $('.opponent-left').css("display", "block");
+        $('.waiting-text').text("Opponent left, 30 seconds to re join");
+    }
+
+
+    else if (action === "Play") { //este jugador puede jugar
         if (!gameStarted) {
             gameStarted = true;
         }
+        console.log(json);
         $(".panel-bottom").css("display", "block");
         $("#fire-btn").css("display", "block");
         Board.displayEnemyBoard();
@@ -53,7 +61,12 @@ function onMessage(event) {
                 $("body").css("opacity", 1);
             }, 1000);
         }, 1000);
-    } else if (action === "You hit") { //Su ultimo tiro pego en el barco del otro
+
+        reconnectBoard(json.hits);
+    }
+
+
+    else if (action === "You hit") { //Su ultimo tiro pego en el barco del otro
         var x = json.x;
         var y = json.y;
         $("body").append("<div class='message-div'><p class='fire-message hit'>Hit!</p></div>");
@@ -63,7 +76,9 @@ function onMessage(event) {
             $("body").css("opacity", 1);
         }, 1000);
         Board.tiles[lastShot[0]][lastShot[1]].enemy = 'hit';
-    } else if (action === "You were hitted") { //Su ultimo tiro pego en el barco del otro
+    }
+
+    else if (action === "You were hitted") { //Su ultimo tiro pego en el barco del otro
         Board.tiles[json.x][json.y].ownHit = 'hit';
         var x = json.x;
         var y = json.y;
@@ -73,7 +88,10 @@ function onMessage(event) {
             $(".hit").remove();
             $("body").css("opacity", 1);
         }, 1000);
-    } else if (action === "You missed") {// Su ultimo tiro pifio
+    }
+
+
+    else if (action === "You missed") {// Su ultimo tiro pifio
         var x = json.x;
         var y = json.y;
         $("body").append("<div class='message-div'><p class='fire-message miss'>You missed!</p></div>");
@@ -83,7 +101,10 @@ function onMessage(event) {
             $("body").css("opacity", 1);
         }, 1000);
         Board.tiles[lastShot[0]][lastShot[1]].enemy = 'miss';
-    } else if (action === "You are safe") {// Su enemigo pifio
+    }
+
+
+    else if (action === "You are safe") {// Su enemigo pifio
         Board.tiles[json.x][json.y].ownHit = 'miss';
         var x = json.x;
         var y = json.y;
@@ -93,7 +114,10 @@ function onMessage(event) {
             $(".miss").remove();
             $("body").css("opacity", 1);
         }, 1000);
-    } else if (action === "Wait") {//este jugador esta esperando a que el otro juegue
+    }
+
+
+    else if (action === "Wait") {//este jugador esta esperando a que el otro juegue
         if (!gameStarted) {
             gameStarted = true;
         }
@@ -109,7 +133,12 @@ function onMessage(event) {
                 $("body").css("opacity", 1);
             }, 1000);
         }, 1000);
-    } else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
+
+        reconnectBoard(json.hits);
+    }
+
+
+    else if (action === "You sinked your enemy") {//este jugador hundio un barco de su enemigo
         var ship = JSON.parse(json.ship);
         $("body").append("<div class='message-div'><p class='fire-message sink'>You sunk your opponent's battleship!</p></div>");
         // $("body").css("opacity", 0.5);
@@ -118,7 +147,10 @@ function onMessage(event) {
             $("body").css("opacity", 1);
         }, 1000);
         Board.sinkEnemyShip(ship);
-    } else if (action === "You are sinked") {//a este jugador le hundieron un bote
+    }
+
+
+    else if (action === "You are sinked") {//a este jugador le hundieron un bote
         var ship = JSON.parse(json.ship);
         $("body").append("<div class='message-div'><p class='fire-message sink'>The enemy sunk your battleship!</p></div>");
         // $("body").css("opacity", 0.5);
@@ -127,7 +159,10 @@ function onMessage(event) {
             $("body").css("opacity", 1);
         }, 1000);
         Board.sinkOwnShip(ship);
-    } else if (action === "You win") {//este jugador gano
+    }
+
+
+    else if (action === "You win") {//este jugador gano
         gameOver(true);
         setTimeout(function () {
             $( "body" ).append( "<div class='message-div'><p class='fire-message win'>You won!</p></div>" );
@@ -142,7 +177,10 @@ function onMessage(event) {
                 },1000);
             },1000);
         }, 1000);
-    } else if (action === "You lose") {//este jugador perdio
+    }
+
+
+    else if (action === "You lose") {//este jugador perdio
         gameOver(false);
         setTimeout(function () {
             $( "body" ).append( "<div class='message-div'><p class='fire-message lose'>You lost! :(</p></div>" );
@@ -157,6 +195,20 @@ function onMessage(event) {
                 },1000);
             },1000);
         }, 1000);
+    }
+
+
+    else if (action === "ReconnectLayout"){
+        setTimeout(function () {
+            $('.game').css("display", "block");
+            $('.waiting').css("display", "none");
+            $("#ready-btn").prop("disabled", true);
+            $("#buttons").css("display", "none");
+            $("#auto-place-btn").css("display", "none");
+            $("#ready-btn").css("display", "none");
+            $(".title").html("Enemy's Board");
+        }, 1500);
+        $('.waiting-text').text("Matching with opponent");
     }
 }
 
@@ -185,6 +237,46 @@ var Websocket = {
         $(".title").html("Waiting for your enemy");
     }
 };
+
+
+function reconnectBoard(jsonHits){
+    console.log("Reconnected...");
+    if (jsonHits !== null){
+        var hits = JSON.parse(jsonHits);
+        console.log(hits);
+        var myHits = hits[0];
+        for (var i = 0; i < myHits.length; i++) {
+            var coords = myHits[i];
+            Board.changeTile(coords[0], coords[1], 'hit');
+            Board.tiles[coords[0]][coords[1]].enemy = 'hit';
+        }
+        var ownHits = hits[1];
+        for (var i = 0; i < ownHits.length; i++) {
+            var coords = ownHits[i];
+            Board.tiles[coords[0]][coords[1]].ownHit = 'hit';
+        }
+        var misses = hits[2];
+        for (var i = 0; i < misses.length; i++) {
+            var coords = misses[i];
+            Board.tiles[coords[0]][coords[1]].enemy = 'miss';
+        }
+        var ownMisses = hits[3];
+        for (var i = 0; i < ownMisses.length; i++) {
+            var coords = ownMisses[i];
+            Board.tiles[coords[0]][coords[1]].ownHit = 'miss';
+        }
+        var sunks = JSON.parse(hits[4]);
+        Board.sinkEnemyShip(sunks);
+        var ownSunks = JSON.parse(hits[5]);
+        Board.sinkOwnShip(ownSunks);
+        // var myShips = hits[6];
+        // myShips.forEach(functionmyShip){
+        //     myShip.forEach(coords in myShip){
+        //         Board.changeTile(coords[0], coords[1], 'boat');
+        //     }
+        // }
+    }
+}
 
 /*function fire(x, y) {//pegale a este metodo para disparar
 

@@ -2,7 +2,10 @@ package actor;
 
 import akka.actor.ActorRef;
 import model.Ship;
+import model.dbModels.GameMatch;
+import model.dbModels.User;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import play.mvc.WebSocket;
 
 public class Messages {
@@ -19,16 +22,35 @@ public class Messages {
         public final String user;
         public final WebSocket.In in;
         public final WebSocket.Out out;
+        public final User dbUser;
 
-        public Connection(String user, WebSocket.In in, WebSocket.Out out) {
+        public Connection(String user, WebSocket.In in, WebSocket.Out out, User dbUser) {
             this.user = user;
             this.in = in;
             this.out = out;
+            this.dbUser = dbUser;
+        }
+    }
+    public static class ReconnectReady{
+        public final ActorRef player;
+
+        public ReconnectReady(ActorRef player) {
+            this.player = player;
         }
     }
     public static class Play{
+        public final JSONObject fires;
+
+        public Play(JSONObject fires) {
+            this.fires = fires;
+        }
     }
     public static class Wait{
+        public final JSONObject fires;
+
+        public Wait(JSONObject fires) {
+            this.fires = fires;
+        }
     }
     public static class Ready{
         public final ActorRef player;
@@ -105,6 +127,18 @@ public class Messages {
         public Reconnect(WebSocket.In in, WebSocket.Out out) {
             this.in = in;
             this.out = out;
+        }
+    }
+
+    public static class EndGame{
+        public final ActorRef player1;
+        public final ActorRef player2;
+        public final ActorRef room;
+
+        public EndGame(ActorRef player1, ActorRef player2, ActorRef room) {
+            this.player1 = player1;
+            this.player2 = player2;
+            this.room = room;
         }
     }
 }

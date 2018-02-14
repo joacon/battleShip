@@ -2,19 +2,11 @@ package actor;
 
 import akka.actor.*;
 import akka.japi.pf.ReceiveBuilder;
-import akka.pattern.Patterns;
-import akka.util.Timeout;
+import model.dbModels.User;
 import play.mvc.WebSocket;
-import scala.concurrent.Await;
-import scala.concurrent.Future;
-import scala.concurrent.duration.Duration;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 /**
  * Created by joaquin on 05/06/16.
@@ -22,11 +14,13 @@ import java.util.function.Consumer;
 public class GameRoomManager extends AbstractActor {
     private List<ActorRef> rooms = new ArrayList<>();
     private List<ActorRef> waiting = new ArrayList<>();
-
+    private List<ActorRef> currentPlayers = new ArrayList<>();
 
     public GameRoomManager() {
         receive(
-                ReceiveBuilder.match(Messages.Connection.class, this::connection)
+                ReceiveBuilder
+                        .match(Messages.Connection.class, this::connection)
+                        .match(Messages.EndGame.class, this::endGame)
                         .build()
         );
     }
@@ -36,7 +30,11 @@ public class GameRoomManager extends AbstractActor {
         if (existing == null) {
             waiting.add(context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-" + connect.user));
             if (waiting.size() > 1) {
-                ActorRef actorRef = context().system().actorOf(GameRoom.props(waiting.remove(0), waiting.remove(0)), "room-" + rooms.size());
+                ActorRef player1 = waiting.remove(0);
+                ActorRef player2 = waiting.remove(0);
+                currentPlayers.add(player1);
+                currentPlayers.add(player2);
+                ActorRef actorRef = context().system().actorOf(GameRoom.props(player1, player2), "room-" + rooms.size());
                 rooms.add(actorRef);
             }
         }else{
@@ -45,31 +43,41 @@ public class GameRoomManager extends AbstractActor {
     }
 
     private ActorRef checkConnected(Messages.Connection connect) {
-        Iterator<ActorRef> roomIterator = rooms.iterator();
-        while (roomIterator.hasNext()){
-            ActorRef player = roomIterator.next();
-            if (player.path().name().split("$")[0].equals("player-"+connect.user)){
+        for (ActorRef player : currentPlayers) {
+            if (player.path().name().split("\\$")[0].equals("player-" + connect.user.split("\\$")[0])) {
                 return player;
             }
         }
-        Iterator<ActorRef> waitingIterator = waiting.iterator();
-        while (waitingIterator.hasNext()){
-            ActorRef player = waitingIterator.next();
-            if (player.path().name().split("$")[0].equals("player-"+connect.user)){
+        for (ActorRef player : waiting) {
+            if (player.path().name().split("\\$")[0].equals("player-" + connect.user)) {
                 return player;
             }
         }
         return null;
     }
 
-    public static Props props() {
+    private void endGame(Messages.EndGame msg){
+        for (ActorRef player : currentPlayers) {
+            if (player.path().name().split("\\$")[0].equals(msg.player1.path().name().split("\\$")[0])
+                    || player.path().name().split("\\$")[0].equals(msg.player2.path().name().split("\\$")[0]) ) {
+                currentPlayers.remove(player);
+            }
+        }
+        for (ActorRef room : rooms) {
+            if (room.equals(msg.room)){
+                rooms.remove(room);
+            }
+        }
+    }
+
+    private static Props props() {
         return Props.create(GameRoomManager.class);
     }
 
     private static final ActorSystem actorSystem = ActorSystem.create();
-    private static final ActorRef MAIN_GAME = actorSystem.actorOf(GameRoomManager.props(), "manager");
+    public static final ActorRef MAIN_GAME = actorSystem.actorOf(GameRoomManager.props(), "manager");
 
-    public static void join(String user, WebSocket.In in, WebSocket.Out out) throws Exception {
-        MAIN_GAME.tell(new Messages.Connection(user, in, out), MAIN_GAME);
+    public static void join(String user, WebSocket.In in, WebSocket.Out out, User dbUser) throws Exception {
+        MAIN_GAME.tell(new Messages.Connection(user, in, out, dbUser), MAIN_GAME);
     }
 }

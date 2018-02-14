@@ -10,6 +10,8 @@ import model.Ship;
 import model.dbModels.GameMatch;
 import model.dbModels.User;
 import org.json.JSONArray;
+import org.json.JSONObject;
+import services.EndGameTask;
 import services.UserService;
 
 import java.util.*;
@@ -44,23 +46,93 @@ public class GameRoom extends AbstractActor {
 
         receive(
                 ReceiveBuilder
-                              .match(Messages.Leave.class, this::tellPlayers)
+                              .match(Messages.Leave.class, this::playerLeft)
                               .match(Messages.Ready.class, this::checkReady)
                               .match(Messages.Fire.class, this::checkFire)
                               .match(Messages.Feedback.class, this::sendFeedback)
+                              .match(Messages.ReconnectReady.class, this::reconnectPlayer)
                         .build()
         );
+    }
+
+    private void playerLeft(Messages.Leave msg) {
+        Timer t = new Timer();
+        User winner;
+        String fbId = msg.user.split("\\$")[0];
+        if (Long.parseLong(fbId) == player1User.getFacebookId()){
+            winner = player2User;
+            match.setPlayer1Ready(false);
+        }else {
+            match.setPlayer2Ready(false);
+            winner = player1User;
+        }
+        match.save();
+        t.schedule(new EndGameTask(player1, player2, match, winner, self()), 30000);
+    }
+
+    private void reconnectPlayer(Messages.ReconnectReady msg) {
+        if (msg.player.equals(player1)){
+            match.setPlayer1Ready(true);
+            if (turn) {
+                msg.player.tell(new Messages.Play(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
+            }else {
+                msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
+            }
+        }else {
+            match.setPlayer2Ready(true);
+            if (!turn) {
+                msg.player.tell(new Messages.Play(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
+            }else {
+                msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
+            }
+        }
+        match.save();
+    }
+
+    private JSONObject getPlayerHits(List<model.dbModels.Ship> myShips, String[] myHits, String[] enemyHits, String[] myWater, String[] enemyWater, String[] mySink, String[] enemySink){
+        JSONObject json = new JSONObject();
+        JSONArray shipsJson = new JSONArray();
+        for (model.dbModels.Ship myShip : myShips) {
+            shipsJson.put(getCoors(myShip.getPosition()));
+        }
+        JSONArray myHitsJson = getCoors(myHits);
+        JSONArray enemyHitsJson = getCoors(enemyHits);
+        JSONArray myWaterJson = getCoors(myWater);
+        JSONArray enemyWaterJson = getCoors(enemyWater);
+        JSONArray mySinksJson = getCoors(mySink);
+        JSONArray enemySinkJson = getCoors(enemySink);
+        json.put("myShips", shipsJson);
+        json.put("myHits", myHitsJson);
+        json.put("enemyHits", enemyHitsJson);
+        json.put("myWater", myWaterJson);
+        json.put("enemyWater", enemyWaterJson);
+        json.put("mySinks", mySinksJson);
+        json.put("enemySinks", enemySinkJson);
+        return json;
+    }
+
+    private JSONArray getCoors(String[] arr){
+        JSONArray jsonArray = new JSONArray();
+        for (String s : arr) {
+            if (!s.equals("")) {
+                JSONObject coor = new JSONObject();
+                coor.put("x", s.charAt(0));
+                coor.put("y", s.charAt(1));
+                jsonArray.put(coor);
+            }
+        }
+        return jsonArray;
     }
 
     private void sendFeedback(Messages.Feedback msg) {
         if (turn){
             player1.tell(msg, self());
-            player1.tell(new Messages.Wait(), self());
-            player2.tell(new Messages.Play(), self());
+            player1.tell(new Messages.Wait(null), self());
+            player2.tell(new Messages.Play(null), self());
         }else {
             player2.tell(msg, self());
-            player2.tell(new Messages.Wait(), self());
-            player1.tell(new Messages.Play(), self());
+            player2.tell(new Messages.Wait(null), self());
+            player1.tell(new Messages.Play(null), self());
         }
         changeTurn();
     }
@@ -83,11 +155,11 @@ public class GameRoom extends AbstractActor {
             receiver = player1;
         }
         Ship ship = fleet.hit(new Coordinate(msg.x, msg.y));
-        match.addHit(turn, msg.x, msg.y);
         if (ship != null && ship.isSunk()){
             if (fleet.allSunk()){
                 hitter.tell(new Messages.Win(new Messages.Sink(ship, true), true), self());
                 receiver.tell(new Messages.Win(new Messages.Sink(ship, false), false), self());
+                GameRoomManager.MAIN_GAME.tell(new Messages.EndGame(player1, player2, self()), self());
                 match.setWinner(match.getTurn());
                 User user = getUser(hitter);
                 if (user != null) {
@@ -97,11 +169,13 @@ public class GameRoom extends AbstractActor {
             }else{
                 sendFireSinkFeedback(msg,receiver,hitter,ship);
             }
-            match.getShipInPosition(turn, msg.x, msg.y).setSunk(true);
+            match.addSinks(turn, msg.x, msg.y);
         }else if (ship != null){
             sendFireHitFeedback(msg,receiver,hitter);
+            match.addHit(turn, msg.x, msg.y);
         }else {
             sendFireMissFeedback(msg,receiver,hitter);
+            match.addWater(turn, msg.x, msg.y);
         }
         changeTurn();
     }
@@ -121,22 +195,22 @@ public class GameRoom extends AbstractActor {
     private void sendFireHitFeedback(Messages.Fire msg, ActorRef playerHit, ActorRef shooter){
         shooter.tell(new Messages.Hit(msg.x, msg.y, true),self());
         playerHit.tell(new Messages.Hit(msg.x, msg.y, false),self());
-        shooter.tell(new Messages.Wait(), self());
-        playerHit.tell(new Messages.Play(), self());
+        shooter.tell(new Messages.Wait(null), self());
+        playerHit.tell(new Messages.Play(null), self());
     }
 
     private void sendFireMissFeedback(Messages.Fire msg, ActorRef playerMiss, ActorRef shooter){
         shooter.tell(new Messages.Miss(msg.x, msg.y, true),self());
         playerMiss.tell(new Messages.Miss(msg.x, msg.y, false), self());
-        shooter.tell(new Messages.Wait(), self());
-        playerMiss.tell(new Messages.Play(), self());
+        shooter.tell(new Messages.Wait(null), self());
+        playerMiss.tell(new Messages.Play(null), self());
     }
 
     private void sendFireSinkFeedback(Messages.Fire msg, ActorRef playerSink, ActorRef shooter, Ship ship){
         shooter.tell(new Messages.Sink(ship, true), self());
         playerSink.tell(new Messages.Sink(ship, false), self());
-        shooter.tell(new Messages.Wait(), self());
-        playerSink.tell(new Messages.Play(), self());
+        shooter.tell(new Messages.Wait(null), self());
+        playerSink.tell(new Messages.Play(null), self());
     }
 
     private void checkReady(Messages.Ready msg){
@@ -157,8 +231,8 @@ public class GameRoom extends AbstractActor {
             match.setPlayer2Ready(true);
             match.save();
         }if (p1Ready && p2Ready){
-            player1.tell(new Messages.Play(), self());
-            player2.tell(new Messages.Wait(), self());
+            player1.tell(new Messages.Play(null), self());
+            player2.tell(new Messages.Wait(null), self());
             turn = true;
             match.setTurn(getUser(player1));
             match.save();
