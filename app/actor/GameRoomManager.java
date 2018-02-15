@@ -15,8 +15,10 @@ public class GameRoomManager extends AbstractActor {
     private List<ActorRef> rooms = new ArrayList<>();
     private List<ActorRef> waiting = new ArrayList<>();
     private List<ActorRef> currentPlayers = new ArrayList<>();
+    private static int totalRooms;
 
     public GameRoomManager() {
+        totalRooms = 0;
         receive(
                 ReceiveBuilder
                         .match(Messages.Connection.class, this::connection)
@@ -34,8 +36,9 @@ public class GameRoomManager extends AbstractActor {
                 ActorRef player2 = waiting.remove(0);
                 currentPlayers.add(player1);
                 currentPlayers.add(player2);
-                ActorRef actorRef = context().system().actorOf(GameRoom.props(player1, player2), "room-" + rooms.size());
+                ActorRef actorRef = context().system().actorOf(GameRoom.props(player1, player2), "room-" + totalRooms);
                 rooms.add(actorRef);
+                totalRooms++;
             }
         }else{
             existing.tell(new Messages.Reconnect(connect.in, connect.out), self());
@@ -45,11 +48,13 @@ public class GameRoomManager extends AbstractActor {
     private ActorRef checkConnected(Messages.Connection connect) {
         for (ActorRef player : currentPlayers) {
             if (player.path().name().split("\\$")[0].equals("player-" + connect.user.split("\\$")[0])) {
+                System.out.println(player.path().name() + " is joining back into his game");
                 return player;
             }
         }
         for (ActorRef player : waiting) {
-            if (player.path().name().split("\\$")[0].equals("player-" + connect.user)) {
+            if (player.path().name().split("\\$")[0].equals("player-" + connect.user.split("\\$")[0])) {
+                System.out.println(player.path().name() + " is joining back into his waiting");
                 return player;
             }
         }
@@ -57,15 +62,19 @@ public class GameRoomManager extends AbstractActor {
     }
 
     private void endGame(Messages.EndGame msg){
+        List<ActorRef> removePlayers = new ArrayList<>();
         for (ActorRef player : currentPlayers) {
             if (player.path().name().split("\\$")[0].equals(msg.player1.path().name().split("\\$")[0])
                     || player.path().name().split("\\$")[0].equals(msg.player2.path().name().split("\\$")[0]) ) {
-                currentPlayers.remove(player);
+                removePlayers.add(player);
+                System.out.println("Removing player from rooms " + player.path().name());
             }
         }
+        currentPlayers.removeAll(removePlayers);
         for (ActorRef room : rooms) {
             if (room.equals(msg.room)){
                 rooms.remove(room);
+                break;
             }
         }
     }

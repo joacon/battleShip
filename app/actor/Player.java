@@ -20,6 +20,7 @@ public class Player extends AbstractActor{
     public WebSocket.In in;
     public WebSocket.Out out;
     private ActorRef room = null;
+    private boolean isReady;
 
     public Player(String user, WebSocket.In in, WebSocket.Out out){
         this.user = user;
@@ -38,10 +39,21 @@ public class Player extends AbstractActor{
                               .match(Messages.Sink.class, this::sink)
                               .match(Messages.Win.class, this::win)
                               .match(Messages.Reconnect.class, this::reconnect)
+                              .match(Messages.WaitingPlayer.class, this::waitingNotification)
                         .build()
         );
 
 
+        replaceIn(in);
+    }
+
+    private void waitingNotification(Messages.WaitingPlayer msg) {
+        JSONObject json = new JSONObject();
+        json.put("action", "WaitingComeback");
+        out(json.toString());
+    }
+
+    private void replaceIn(WebSocket.In in){
         in.onMessage(this::in);
 
         in.onClose(new Runnable() {
@@ -59,10 +71,14 @@ public class Player extends AbstractActor{
     private void reconnect(Messages.Reconnect msg) {
         this.in = msg.in;
         this.out = msg.out;
-        this.in.onMessage(this::in);
+        replaceIn(this.in);
         System.out.printf("Player %s reconnected in %s\n", self().path(), room.path());
         JSONObject json = new JSONObject();
-        json.put("action", "ReconnectLayout");
+        if (isReady) {
+            json.put("action", "ReconnectLayout");
+        }else {
+            json.put("action", "Layout");
+        }
         out(json.toString());
         room.tell(new Messages.ReconnectReady(self()), self());
     }
@@ -194,6 +210,7 @@ public class Player extends AbstractActor{
     }
 
     private void ready(JSONArray obj){
+        this.isReady = true;
         room.tell(new Messages.Ready(self(), obj), self());
     }
 

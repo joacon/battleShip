@@ -56,21 +56,28 @@ public class GameRoom extends AbstractActor {
     }
 
     private void playerLeft(Messages.Leave msg) {
-        Timer t = new Timer();
-        User winner;
         String fbId = msg.user.split("\\$")[0];
+        System.out.println("Player with fbID " + fbId + " left.");
+        Timer t = match.getTimer();
+        User winner;
         if (Long.parseLong(fbId) == player1User.getFacebookId()){
             winner = player2User;
             match.setPlayer1Ready(false);
+            player2.tell(new Messages.WaitingPlayer(), self());
         }else {
             match.setPlayer2Ready(false);
             winner = player1User;
+            player1.tell(new Messages.WaitingPlayer(), self());
         }
         match.save();
         t.schedule(new EndGameTask(player1, player2, match, winner, self()), 30000);
     }
 
     private void reconnectPlayer(Messages.ReconnectReady msg) {
+        System.out.println("Player " + msg.player.path().name() + " returned.");
+        match.getTimer().cancel();
+        match.getTimer().purge();
+        match.setTimer(new Timer());
         if (msg.player.equals(player1)){
             match.setPlayer1Ready(true);
             if (turn) {

@@ -33,6 +33,9 @@ function onMessage(event) {
         setTimeout(function () {
             $('.game').css("display", "block");
             $('.waiting').css("display", "none");
+            $(".panel-bottom").css("display", "none");
+            $("#fire-btn").css("display", "none");
+            $(".message-div").css("display", "none");
         }, 1500);
         $('.waiting-text').text("Matching with opponent");
     }
@@ -207,6 +210,14 @@ function onMessage(event) {
             $("#auto-place-btn").css("display", "none");
             $("#ready-btn").css("display", "none");
             $(".title").html("Enemy's Board");
+        }, 1500);
+        $('.waiting-text').text("Matching with opponent");
+    }
+
+    else if (action === "WaitingComeback"){
+        setTimeout(function () {
+            console.log("Waiting for comeback");
+            $('.waiting-text').text("Opponent left, 30 seconds to re join");
         }, 1500);
         $('.waiting-text').text("Matching with opponent");
     }

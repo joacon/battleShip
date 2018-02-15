@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
 
 @Entity
 public class GameMatch extends Model{
@@ -48,6 +49,8 @@ public class GameMatch extends Model{
 
     private String player2Sinks;
 
+    private Timer timer;
+
 
     public GameMatch(User player1, User player2) {
         this.player1 = player1;
@@ -60,6 +63,7 @@ public class GameMatch extends Model{
         this.player2Water = "";
         this.player1Sinks = "";
         this.player2Sinks = "";
+        this.timer = new Timer();
     }
 
     public long getId() {
@@ -246,4 +250,11 @@ public class GameMatch extends Model{
         return String.join(",", hits);
     }
 
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
 }

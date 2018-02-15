@@ -130,6 +130,11 @@ public class Messages {
         }
     }
 
+    public static class WaitingPlayer{
+        public WaitingPlayer() {
+        }
+    }
+
     public static class EndGame{
         public final ActorRef player1;
         public final ActorRef player2;
