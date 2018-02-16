@@ -41,6 +41,7 @@ public class GameRoom extends AbstractActor {
         this.player1User.save();
         this.player2User.save();
         this.match = new GameMatch(player1User, player2User);
+        System.out.println("Game room created");
         this.match.save();
         tellPlayers(new Messages.Join());
 

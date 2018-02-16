@@ -30,12 +30,14 @@ public class GameRoomManager extends AbstractActor {
     private void connection(Messages.Connection connect) throws Exception{
         ActorRef existing = checkConnected(connect);
         if (existing == null) {
+            System.out.println("Player " + connect.dbUser.getFirstName() + " " + connect.dbUser.getLastName() + " is waiting.");
             waiting.add(context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-" + connect.user));
             if (waiting.size() > 1) {
                 ActorRef player1 = waiting.remove(0);
                 ActorRef player2 = waiting.remove(0);
                 currentPlayers.add(player1);
                 currentPlayers.add(player2);
+                System.out.println("Connecting players to room");
                 ActorRef actorRef = context().system().actorOf(GameRoom.props(player1, player2), "room-" + totalRooms);
                 rooms.add(actorRef);
                 totalRooms++;
