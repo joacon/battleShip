@@ -1,5 +1,6 @@
 window.onload = init;
-var socket = new WebSocket("ws://localhost:9000/socket");
+var socket = new WebSocket("ws://54.158.19.139:9000/socket");
+// var socket = new WebSocket("ws://localhost:9000/socket");
 socket.onmessage = onMessage;
 
 function post(message) {
