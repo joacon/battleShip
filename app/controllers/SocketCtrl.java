@@ -19,9 +19,17 @@ public class SocketCtrl extends Controller {
     public LegacyWebSocket<String> socket() {
         String id2 = session("id");
         Optional<User> userByFBId = UserService.getUserService().getUserByFBId(Long.parseLong(id2));
+        System.out.println("USER GET");
+        if (userByFBId.isPresent()) {
+            System.out.println(userByFBId.get());
+        }else {
+            System.out.println("USER NOT FOUND");
+        }
         return  new LegacyWebSocket<String>() {
             @Override public void onReady(WebSocket.In in, WebSocket.Out out) {
                 try {
+                    System.out.println("Joining game in " + in);
+                    System.out.println("Joining game out " + out);
                     GameRoomManager.join(id2 + "$" + Math.random(), in, out, userByFBId.get());
                 } catch (Exception e) {
                     e.printStackTrace();
