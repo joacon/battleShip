@@ -5,15 +5,10 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import model.Coordinate;
-import model.Ship;
+import model.dbModels.Ship;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import play.libs.Json;
 import play.mvc.WebSocket;
-
-import java.util.List;
-import java.util.function.Consumer;
 
 public class Player extends AbstractActor{
     public final String user;
@@ -98,10 +93,12 @@ public class Player extends AbstractActor{
 
     private void sink(Messages.Sink msg) {
         Ship ship = msg.ship;
-        List<Coordinate> coordinates = ship.getShip();
         JSONArray shipCoor = new JSONArray();
-        for (Coordinate c : coordinates) {
-            shipCoor.put(c.getCoor());
+        for (String s : ship.getPosition()) {
+            int[] arr = new int[2];
+            arr[0] = Integer.parseInt(s.substring(0,1));
+            arr[1] = Integer.parseInt(s.substring(1,2));
+            shipCoor.put(arr);
         }
         JSONObject json = new JSONObject();
         json.put("ship", shipCoor.toString());

@@ -4,9 +4,6 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import model.Coordinate;
-import model.Fleet;
-import model.Ship;
 import model.dbModels.GameMatch;
 import model.dbModels.User;
 import org.json.JSONArray;
@@ -25,8 +22,6 @@ public class GameRoom extends AbstractActor {
     private boolean p2Ready = false;
     private User player1User;
     private User player2User;
-    private Fleet p1Fleet;
-    private Fleet p2Fleet;
     private GameMatch match;
 
 
@@ -153,18 +148,18 @@ public class GameRoom extends AbstractActor {
 
     private void checkFire(Messages.Fire msg){
         ActorRef hitter = msg.player;
-        Fleet fleet;
+        List<model.dbModels.Ship> fleet;
         ActorRef receiver;
         if (hitter.equals(player1)){
-            fleet = p2Fleet;
+            fleet = match.getPlayer2Ships();
             receiver = player2;
         }else{
-            fleet = p1Fleet;
+            fleet = match.getPlayer1Ships();
             receiver = player1;
         }
-        Ship ship = fleet.hit(new Coordinate(msg.x, msg.y));
+        model.dbModels.Ship ship = match.addHit(turn, msg.x, msg.y);
         if (ship != null && ship.isSunk()){
-            if (fleet.allSunk()){
+            if (match.allSunk(fleet)){
                 hitter.tell(new Messages.Win(new Messages.Sink(ship, true), true), self());
                 receiver.tell(new Messages.Win(new Messages.Sink(ship, false), false), self());
                 GameRoomManager.MAIN_GAME.tell(new Messages.EndGame(player1, player2, self()), self());
@@ -180,7 +175,7 @@ public class GameRoom extends AbstractActor {
             match.addSinks(turn, msg.x, msg.y);
         }else if (ship != null){
             sendFireHitFeedback(msg,receiver,hitter);
-            match.addHit(turn, msg.x, msg.y);
+//            match.addHit(turn, msg.x, msg.y);
         }else {
             sendFireMissFeedback(msg,receiver,hitter);
             match.addWater(turn, msg.x, msg.y);
@@ -214,7 +209,7 @@ public class GameRoom extends AbstractActor {
         playerMiss.tell(new Messages.Play(null), self());
     }
 
-    private void sendFireSinkFeedback(Messages.Fire msg, ActorRef playerSink, ActorRef shooter, Ship ship){
+    private void sendFireSinkFeedback(Messages.Fire msg, ActorRef playerSink, ActorRef shooter, model.dbModels.Ship ship){
         shooter.tell(new Messages.Sink(ship, true), self());
         playerSink.tell(new Messages.Sink(ship, false), self());
         shooter.tell(new Messages.Wait(null), self());
@@ -224,17 +219,15 @@ public class GameRoom extends AbstractActor {
     private void checkReady(Messages.Ready msg){
         if (player1.equals(msg.player)){
             p1Ready = true;
-            p1Fleet = new Fleet();
             Iterator<Object> ships = msg.boats.iterator();
-            List<model.dbModels.Ship> shipList = setShips(ships, p1Fleet);
+            List<model.dbModels.Ship> shipList = setShips(ships);
             match.setPlayer1Ships(shipList);
             match.setPlayer1Ready(true);
             match.save();
         }else if (player2.equals(msg.player)){
             p2Ready = true;
-            p2Fleet = new Fleet();
             Iterator<Object> ships = msg.boats.iterator();
-            List<model.dbModels.Ship> shipList = setShips(ships, p2Fleet);
+            List<model.dbModels.Ship> shipList = setShips(ships);
             match.setPlayer2Ships(shipList);
             match.setPlayer2Ready(true);
             match.save();
@@ -247,20 +240,16 @@ public class GameRoom extends AbstractActor {
         }
     }
 
-    private List<model.dbModels.Ship> setShips(Iterator<Object> ships, Fleet fleet){
+    private List<model.dbModels.Ship> setShips(Iterator<Object> ships){
         List<model.dbModels.Ship> shipList = new ArrayList<>();
         while (ships.hasNext()){
             JSONArray ship = (JSONArray)ships.next();
             model.dbModels.Ship dbShip = new model.dbModels.Ship(false,"");
-            List<Coordinate> coordinates = new ArrayList<>();
             String[] coorArr = new String[ship.length()];
             for (int i = 0; i < ship.length(); i++){
                 JSONArray coord = ship.getJSONArray(i);
-                Coordinate coordinate = new Coordinate(coord.getInt(0), coord.getInt(1));
-                coordinates.add(coordinate);
                 coorArr[i] = (coord.getInt(0) + "" + coord.getInt(1));
             }
-            fleet.addShip(new Ship(coordinates));
             dbShip.setPosition(coorArr);
             shipList.add(dbShip);
         }

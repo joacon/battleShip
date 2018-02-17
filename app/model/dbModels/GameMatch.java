@@ -162,19 +162,27 @@ public class GameMatch extends Model{
         this.player2Hits = hits.substring(0, hits.length() - 1);
     }
 
-    private Ship getShipInPosition(List<Ship> ships, int x, int y){
+    public Ship getShipInPosition(List<Ship> ships, int x, int y){
         for (Ship ship : ships) {
             if (ship.hasPosition(x, y)) return ship;
         }
         return null;
     }
 
-    public void addHit(boolean player, int x, int y){
+    public Ship addHit(boolean player, int x, int y){
+        Ship ship;
         if (player){
-            this.player1Hits = getCoordinateText(getPlayer1Hits(), x, y);
+            ship = getShipInPosition(getPlayer2Ships(), x, y);
+            if (ship != null)this.player1Hits = getCoordinateText(getPlayer1Hits(), x, y);
         }else{
-            this.player2Hits = getCoordinateText(getPlayer2Hits(), x, y);
+            ship = getShipInPosition(getPlayer1Ships(), x, y);
+            if (ship != null) this.player2Hits = getCoordinateText(getPlayer2Hits(), x, y);
         }
+        if (ship != null) {
+            ship.addHit(x, y);
+            ship.save();
+        }
+        return ship;
     }
 
     private String getCoordinateText(String[] hits, int x, int y){
@@ -226,6 +234,15 @@ public class GameMatch extends Model{
                 this.player2Hits = removeSinks(getPlayer2Hits(), ship);
             }
         }
+    }
+
+    public boolean allSunk(List<Ship> fleet){
+        for (Ship ship : fleet) {
+            if (!ship.isSunk()){
+                return false;
+            }
+        }
+        return true;
     }
 
     private String sinkShip(String sinks, Ship ship){
