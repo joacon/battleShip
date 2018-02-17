@@ -33,14 +33,11 @@ function onMessage(event) {
   var action = json.action;
 
   if (action === "Layout") {
-    setTimeout(function () {
-      $('.game').css("display", "block");
-      $('.waiting').css("display", "none");
-      $(".panel-bottom").css("display", "none");
-      $("#fire-btn").css("display", "none");
-      $(".message-div").css("display", "none");
-    }, 1500);
-    $('.waiting-text').text("Matching with opponent");
+    $('.game').css("display", "block");
+    $('.waiting').css("display", "none");
+    $(".panel-bottom").css("display", "none");
+    $("#fire-btn").css("display", "none");
+    $(".message-div").css("display", "none");
   }
 
   else if (action === "Opponent left") {

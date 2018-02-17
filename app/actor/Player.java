@@ -67,9 +67,9 @@ public class Player extends AbstractActor{
         System.out.printf("Player %s reconnected in %s\n", self().path(), room.path());
         JSONObject json = new JSONObject();
         if (isReady) {
-            json.put("action", "ReconnectLayout");
+            json.put("action", "ReconnectLayout"); // Ya en juego
         }else {
-            json.put("action", "Layout");
+            json.put("action", "Layout"); // Poner los barcos
         }
         out(json.toString());
         room.tell(new Messages.ReconnectReady(self()), self());
