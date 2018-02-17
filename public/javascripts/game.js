@@ -7,16 +7,16 @@ var horizontal = [true, true, true, true];
 var lastShot = [];
 
 ($(function () {
-    Board.startBoard();
-    document.getElementsByTagName("html")[0].addEventListener('click', clearError, true);
-    $("#turn").text("");
-    Load.stop();
-    Facebook.load(function () {
-            Facebook.setProfilePic("large");
-            console.log(Facebook.firstName + " " + Facebook.lastName);
-            document.getElementById("user-name").innerHTML = Facebook.firstName + " " + Facebook.lastName;
-        }
-    );
+  Board.startBoard();
+  document.getElementsByTagName("html")[0].addEventListener('click', clearError, true);
+  $("#turn").text("");
+  Load.stop();
+  Facebook.load(function () {
+      Facebook.setProfilePic("large");
+      console.log(Facebook.firstName + " " + Facebook.lastName);
+      document.getElementById("user-name").innerHTML = Facebook.firstName + " " + Facebook.lastName;
+    }
+  );
 }));
 
 var fire = function (x, y, random, cell) {
