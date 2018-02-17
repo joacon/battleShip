@@ -1,4 +1,5 @@
 var Board = {
+  boatsSet: 0,
   letters: "ABCDEFGHIJ",
   tiles: [],
   getLetterForNumber: function (i) {
@@ -166,10 +167,10 @@ var Board = {
   setEnemyHit: function (x, y) {
     Board.tiles[x][y].ownHit = 'hit';
   },
-  setMyHit: function(x, y) {
+  setMyHit: function (x, y) {
     Board.tiles[x][y].enemy = 'hit';
   },
-  setMyMiss: function(x, y) {
+  setMyMiss: function (x, y) {
     Board.tiles[x][y].enemy = 'miss';
   },
   setEnemyMiss: function (x, y) {
@@ -180,5 +181,14 @@ var Board = {
   },
   setMySunk: function (x, y) {
     Board.tiles[x][y].enemy = 'sunk';
+  },
+  checkToEnableReadyButton: function () {
+    if (Board.boatsSet === 8) {
+      $('#ready-btn').attr('disabled', false);
+    }
+  },
+  addBoat: function (boatCoordinates) {
+    Board.boatCoordinates.push(boatCoordinates);
+    Board.boatsSet++;
   }
 };

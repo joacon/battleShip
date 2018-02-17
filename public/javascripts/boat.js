@@ -105,7 +105,9 @@ var fillTiles = function (h, originTile, n) {
     startTile.data("horizontal", [h[n - 1], h[n - 1], h[n - 1], h[n - 1]]);
     startTile.attr("draggable", "true");
     startTile.attr("ondragstart", "redrag(event)");
-    Board.boatCoordinates.push(boatCoordinates);
+    Board.addBoat(boatCoordinates);
+    // Board.boatCoordinates.push(boatCoordinates);
+    Board.checkToEnableReadyButton();
     return true;
 };
 
