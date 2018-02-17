@@ -1,6 +1,3 @@
-/**
- * Created by yankee on 13/06/16.
- */
 var gameStarted = false;
 var turn = false;
 var horizontal = [true, true, true, true];
@@ -67,8 +64,9 @@ var rotate = function (i) {
 };
 
 var displayError = function (message) {
-  $("#error-message").text(message);
-  $("#error-message").css("display", "block");
+  var $error = $("#error-message");
+  $error.text(message);
+  $error.css("display", "block");
 };
 
 var clearError = function () {
