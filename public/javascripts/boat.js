@@ -64,10 +64,10 @@ var fillTiles = function (h, originTile, n) {
   for (var i = 0; i < n; i++) {
     if (h[n - 1]) {
       coordinates = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i);
-      var topNeighbour = "cell" + Board.getLetterForNumber(originTileX + 1) + "" + (originTileY + i);
-      var bottomNeighbour = "cell" + Board.getLetterForNumber(originTileX - 1) + "" + (originTileY + i);
-      var leftNeighbour = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i + 1);
-      var rightNeighbour = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i - 1);
+      const topNeighbour = "cell" + Board.getLetterForNumber(originTileX + 1) + "" + (originTileY + i);
+      const bottomNeighbour = "cell" + Board.getLetterForNumber(originTileX - 1) + "" + (originTileY + i);
+      const leftNeighbour = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i + 1);
+      const rightNeighbour = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i - 1);
       if (Board.isTileOccupied(coordinates)
         || ($('#' + topNeighbour)[0] && Board.isTileOccupied(topNeighbour))
         || ($('#' + bottomNeighbour)[0] && Board.isTileOccupied(bottomNeighbour))
@@ -76,10 +76,10 @@ var fillTiles = function (h, originTile, n) {
         return false;
     } else {
       coordinates = "cell" + Board.getLetterForNumber(originTileX + i) + "" + originTileY;
-      var topNeighbour = "cell" + Board.getLetterForNumber(originTileX + i + 1) + "" + (originTileY);
-      var bottomNeighbour = "cell" + Board.getLetterForNumber(originTileX + i - 1) + "" + (originTileY);
-      var leftNeighbour = "cell" + Board.getLetterForNumber(originTileX + i) + "" + (originTileY + 1);
-      var rightNeighbour = "cell" + Board.getLetterForNumber(originTileX + i) + "" + (originTileY - 1);
+      const topNeighbour = "cell" + Board.getLetterForNumber(originTileX + i + 1) + "" + (originTileY);
+      const bottomNeighbour = "cell" + Board.getLetterForNumber(originTileX + i - 1) + "" + (originTileY);
+      const leftNeighbour = "cell" + Board.getLetterForNumber(originTileX + i) + "" + (originTileY + 1);
+      const rightNeighbour = "cell" + Board.getLetterForNumber(originTileX + i) + "" + (originTileY - 1);
       if (Board.isTileOccupied(coordinates)
         || ($('#' + topNeighbour)[0] && Board.isTileOccupied(topNeighbour))
         || ($('#' + bottomNeighbour)[0] && Board.isTileOccupied(bottomNeighbour))
