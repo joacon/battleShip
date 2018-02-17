@@ -56,9 +56,6 @@ public class Player extends AbstractActor{
             public void run() {
                 System.out.println(room);
                 room.tell(new Messages.Leave(user), self());
-                JSONObject json = new JSONObject();
-                json.put("action", "Opponent left");
-                out(json.toString());
             }
         });
     }

@@ -59,14 +59,6 @@ function onMessage(event) {
     $("#fire-btn").css("display", "block");
     Board.displayEnemyBoard();
     startTurn();
-    // setTimeout(function () {
-    //   $("body").append("<div class='message-div'><p class='fire-message turn'>Your turn</p></div>");
-    //   // $("body").css("opacity", 0.5);
-    //   setTimeout(function () {
-    //     $(".turn").remove();
-    //     $("body").css("opacity", 1);
-    //   }, 1000);
-    // }, 1000);
 
     reconnectBoard(json.hits);
   }
@@ -131,14 +123,6 @@ function onMessage(event) {
     $("#fire-btn").css("display", "block");
     endTurn();
     Board.displayEnemyBoard();
-    // setTimeout(function () {
-    //   $("body").append("<div class='message-div'><p class='fire-message turn'>Your opponent's turn</p></div>");
-    //   // $("body").css("opacity", 0.5);
-    //   setTimeout(function () {
-    //     $(".turn").remove();
-    //     $("body").css("opacity", 1);
-    //   }, 1000);
-    // }, 1000);
 
     reconnectBoard(json.hits);
   }
@@ -172,7 +156,6 @@ function onMessage(event) {
     gameOver(true);
     setTimeout(function () {
       $("body").append("<div class='message-div'><p class='fire-message win'>You won!</p></div>");
-      $("body").css("opacity", 0.5);
       setTimeout(function () {
         $(".win").remove();
         $("body").css("opacity", 1);
@@ -190,7 +173,6 @@ function onMessage(event) {
     gameOver(false);
     setTimeout(function () {
       $("body").append("<div class='message-div'><p class='fire-message lose'>You lost!</p></div>");
-      $("body").css("opacity", 0.5);
       setTimeout(function () {
         $(".lose").remove();
         $("body").css("opacity", 1);
@@ -218,11 +200,12 @@ function onMessage(event) {
   }
 
   else if (action === "WaitingComeback") {
-    setTimeout(function () {
-      console.log("Waiting for comeback");
-      $('.waiting-text').text("Opponent left, 30 seconds to re join");
-    }, 1500);
-    $('.waiting-text').text("Matching with opponent");
+    var a = $(".op");
+    if (a.length !== 0) {
+      a.remove();
+    }else {
+      $("body").append("<div class='message-div'><p class='fire-message op'>Waiting for opponent to reconnect.</p></div>");
+    }
   }
 }
 
