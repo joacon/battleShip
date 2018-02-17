@@ -1,6 +1,3 @@
-/**
- * Created by yankee on 13/06/16.
- */
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -26,7 +23,7 @@ function drop(ev) {
         var id = ev.dataTransfer.getData("id"); // Get the drag event for information on the source
         var startTile = $("#" + id); // Find the starting tile that was dragged
         num = startTile.data("coordinates").length; // The length of the boat dragged
-        if (Board.tileOccupied(ev.target.getAttribute("id"))) {
+        if (Board.isTileOccupied(ev.target.getAttribute("id"))) {
             return; // Tile already has an image in its place
         }
 
@@ -40,7 +37,7 @@ function drop(ev) {
         var counterNum = parseInt(counter.text().charAt(1)); // The value of boats remaining as an integer
         if (counterNum == 0) return; // No boats left, should not reach this point
 
-        if (Board.tileOccupied(ev.target.getAttribute("id"))) {
+        if (Board.isTileOccupied(ev.target.getAttribute("id"))) {
             return; // Tile already has an image in its place
         }
 
@@ -67,11 +64,11 @@ var fillTiles = function (h, originTile, n) {
     for (var i = 0; i < n; i++) {
         if (h[n - 1]) {
             coordinates = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i);
-            if (Board.tileOccupied(coordinates))
+            if (Board.isTileOccupied(coordinates))
                 return false;
         } else {
             coordinates = "cell" + Board.getLetterForNumber(originTileX + i) + "" + originTileY;
-            if (Board.tileOccupied(coordinates))
+            if (Board.isTileOccupied(coordinates))
                 return false;
         }
     }
