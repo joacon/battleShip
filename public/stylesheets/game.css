@@ -308,3 +308,9 @@ a.choices{
 .tile:hover .glyphicon{
     display: block;
 }
+
+.username{
+    color: black;
+    margin-right: 20px;
+    margin-top: 24px;
+}

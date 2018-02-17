@@ -82,8 +82,12 @@ body:before{
 }
 
 canvas{
-
     width:500px !important;
     height:500px !important;
+}
 
+.username{
+    color: black;
+    margin-right: 20px;
+    margin-top: 24px;
 }
