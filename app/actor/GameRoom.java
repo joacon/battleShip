@@ -81,6 +81,7 @@ public class GameRoom extends AbstractActor {
             }else {
                 msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
             }
+            player2.tell(new Messages.WaitingPlayer(), self());
         }else {
             match.setPlayer2Ready(true);
             if (!turn) {
@@ -88,6 +89,7 @@ public class GameRoom extends AbstractActor {
             }else {
                 msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
             }
+            player1.tell(new Messages.WaitingPlayer(), self());
         }
         match.save();
     }

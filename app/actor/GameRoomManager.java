@@ -31,7 +31,9 @@ public class GameRoomManager extends AbstractActor {
         ActorRef existing = checkConnected(connect);
         if (existing == null) {
             System.out.println("Player " + connect.dbUser.getFirstName() + " " + connect.dbUser.getLastName() + " is waiting.");
-            waiting.add(context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-" + connect.user));
+            ActorRef player = context().system().actorOf(Player.props(connect.user, connect.in, connect.out), "player-" + connect.user);
+            managePlayerExit(player, connect.in);
+            waiting.add(player);
             if (waiting.size() > 1) {
                 ActorRef player1 = waiting.remove(0);
                 ActorRef player2 = waiting.remove(0);
@@ -45,6 +47,15 @@ public class GameRoomManager extends AbstractActor {
         }else{
             existing.tell(new Messages.Reconnect(connect.in, connect.out), self());
         }
+    }
+
+    private void managePlayerExit(ActorRef player, WebSocket.In in) {
+        in.onClose(new Runnable() {
+            @Override
+            public void run() {
+                waiting.remove(player);
+            }
+        });
     }
 
     private ActorRef checkConnected(Messages.Connection connect) {
