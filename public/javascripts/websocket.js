@@ -154,6 +154,7 @@ function onMessage(event) {
 
   else if (action === "You win") {//este jugador gano
     gameOver(true);
+    $(".op").remove();
     setTimeout(function () {
       $("body").append("<div class='message-div'><p class='fire-message win'>You won!</p></div>");
       setTimeout(function () {

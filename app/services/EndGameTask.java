@@ -29,6 +29,8 @@ public class EndGameTask extends TimerTask{
         if (!match.isPlayer1Ready() || !match.isPlayer2Ready()) {
             System.out.println("ENDED");
             match.setWinner(winner);
+            winner.addWins();
+            winner.save();
             match.save();
             GameRoomManager.MAIN_GAME.tell(new Messages.EndGame(player1, player2, gameRoom), gameRoom);
             player1.tell(new Messages.Win(null, true), gameRoom);
