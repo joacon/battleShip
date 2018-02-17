@@ -12,8 +12,9 @@ GET         /message             controllers.AsyncController.message
 
 GET         /main                controllers.HomeController.main()
 GET         /game                controllers.HomeController.game()
+GET         /userGames           controllers.HomeController.getUserGames()
 
-POST        /login              controllers.LoginController.saveUser(id: String, firstname: String, lastname: String)
+POST        /login               controllers.LoginController.saveUser(id: String, firstname: String, lastname: String)
 
 GET         /socket              controllers.SocketCtrl.socket
 

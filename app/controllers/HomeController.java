@@ -1,7 +1,9 @@
 package controllers;
 
+import play.libs.Json;
 import play.mvc.*;
 
+import services.UserService;
 import views.html.*;
 
 /**
@@ -34,6 +36,14 @@ public class HomeController extends Controller {
             return ok(game.render());
         }
         return ok(index.render());
+    }
+
+    public Result getUserGames(){
+        String id2= session("id");
+//        System.out.println(id);
+        System.out.println(id2);
+//        UserService.getUserService().getUserByFBId()
+        return ok(Json.toJson(UserService.getUserService().getUserByFBId(Long.parseLong(session("id")))));
     }
 
 }

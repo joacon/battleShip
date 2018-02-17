@@ -17,6 +17,7 @@ public class SocketCtrl extends Controller {
 
 
     public LegacyWebSocket<String> socket() {
+        System.out.println("USER GET");
         String id2 = session("id");
         Optional<User> userByFBId = UserService.getUserService().getUserByFBId(Long.parseLong(id2));
         System.out.println("USER GET");
