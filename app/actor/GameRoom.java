@@ -124,8 +124,8 @@ public class GameRoom extends AbstractActor {
         for (String s : arr) {
             if (!s.equals("")) {
                 JSONObject coor = new JSONObject();
-                coor.put("x", s.charAt(0));
-                coor.put("y", s.charAt(1));
+                coor.put("x", s.substring(0,1));
+                coor.put("y", s.substring(1,2));
                 jsonArray.put(coor);
             }
         }
