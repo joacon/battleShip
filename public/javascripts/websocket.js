@@ -59,14 +59,14 @@ function onMessage(event) {
     $("#fire-btn").css("display", "block");
     Board.displayEnemyBoard();
     startTurn();
-    setTimeout(function () {
-      $("body").append("<div class='message-div'><p class='fire-message turn'>Your turn</p></div>");
-      // $("body").css("opacity", 0.5);
-      setTimeout(function () {
-        $(".turn").remove();
-        $("body").css("opacity", 1);
-      }, 1000);
-    }, 1000);
+    // setTimeout(function () {
+    //   $("body").append("<div class='message-div'><p class='fire-message turn'>Your turn</p></div>");
+    //   // $("body").css("opacity", 0.5);
+    //   setTimeout(function () {
+    //     $(".turn").remove();
+    //     $("body").css("opacity", 1);
+    //   }, 1000);
+    // }, 1000);
 
     reconnectBoard(json.hits);
   }
@@ -131,14 +131,14 @@ function onMessage(event) {
     $("#fire-btn").css("display", "block");
     endTurn();
     Board.displayEnemyBoard();
-    setTimeout(function () {
-      $("body").append("<div class='message-div'><p class='fire-message turn'>Your opponent's turn</p></div>");
-      // $("body").css("opacity", 0.5);
-      setTimeout(function () {
-        $(".turn").remove();
-        $("body").css("opacity", 1);
-      }, 1000);
-    }, 1000);
+    // setTimeout(function () {
+    //   $("body").append("<div class='message-div'><p class='fire-message turn'>Your opponent's turn</p></div>");
+    //   // $("body").css("opacity", 0.5);
+    //   setTimeout(function () {
+    //     $(".turn").remove();
+    //     $("body").css("opacity", 1);
+    //   }, 1000);
+    // }, 1000);
 
     reconnectBoard(json.hits);
   }
@@ -189,7 +189,7 @@ function onMessage(event) {
   else if (action === "You lose") {//este jugador perdio
     gameOver(false);
     setTimeout(function () {
-      $("body").append("<div class='message-div'><p class='fire-message lose'>You lost! :(</p></div>");
+      $("body").append("<div class='message-div'><p class='fire-message lose'>You lost!</p></div>");
       $("body").css("opacity", 0.5);
       setTimeout(function () {
         $(".lose").remove();
@@ -197,7 +197,7 @@ function onMessage(event) {
         setTimeout(function () {
           $(".game").css("display", "none");
           $(".end-view").css("display", "block");
-          $(".end-title").html("You lost! :(");
+          $(".end-title").html("You lost!");
         }, 1000);
       }, 1000);
     }, 1000);

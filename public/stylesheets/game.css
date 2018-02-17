@@ -1,17 +1,13 @@
-/*body:before{*/
-    /*content: "";*/
-    /*opacity: 0.7;*/
-    /*position: absolute;*/
-    /*bottom: 0;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*background-image: url("../images/background.jpg");*/
-    /*background-repeat: no-repeat;*/
-    /*z-index: -1;*/
-/*}*/
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('../fonts/PressStart2P-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
 body{
     background-color: #0f90d1;
+}
+button{
+    font-family: PressStart2P;
 }
 .navbar {
     vertical-align: middle;
@@ -114,12 +110,16 @@ body{
 }
 
 #button-panel button{
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
     position: relative;
     height: 50px;
     font-size: 25px;
-    margin-bottom: 10px;
+    margin: 0 auto 10px;
+    float: left;
+}
+
+#button-panel button.gameButton{
+    height: 100px;
 }
 
 button {
@@ -192,13 +192,14 @@ img {
     border-radius: 20px;
     padding: 69px;
     margin-top: 50px;
-    background-color: #07F5F5;
+    background-color: rgba(189, 186, 186, 0.3);
     display: none;
 }
 .end-title{
-    font-size: 90px;
+    font-size: 72px;
     margin-bottom: 150px;
     color: white;
+    font-family: PressStart2P;
 }
 #fire-btn{
     display: none;
@@ -206,10 +207,12 @@ img {
 a.choices{
     background-color: #ffffff;
     margin: 0 50px;
+    font-family: PressStart2P, serif;
 }
 .fire-message{
     text-align: center;
-    font-size: 70px;
+    font-size: 30px;
+    line-height: 70px;
 }
 
 .message-div{
@@ -220,6 +223,7 @@ a.choices{
     margin: 0 auto;
     position: fixed;
     top: 350px;
+    font-family: PressStart2P;
     -webkit-transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
     -ms-transition: opacity 1s ease-in-out;
@@ -253,6 +257,7 @@ a.choices{
 .turn-label{
     color: #3cb521;
     font-size: 25px;
+    font-family: PressStart2P;
 }
 
 .error-message{
@@ -264,9 +269,10 @@ a.choices{
     position: relative;
     background-color: #1b6d85;
     border: 3px solid #0f0f0f;
-    padding: 65px;
-    top: 65px;
+    padding: 120px 122px;
+    top: 143px;
     border-radius: 5px;
+    font-family: PressStart2P;
     box-sizing: initial;
 }
 
@@ -312,5 +318,7 @@ a.choices{
 .username{
     color: black;
     margin-right: 20px;
-    margin-top: 24px;
+    margin-top: 26px;
+    font-size: 11px;
+    font-family: PressStart2P;
 }
