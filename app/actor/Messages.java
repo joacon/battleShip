@@ -1,8 +1,6 @@
 package actor;
 
 import akka.actor.ActorRef;
-import model.Ship;
-import model.dbModels.GameMatch;
 import model.dbModels.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -112,10 +110,10 @@ public class Messages {
         }
     }
     public static class Sink{
-        public final Ship ship;
+        public final model.dbModels.Ship ship;
         public final boolean fromYou;
 
-        public Sink(Ship ship, boolean fromYou) {
+        public Sink(model.dbModels.Ship ship, boolean fromYou) {
             this.ship = ship;
             this.fromYou = fromYou;
         }
