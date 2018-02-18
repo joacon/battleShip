@@ -8,6 +8,13 @@ import play.mvc.WebSocket;
 
 public class Messages {
     public static class Join {
+        public final User p1;
+        public final User p2;
+
+        public Join(User p1, User p2) {
+            this.p1 = p1;
+            this.p2 = p2;
+        }
     }
     public static class Leave{
         public final String user;

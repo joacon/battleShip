@@ -26,7 +26,7 @@ public class EndGameTask extends TimerTask{
     @Override
     public void run() {
         System.out.println("End match? " + match.getId());
-        if (!match.isPlayer1Ready() || !match.isPlayer2Ready()) {
+        if ((!match.isPlayer1Ready() || !match.isPlayer2Ready()) && match.getWinner() == null) {
             System.out.println("ENDED");
             match.setWinner(winner);
             winner.addWins();

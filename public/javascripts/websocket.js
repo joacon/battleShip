@@ -1,6 +1,4 @@
 window.onload = init;
-// var socket = new WebSocket("ws://54.158.19.139:9000/socket");
-// var socket = new WebSocket("ws://localhost:9000/socket");
 console.log(window.location.host);
 var socket = new WebSocket("ws://" + window.location.host + "/socket");
 socket.onmessage = onMessage;
@@ -9,25 +7,6 @@ function post(message) {
   socket.send(message);
 }
 
-// var clock = $('.your-clock').FlipClock(60, {
-//     clockFace: 'MinuteCounter',
-//     countdown: true,
-//     autoStart: true,
-//     callbacks: {
-//         start: function() {
-//            
-//         },
-//         stop: function () {
-//             randomFire();
-//         },
-//         reset: function () {
-//             destroy();
-//         },destroy: function () {
-//
-//         }
-//     }
-// });
-// clock.start();
 function onMessage(event) {
   var json = JSON.parse(event.data);
   var action = json.action;
@@ -38,6 +17,8 @@ function onMessage(event) {
     $(".panel-bottom").css("display", "none");
     $("#fire-btn").css("display", "none");
     $(".message-div").css("display", "none");
+    console.log(json.enemyName);
+    if (json.enemyName !== null) document.getElementById("vsEnemy").innerHTML = "Vs. " + json.enemyName;
   }
 
   else if (action === "Opponent left") {
@@ -185,16 +166,15 @@ function onMessage(event) {
 
 
   else if (action === "ReconnectLayout") {
-    setTimeout(function () {
-      $('.game').css("display", "block");
-      $('.waiting').css("display", "none");
-      $("#ready-btn").prop("disabled", true);
-      $("#buttons").css("display", "none");
-      $("#auto-place-btn").css("display", "none");
-      $("#ready-btn").css("display", "none");
-      $(".title").html("Enemy's Board");
-    }, 1500);
+    $('.game').css("display", "block");
+    $('.waiting').css("display", "none");
+    $("#ready-btn").prop("disabled", true);
+    $("#buttons").css("display", "none");
+    $("#auto-place-btn").css("display", "none");
+    $("#ready-btn").css("display", "none");
+    $(".title").html("Enemy's Board");
     $('.waiting-text').text("Matching with opponent");
+    if (json.enemyName !== null) document.getElementById("vsEnemy").innerHTML = "Vs. " + json.enemyName;
   }
 
   else if (action === "WaitingComeback") {

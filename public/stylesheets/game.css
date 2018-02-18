@@ -293,9 +293,9 @@ a.choices {
 }
 
 .turn-label {
-    color: #3cb521;
+    color: #ffff;
     font-size: 25px;
-    font-family: PressStart2P;
+    font-family: PressStart2P, serif;
 }
 
 .error-message {
@@ -310,7 +310,7 @@ a.choices {
     padding: 120px 122px;
     top: 143px;
     border-radius: 5px;
-    font-family: PressStart2P;
+    font-family: PressStart2P, serif;
     box-sizing: initial;
 }
 
@@ -370,4 +370,19 @@ a.choices {
     margin-top: 26px;
     font-size: 11px;
     font-family: PressStart2P;
+}
+
+.clock-label {
+    color: #ffff;
+    font-family: PressStart2P, serif;
+    font-size: 25px;
+}
+
+.vsEnemyDiv {
+    text-align: center;
+    margin-top: -60px;
+}
+
+.vsEnemyDiv h3{
+    font-size: 35px;
 }
