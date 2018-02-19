@@ -44,9 +44,6 @@ var determineDirection = function (coordinates) {
   const x = coordinates.x;
   const y = coordinates.y;
   const tiles = Board.tiles;
-  var result;
-
-  debugger;
 
   if (x - 1 >= 0 && tiles[x - 1][y].enemy === 'hit') {
     // Go up until you find a water

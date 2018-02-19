@@ -48,10 +48,42 @@ function drop(ev) {
     if (fillTiles(horizontal, ev.target, num)) counter.text("x" + (counterNum - 1));
   }
 }
+
+var rotateBoat = function (x, y) {
+  const boat = Board.boatCoordinates.find(function (coordinatesSet) {
+    console.log("Coordinates set: ", coordinatesSet);
+    return coordinatesSet.find(function (coordinates) {
+        console.log("Coordinates: ", coordinates);
+        return coordinates[0] == x && coordinates[1] == y;
+      }) !== undefined;
+  });
+
+  if (!boat) {
+    return;
+  }
+  console.log("Boat: ", boat);
+
+  const startTile = boat[0];
+
+  const horizontal = boat.length === 1 || startTile[1] === boat[1][1] - 1;
+
+  var startTileJQuery = $('#cell' + Board.getLetterForNumber(startTile[0]) + '' + startTile[1]);
+  console.log("Horizontal: ", horizontal);
+  tilesToWater(startTileJQuery, boat.length, horizontal);
+
+  if (fillTiles(!horizontal, startTileJQuery[0], boat.length)) {
+    console.log("Fill tiles!");
+  } else {
+    console.log("No fill tiles.");
+    console.log("Original fill tiles; ", fillTiles(horizontal, startTileJQuery[0], boat.length));
+  }
+};
+
 // Function that will fill the dropped onto tile and all remaining tiles right (horizontal == true) or down
 // (horizontal == false)
 // Parameters are horizontal, the event tile and the size of the boat
 var fillTiles = function (h, originTile, n) {
+  const horizontal = typeof h === 'boolean' ? h : h[n - 1];
   //var originTile = ev.target; // Tile dragged on to
   var originTileId = originTile.getAttribute("id"); // Id of the tile dragged on to
 
@@ -61,8 +93,9 @@ var fillTiles = function (h, originTile, n) {
   var originTileY = parseInt(originTileYLetter); // Number coordinate parsed
   // Check if all tiles are available
   var coordinates;
+
   for (var i = 0; i < n; i++) {
-    if (h[n - 1]) {
+    if (horizontal) {
       coordinates = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + i);
       const topNeighbour = "cell" + Board.getLetterForNumber(originTileX + 1) + "" + (originTileY + i);
       const bottomNeighbour = "cell" + Board.getLetterForNumber(originTileX - 1) + "" + (originTileY + i);
@@ -96,7 +129,7 @@ var fillTiles = function (h, originTile, n) {
   var startTile;
   for (var j = 0; j < n; j++) {
 
-    if (h[n - 1]) {
+    if (horizontal) {
       tileId = "cell" + Board.getLetterForNumber(originTileX) + "" + (originTileY + j);
       tile = $("#" + tileId);
       if (j == 0) {
@@ -118,7 +151,7 @@ var fillTiles = function (h, originTile, n) {
   }
   startTile.data("start", true);
   startTile.data("coordinates", boatCoordinates);
-  startTile.data("horizontal", [h[n - 1], h[n - 1], h[n - 1], h[n - 1]]);
+  startTile.data("horizontal", [horizontal, horizontal, horizontal, horizontal]);
   startTile.attr("draggable", "true");
   startTile.attr("ondragstart", "redrag(event)");
   Board.addBoat(boatCoordinates);
@@ -128,6 +161,21 @@ var fillTiles = function (h, originTile, n) {
 };
 
 var autoPlaceBoats = function () {
+  if (Board.boatsSet === 8) {
+    Board.clear();
+    $("#boat-num-1").text("x2");
+    $("#boat-num-2").text("x2");
+    $("#boat-num-3").text("x2");
+    $("#boat-num-4").text("x2");
+    for (var i = 0; i < 10; i++) {
+      for (var j = 0; j < 10; j++) {
+        var tile = $('#cell' + Board.getLetterForNumber(i) + '' + j);
+        tile.css('background-color', '#5D71FF');
+        tile.attr("draggable", "false");
+        Board.changeTile(i, j, 'water');
+      }
+    }
+  }
   var boats = [parseInt($("#boat-num-1").text().substring(1)),
     parseInt($("#boat-num-2").text().substring(1)),
     parseInt($("#boat-num-3").text().substring(1)),
@@ -145,6 +193,7 @@ var autoPlaceBoats = function () {
       }
     }
   }
+
 };
 
 var tilesToWater = function (startTile, n, h) {

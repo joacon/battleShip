@@ -42,7 +42,12 @@ var Board = {
           console.log(x);
           console.log(y);
           $("#" + id).off();
-          fire(x, y, false, id);
+          console.log("Game started: ", gameStarted);
+          if (gameStarted) {
+            fire(x, y, false, id);
+          } else {
+            rotateBoat(x, y);
+          }
         });
       }
     }
@@ -190,5 +195,31 @@ var Board = {
   addBoat: function (boatCoordinates) {
     Board.boatCoordinates.push(boatCoordinates);
     Board.boatsSet++;
+  },
+  removeBoat: function (boatCoordinates) {
+    Board.boatCoordinates = Board.boatCoordinates.filter(function (coordinates) {
+      if (coordinates.length !== boatCoordinates) {
+        return true;
+      } else {
+        for (var i = 0; i < boatCoordinates.length; i++) {
+          const boatCoordinate = boatCoordinates[i];
+          if (boatCoordinate[0] === coordinates [0] && boatCoordinate[1] === coordinates[1]) {
+            return false;
+          }
+        }
+        return true;
+      }
+    })
+  },
+  clear: function () {
+    Board.boatCoordinates = [];
+    Board.boatsSet = 0;
+    const tiles = Board.tiles;
+    for (var i = 0; i < tiles.length; i++) {
+      const row = tiles[i];
+      for (var j = 0; j < row.length; j++) {
+        row[j] = new Tile(i, j);
+      }
+    }
   }
 };
