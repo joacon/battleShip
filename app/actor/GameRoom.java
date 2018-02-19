@@ -38,7 +38,7 @@ public class GameRoom extends AbstractActor {
         this.match = new GameMatch(player1User, player2User);
         System.out.println("Game room created");
         this.match.save();
-        tellPlayers(new Messages.Join());
+        tellPlayers(new Messages.Join(player1User, player2User));
 
         receive(
                 ReceiveBuilder
@@ -52,6 +52,7 @@ public class GameRoom extends AbstractActor {
     }
 
     private void playerLeft(Messages.Leave msg) {
+        if (match.getWinner() != null) return;
         String fbId = msg.user.split("\\$")[0];
         System.out.println("Player with fbID " + fbId + " left.");
         Timer t = match.getTimer();

@@ -2,6 +2,7 @@ var gameStarted = false;
 var turn = false;
 var horizontal = [true, true, true, true];
 var lastShot = [];
+var countdown;
 
 ($(function () {
   Board.startBoard();
@@ -163,11 +164,16 @@ var findUnsunkHit = function () {
 var startTurn = function () {
   turn = true;
   $("#turn").text("Your turn!");
+  countdown = startCountDown();
 };
 
 var endTurn = function () {
   turn = false;
   $("#turn").text("Opponent's turn");
+  if (countdown !== null) {
+      clearInterval(countdown);
+      document.getElementById("clock").innerHTML = "...";
+  }
 };
 
 var rotate = function (i) {
@@ -191,4 +197,21 @@ var gameOver = function (won) {
   } else {
     // TODO if player has lost
   }
+};
+
+var startCountDown = function(){
+    var countDownDate = new Date();
+    countDownDate.setSeconds(countDownDate.getSeconds() + 10);
+    countDownDate = countDownDate.getTime();
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        document.getElementById("clock").innerHTML = Math.floor((distance % (1000 * 60)) / 1000);
+        if (distance < 1) {
+            clearInterval(x);
+            randomFire();
+        }
+    }, 1000);
+    return x;
 };

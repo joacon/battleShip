@@ -16,6 +16,7 @@ public class Player extends AbstractActor{
     public WebSocket.Out out;
     private ActorRef room = null;
     private boolean isReady;
+    private String enemyName;
 
     public Player(String user, WebSocket.In in, WebSocket.Out out){
         this.user = user;
@@ -71,6 +72,7 @@ public class Player extends AbstractActor{
         }else {
             json.put("action", "Layout"); // Poner los barcos
         }
+        json.put("enemyName", this.enemyName);
         out(json.toString());
         room.tell(new Messages.ReconnectReady(self()), self());
     }
@@ -178,6 +180,12 @@ public class Player extends AbstractActor{
         System.out.printf("Player %s joined %s\n", self().path(), room.path());
         JSONObject json = new JSONObject();
         json.put("action", "Layout");
+        if (Long.parseLong(user.split("\\$")[0]) == (join.p1.getFacebookId())){
+            this.enemyName = join.p2.getFirstName() + " " + join.p2.getLastName();
+        }else{
+            this.enemyName = join.p1.getFirstName() + " " + join.p1.getLastName();
+        }
+        json.put("enemyName", this.enemyName);
         out(json.toString());
     }
 
