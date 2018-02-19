@@ -20,6 +20,7 @@ public class GameRoom extends AbstractActor {
     private boolean turn = true;
     private boolean p1Ready = false;
     private boolean p2Ready = false;
+    private boolean started = false;
     private User player1User;
     private User player2User;
     private GameMatch match;
@@ -76,19 +77,23 @@ public class GameRoom extends AbstractActor {
         match.getTimer().purge();
         match.setTimer(new Timer());
         if (msg.player.equals(player1)){
-            match.setPlayer1Ready(true);
-            if (turn) {
-                msg.player.tell(new Messages.Play(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
-            }else {
-                msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
+            if (started) {
+                match.setPlayer1Ready(true);
+                if (turn) {
+                    msg.player.tell(new Messages.Play(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
+                } else {
+                    msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer1Ships(), match.getPlayer1Hits(), match.getPlayer2Hits(), match.getPlayer1Water(), match.getPlayer2Water(), match.getPlayer1Sinks(), match.getPlayer2Sinks())), self());
+                }
             }
             player2.tell(new Messages.WaitingPlayer(), self());
         }else {
-            match.setPlayer2Ready(true);
-            if (!turn) {
-                msg.player.tell(new Messages.Play(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
-            }else {
-                msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
+            if (started) {
+                match.setPlayer2Ready(true);
+                if (!turn) {
+                    msg.player.tell(new Messages.Play(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
+                } else {
+                    msg.player.tell(new Messages.Wait(getPlayerHits(match.getPlayer2Ships(), match.getPlayer2Hits(), match.getPlayer1Hits(), match.getPlayer2Water(), match.getPlayer1Water(), match.getPlayer2Sinks(), match.getPlayer1Sinks())), self());
+                }
             }
             player1.tell(new Messages.WaitingPlayer(), self());
         }
@@ -235,6 +240,7 @@ public class GameRoom extends AbstractActor {
             match.setPlayer2Ready(true);
             match.save();
         }if (p1Ready && p2Ready){
+            started = true;
             player1.tell(new Messages.Play(null), self());
             player2.tell(new Messages.Wait(null), self());
             turn = true;
